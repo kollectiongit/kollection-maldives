@@ -55,7 +55,9 @@ em{font-style:italic}
 .hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,11,13,.5),rgba(8,11,13,.2) 40%,rgba(8,11,13,.7));z-index:2}
 .hero-content{position:absolute;inset:0;z-index:3;display:flex;align-items:flex-end;padding-bottom:9vh}
 .hero-grid{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;width:100%;flex-wrap:wrap}
-.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(54px,9vw,140px);line-height:.92;letter-spacing:.01em;margin:16px 0 22px}
+.hero-main{flex:1;min-width:0}
+/* font-size is set by fitHeroName() in JS; the clamp() here is the no-JS fallback */
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(54px,9vw,150px);line-height:.92;letter-spacing:.01em;margin:16px 0 22px}
 .hero h1 em{color:var(--cream);font-style:italic}
 .hero-facts{display:flex;gap:26px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:rgba(244,238,223,.92)}
 .hero-facts b{font-weight:700;color:var(--cream)}
@@ -486,7 +488,7 @@ body.villa{--accent:var(--accent-villa)}
   <div class="hscene" style="background-image:url('pictures/nattu-adnan-atSUvc1hMwk-unsplash.jpg')"></div>
   <div class="hero-shade"></div>
   <div class="hero-content"><div class="wrap hero-grid">
-    <div>
+    <div class="hero-main">
       <p class="kick" id="h-kick" data-resort="Noonu Atoll · Maldives · Kept after three visits" data-villa="Baa Atoll · Maldives · Whole-island, by request" style="color:var(--cream)">Noonu Atoll · Maldives · Kept after three visits</p>
       <h1 id="h-name" data-resort="NH Collection Maldives <em>Havodda</em> Resort" data-villa="The Lagoon <em>House</em>">NH Collection Maldives <em>Havodda</em> Resort</h1>
       <div class="hero-facts" id="h-facts">
@@ -494,12 +496,6 @@ body.villa{--accent:var(--accent-villa)}
         <span data-resort="<b>40 min</b> seaplane" data-villa="<b>35 min</b> seaplane + dhoni"><b>40 min</b> seaplane</span>
         <span data-resort="Ranked <b>4 of 31</b> in the index" data-villa="<b>Held privately</b> · enquire">Ranked <b>4 of 31</b> in the index</span>
       </div>
-    </div>
-    <div class="hero-side">
-      <div class="dots" role="group" aria-label="Scenes">
-        <button class="on" data-dot="0"></button><button data-dot="1"></button><button data-dot="2"></button>
-      </div>
-      <div class="scue"><span>Scroll</span><span class="tick"></span></div>
     </div>
   </div></div>
 </header>
@@ -736,6 +732,35 @@ body.villa{--accent:var(--accent-villa)}
 
 <script>
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // fit the resort name to its column (text autofit / fit-to-width, with 2-line fallback)
+  const H1_MAX=150,          // px — design cap so short names never overpower the image
+        H1_MIN=60,           // px — smallest size we'll ever allow
+        H1_ONELINE_MIN=120;   // px — below this on one line, wrap to two lines instead (stays bigger)
+  function fitHeroName(){
+    const h1=document.getElementById('h-name'),col=document.querySelector('.hero-main');
+    if(!h1||!col)return;
+    const cs=getComputedStyle(col);
+    const avail=col.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+    // 1) try a single line, scaled down proportionally to fit
+    h1.style.whiteSpace='nowrap';
+    h1.style.fontSize=H1_MAX+'px';
+    const oneW=h1.scrollWidth;
+    let size=(oneW>avail*0.99)?H1_MAX*avail*0.99/oneW:H1_MAX;
+    if(size>=H1_ONELINE_MIN){h1.style.fontSize=size+'px';return;}
+    // 2) long name — allow up to two lines so the type can stay large; binary-search the biggest fit
+    h1.style.whiteSpace='normal';
+    let lo=H1_MIN,hi=H1_MAX,best=H1_MIN;
+    for(let i=0;i<16;i++){
+      const mid=(lo+hi)/2;
+      h1.style.fontSize=mid+'px';
+      const lines=Math.round(h1.scrollHeight/(mid*0.92));        // line-height is .92
+      if(h1.scrollWidth<=Math.ceil(avail)+2&&lines<=2){best=mid;lo=mid;}else{hi=mid;}
+    }
+    h1.style.fontSize=best+'px';
+  }
+  addEventListener('resize',fitHeroName,{passive:true});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitHeroName); // re-fit once the display font loads
+  fitHeroName();
   // reveals
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.14});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
@@ -776,6 +801,7 @@ body.villa{--accent:var(--accent-villa)}
     if(tr)tr.classList.toggle('on',m==='resort');if(tv)tv.classList.toggle('on',m==='villa');
     const iq=document.getElementById('iq-villa');
     if(iq)iq.textContent = m==='villa'?'The Lagoon House \u00b7 4 BR':'Chapter One \u00b7 Water Retreat';
+    fitHeroName();   // name length changed \u2014 refit
   }
   if(tr)tr.addEventListener('click',e=>{e.preventDefault();setMode('resort');});
   if(tv)tv.addEventListener('click',e=>{e.preventDefault();setMode('villa');});
