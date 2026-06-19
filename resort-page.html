@@ -734,7 +734,7 @@ body.villa{--accent:var(--accent-villa)}
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   // fit the resort name to its column (text autofit / fit-to-width, with 2-line fallback)
   const H1_MAX=150,          // px — design cap so short names never overpower the image
-        H1_MIN=60,           // px — smallest size we'll ever allow
+        H1_MIN=45,           // px — smallest size we'll ever allow
         H1_ONELINE_MIN=120;   // px — below this on one line, wrap to two lines instead (stays bigger)
   function fitHeroName(){
     const h1=document.getElementById('h-name'),col=document.querySelector('.hero-main');
