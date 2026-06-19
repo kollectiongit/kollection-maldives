@@ -36,10 +36,14 @@ em{font-style:italic}
 #nav.solid .logo{color:var(--ink)}
 .nav-right{display:flex;align-items:center;gap:22px}
 .nav-mode{opacity:.5}
-.nav-mode.on{opacity:1;border-bottom:1px solid currentColor;padding-bottom:2px}
+.nav-mode.on{opacity:1}
 .nav-link{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);text-decoration:none;position:relative}
 #nav.solid .nav-link{color:var(--ink)}
+/* scrollspy: underline the nav link whose section is in view */
+.nav-link::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left center;transition:transform .4s var(--ease)}
+.nav-link.active::after{transform:scaleX(1)}
 .nav-cta{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);text-decoration:none;border:1px solid var(--cream);padding:9px 18px;transition:.35s var(--ease)}
+.nav-cta.active{text-decoration:underline;text-underline-offset:4px}
 #nav.solid .nav-cta{color:var(--ink);border-color:var(--line)}
 .nav-cta:hover{background:#7E303C;border-color:#7E303C;color:#F6F1E7}
 @media(max-width:760px){.nav-link{display:none}}
@@ -232,13 +236,42 @@ body.villa{--accent:var(--accent-villa)}
   .journey-panel{display:block;background-size:cover;background-position:center;background-attachment:fixed}
   .journey-panel::before{display:none}
   .j-bg{position:absolute;left:0;right:0;top:-35%;height:170%;background-size:cover;background-position:center;will-change:transform}
-  .j-cap{position:absolute;right:clamp(22px,4vw,56px);bottom:clamp(20px,3vw,42px);z-index:2;
+  .j-cap{position:absolute;left:clamp(22px,4vw,56px);bottom:clamp(20px,3vw,42px);z-index:2;
     font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);
     display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(8px);
     transition:opacity 1s var(--ease),transform 1s var(--ease);text-shadow:0 1px 16px rgba(0,0,0,.55)}
   .j-cap::before{content:"";width:24px;height:1px;background:var(--cream);opacity:.7}
   .journey-panel.in .j-cap{opacity:.92;transform:none}
   @media (prefers-reduced-motion:reduce){.j-bg{transform:none!important}}
+
+  /* —— shared-spaces preview cards (bottom-right of the journey panel) —— */
+  .j-gallery{position:absolute;right:clamp(16px,3vw,48px);bottom:clamp(16px,3vw,44px);z-index:4;display:flex;gap:10px;align-items:flex-end}
+  .jg-card{width:clamp(52px,6.4vw,88px);height:clamp(52px,6.4vw,88px);border-radius:13px;border:1.5px solid rgba(244,238,223,.5);
+    background:rgba(8,11,13,.3) center/cover no-repeat;cursor:pointer;padding:0;overflow:hidden;
+    box-shadow:0 10px 26px rgba(8,11,13,.42);transition:transform .3s var(--ease),border-color .3s}
+  .jg-card:hover{transform:translateY(-5px);border-color:var(--cream)}
+  .jg-more{display:flex;align-items:center;justify-content:center;background:rgba(8,11,13,.5);color:var(--cream);
+    font-family:var(--mono);font-size:14px;letter-spacing:.02em;backdrop-filter:blur(7px)}
+  @media(max-width:620px){.j-gallery{gap:7px}.jg-card{border-radius:10px}.jg-card:nth-child(3),.jg-card:nth-child(4){display:none}}
+
+  /* —— shared-spaces gallery dialog —— */
+  .gal-modal{position:fixed;inset:0;z-index:9500;display:none;opacity:0;transition:opacity .3s var(--ease)}
+  .gal-modal.open{display:block;opacity:1}
+  .gal-backdrop{position:absolute;inset:0;background:rgba(6,9,11,.84);backdrop-filter:blur(5px)}
+  .gal-dialog{position:absolute;inset:clamp(12px,4vw,52px);background:var(--bg2);border:1px solid var(--line);border-radius:20px;
+    overflow:hidden;display:flex;flex-direction:column;box-shadow:0 40px 120px rgba(0,0,0,.6)}
+  .gal-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+    padding:clamp(18px,2.5vw,28px) clamp(20px,3vw,34px);border-bottom:1px solid var(--line)}
+  .gal-title{font-family:var(--display);font-weight:400;font-size:clamp(20px,2.8vw,32px);color:var(--cream);margin-top:8px}
+  .gal-close{width:42px;height:42px;flex:none;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--cream);
+    font-size:15px;cursor:pointer;transition:.3s var(--ease)}
+  .gal-close:hover{background:var(--cream);color:var(--ink)}
+  .gal-grid{overflow-y:auto;padding:clamp(16px,2.6vw,28px);display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+  .gal-item{margin:0}
+  .gal-ph{aspect-ratio:4/3;border-radius:12px;background:var(--raise) center/cover no-repeat;transition:transform .5s var(--ease)}
+  .gal-item:hover .gal-ph{transform:scale(1.02)}
+  .gal-item figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-top:9px}
+  @media(max-width:560px){.gal-grid{grid-template-columns:1fr 1fr;gap:10px}}
 
   /* —— facts as airy editorial specs, not boxed tables —— */
   .survey{background:none;border:none;grid-template-columns:repeat(2,1fr);
@@ -439,7 +472,7 @@ body.villa{--accent:var(--accent-villa)}
   <div class="nav-right">
     <a class="nav-link nav-mode on" id="tg-resort" href="#">Resort</a>
     
-    <a class="nav-link" href="#journey">closer-look</a>
+    <a class="nav-link" href="#journey">Gallery</a>
     <a class="nav-link" href="#villas">Villas</a>
     <a class="nav-link" href="#dining">Dining</a>
     <a class="nav-cta" href="#inquiry">Enquire</a>
@@ -488,10 +521,14 @@ body.villa{--accent:var(--accent-villa)}
 <!-- VISUAL JOURNEY -->
 <section id="journey">
   <div class="journey-panel" style="background-image:url('pictures/mike-swigunski-k9Zeq6EH_bk-unsplash.jpg')">
-    <div class="j-cap">Overwater villas · Chapter One</div>
-  </div>
-  <div class="journey-panel" style="background-image:url('pictures/Hero_sunset.jpg')">
-    <div class="j-cap">Blue hour · the observatory</div>
+    <div class="j-cap">Shared spaces · the resort</div>
+    <div class="j-gallery">
+      <button class="jg-card" type="button" aria-label="Open shared-spaces gallery"></button>
+      <button class="jg-card" type="button" aria-label="Open shared-spaces gallery"></button>
+      <button class="jg-card" type="button" aria-label="Open shared-spaces gallery"></button>
+      <button class="jg-card" type="button" aria-label="Open shared-spaces gallery"></button>
+      <button class="jg-card jg-more" type="button" aria-label="See all shared-space photos"></button>
+    </div>
   </div>
 </section>
 
@@ -685,6 +722,18 @@ body.villa{--accent:var(--accent-villa)}
   </div>
 </footer>
 
+<!-- SHARED-SPACES GALLERY DIALOG -->
+<div class="gal-modal" id="galModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Shared spaces gallery">
+  <div class="gal-backdrop" data-close></div>
+  <div class="gal-dialog">
+    <div class="gal-bar">
+      <div><p class="kick">Shared spaces</p><div class="gal-title">The resort, beyond the villas</div></div>
+      <button class="gal-close" type="button" data-close aria-label="Close gallery">&#10005;</button>
+    </div>
+    <div class="gal-grid" id="galGrid"></div>
+  </div>
+</div>
+
 <script>
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   // reveals
@@ -696,6 +745,21 @@ body.villa{--accent:var(--accent-villa)}
   // nav solid
   const nav=document.getElementById('nav'),hero=document.getElementById('hero');
   addEventListener('scroll',()=>{nav.classList.toggle('solid',scrollY>hero.offsetHeight-90);},{passive:true});
+  // scrollspy — underline the nav link whose section is currently in view
+  (function(){
+    const pairs=[];
+    document.querySelectorAll('#nav .nav-right a[href^="#"]').forEach(a=>{
+      let id=a.getAttribute('href').slice(1);
+      if(a.id==='tg-resort')id='hero';           // resort toggle maps to the top of the page
+      const sec=id&&document.getElementById(id);
+      if(sec)pairs.push({a,sec});
+    });
+    if(!pairs.length)return;
+    const spy=new IntersectionObserver(es=>{
+      es.forEach(e=>{if(e.isIntersecting)pairs.forEach(p=>p.a.classList.toggle('active',p.sec===e.target));});
+    },{rootMargin:'-45% 0px -45% 0px',threshold:0});
+    pairs.forEach(p=>spy.observe(p.sec));
+  })();
   // hero crossfade + dots
   const scenes=document.querySelectorAll('.hscene'),dots=document.querySelectorAll('.dots button');
   let cur=0,timer;
@@ -709,11 +773,12 @@ body.villa{--accent:var(--accent-villa)}
   function setMode(m){
     document.body.classList.toggle('villa',m==='villa');
     swap.forEach(el=>el.innerHTML=el.dataset[m]);
-    tr.classList.toggle('on',m==='resort');tv.classList.toggle('on',m==='villa');
-    document.getElementById('iq-villa').textContent = m==='villa'?'The Lagoon House \u00b7 4 BR':'Chapter One \u00b7 Water Retreat';
+    if(tr)tr.classList.toggle('on',m==='resort');if(tv)tv.classList.toggle('on',m==='villa');
+    const iq=document.getElementById('iq-villa');
+    if(iq)iq.textContent = m==='villa'?'The Lagoon House \u00b7 4 BR':'Chapter One \u00b7 Water Retreat';
   }
-  tr.addEventListener('click',e=>{e.preventDefault();setMode('resort');});
-  tv.addEventListener('click',e=>{e.preventDefault();setMode('villa');});
+  if(tr)tr.addEventListener('click',e=>{e.preventDefault();setMode('resort');});
+  if(tv)tv.addEventListener('click',e=>{e.preventDefault();setMode('villa');});
   // amenities + closer-look: per-block click feature image + expand description
   document.querySelectorAll('.amen').forEach(block=>{
     const items=[...block.querySelectorAll('.amen-item')];const img=block.querySelector('.amen-img');
@@ -738,5 +803,36 @@ body.villa{--accent:var(--accent-villa)}
     prev.addEventListener('click',()=>{idx=Math.max(0,idx-1);upd();});
     next.addEventListener('click',()=>{idx=Math.min(maxi(),idx+1);upd();});
     addEventListener('resize',upd);upd();})();
+  // shared-spaces gallery (journey section) + dialog
+  (function(){
+    const strip=document.querySelector('.j-gallery'),modal=document.getElementById('galModal'),grid=document.getElementById('galGrid');
+    if(!strip||!modal||!grid)return;
+    const JG=[
+      {src:'pictures/LandingPage_hero.jpg',cap:'Arrival jetty'},
+      {src:'pictures/Restaurant.jpg',cap:'Main restaurant'},
+      {src:'pictures/chelsea-gates-0653_wY0nRc-unsplash.jpg',cap:'Lagoon deck'},
+      {src:'pictures/Yoga.jpg',cap:'Yoga pavilion'},
+      {src:'pictures/Plate.jpg',cap:"Chef's table"},
+      {src:'pictures/Massage1.jpg',cap:'Overwater spa'},
+      {src:'pictures/Massage2.jpg',cap:'Treatment room'},
+      {src:'pictures/Hero_sunset.jpg',cap:'Sunset bar'},
+      {src:'pictures/pedro-bariak-lVRolxDY5q0-unsplash.jpg',cap:'Reef boardwalk'},
+      {src:'pictures/moosa-haleem-758Km8MAcyI-unsplash.jpg',cap:'Beach garden'},
+      {src:'pictures/rayyu-maldives-cDsfRDTqg_8-unsplash.jpg',cap:'Reception & arrival'},
+      {src:'pictures/shifaaz-shamoon-qtbV_8P_Ksk-unsplash.jpg',cap:'House reef'},
+      {src:'pictures/matheen-faiz-OcrTk7qXcdM-unsplash.jpg',cap:'Island walk'},
+      {src:'pictures/nattu-adnan-atSUvc1hMwk-unsplash.jpg',cap:'Evening lounge'}
+    ];
+    const cards=[...strip.querySelectorAll('.jg-card')],previews=cards.slice(0,-1),more=cards[cards.length-1];
+    previews.forEach((c,i)=>{if(JG[i])c.style.backgroundImage="url('"+JG[i].src+"')";});
+    more.textContent='+'+Math.max(0,JG.length-previews.length);
+    grid.innerHTML=JG.map(g=>'<figure class="gal-item"><div class="gal-ph" style="background-image:url(\''+g.src+'\')"></div><figcaption>'+g.cap+'</figcaption></figure>').join('');
+    let lastFocus=null;
+    function open(){lastFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+    function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus();}
+    cards.forEach(c=>c.addEventListener('click',open));
+    modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',close));
+    addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))close();});
+  })();
 </script>
 </body></html>
