@@ -368,12 +368,78 @@ body.villa{--accent:var(--accent-villa)}
   .amen-item:hover .amen-name{color:var(--accent)}
   @media(max-width:760px){.amen{grid-template-columns:1fr}.amen-feature{min-height:300px}}
 
-  /* —— villas: true full-bleed two-up (exactly 2 visible, no sliver) —— */
-  .villas-viewport{padding:0!important;margin-top:clamp(34px,5vw,60px)}
-  .villas-track{gap:clamp(10px,1.4vw,22px)}
-  .villa{flex:0 0 calc((100% - clamp(10px,1.4vw,22px)) / 2)!important}
-  .villa-gallery{aspect-ratio:4/3;margin-bottom:20px}
-  .villa-loc,.villa-stat,.villa h3,.villa .vdesc,.villa .vfoot{padding-left:clamp(8px,1vw,16px);padding-right:clamp(8px,1vw,16px)}
+  /* —— villas: Black-Tomato row — headline left, tall full-bleed portrait cards right (2.5 visible) —— */
+  .villas-row{display:flex;align-items:center;
+    --vmargin:max(40px,calc((100vw - 1240px)/2 + 40px));
+    --vhead:clamp(220px,23vw,330px);
+    --vrowgap:clamp(28px,4vw,70px);
+    gap:var(--vrowgap);padding-left:var(--vmargin)}
+  .villas-head{flex:0 0 var(--vhead);display:block;margin:0}
+  .villas-right{flex:1 1 auto;min-width:0}
+  /* horizontal scroll strip (native swipe/trackpad) with hidden scrollbar */
+  .villas-viewport{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
+    scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;margin:0!important;padding:0!important}
+  .villas-viewport::-webkit-scrollbar{display:none}
+  .villas-track{--vgap:clamp(18px,2.2vw,34px);display:flex;gap:var(--vgap);width:max-content;transition:none}
+  /* fixed card width = the 2-up size; strip bleeds right so the 3rd card half-peeks (2.5 visible) */
+  .villa{flex:0 0 calc((100vw - (2 * var(--vmargin)) - var(--vhead) - var(--vrowgap) - var(--vgap)) / 2)!important;scroll-snap-align:start}
+  /* draggable progress bar + editorial counter under the cards */
+  .villas-progress{display:flex;align-items:center;gap:clamp(16px,2vw,30px);
+    margin-top:clamp(22px,2.6vw,38px);padding-right:var(--vmargin)}
+  .vprog-count{flex:none;font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--soft);font-variant-numeric:tabular-nums}
+  .vprog-count i{font-style:normal;color:var(--stone)}
+  .vbar{position:relative;flex:1 1 auto;height:2px;background:rgba(239,230,210,.16);border-radius:2px;cursor:pointer}
+  .vbar-thumb{position:absolute;top:50%;left:0;transform:translateY(-50%);height:4px;min-width:26px;border-radius:4px;
+    background:var(--accent);transition:background .25s var(--ease)}
+  .vbar-thumb:hover,.vbar.drag .vbar-thumb{background:var(--cream)}
+  /* card = the image; everything sits on top of a full-bleed tall portrait photo */
+  .villa-gallery{aspect-ratio:3/5;margin-bottom:0!important}
+  /* force the photo to fill the tall card (override the inherited 3/2 aspect-ratio) */
+  .villa-gallery .villa-img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;
+    background-size:cover;background-position:center}
+  .gal-dots{top:18px;bottom:auto}
+  /* corner number tag (Black-Tomato style) */
+  .villa-tag{position:absolute;top:clamp(18px,2vw,26px);right:clamp(18px,2vw,26px);z-index:2;
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);
+    text-shadow:0 1px 14px rgba(0,0,0,.55)}
+  .villa-overlay{position:absolute;left:0;right:0;bottom:0;z-index:2;
+    padding:clamp(26px,3vw,42px) clamp(24px,2.6vw,36px) clamp(24px,2.6vw,34px);
+    background:linear-gradient(to top,rgba(13,18,20,.92) 0%,rgba(13,18,20,.6) 44%,rgba(13,18,20,0) 100%)}
+  .villa-overlay h3{font-family:var(--display);font-weight:400;color:var(--cream);
+    font-size:clamp(22px,2.1vw,30px);line-height:1.16;margin:0}
+  .villa-overlay .vfoot{margin-top:clamp(14px,1.6vw,20px);display:flex;align-items:center;
+    justify-content:space-between;gap:14px}
+  .villa-overlay .vprice{font-family:var(--display);font-size:clamp(18px,1.7vw,23px);color:var(--cream)}
+  .villa-overlay .vprice span{font-family:var(--mono);font-size:10px;color:rgba(244,238,223,.7);letter-spacing:.06em}
+  /* "View villa" as a clean outlined pill — no underline */
+  .villa-overlay .vview{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    text-decoration:none;color:var(--cream);border:1px solid rgba(244,238,223,.5);border-radius:40px;
+    padding:10px 18px;white-space:nowrap;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
+  .villa-overlay .vview:hover{background:var(--cream);color:var(--bg);border-color:var(--cream)}
+  /* "View all villas" trigger button */
+  .villas-all{margin-top:clamp(26px,3vw,40px);display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
+    background:none;border:1px solid var(--line);border-radius:40px;padding:14px 26px;cursor:pointer;
+    transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
+  .villas-all span{transition:transform .35s var(--ease)}
+  .villas-all:hover{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .villas-all:hover span{transform:translateX(4px)}
+  /* all-villas dialog grid */
+  .villa-modal-grid{overflow-y:auto;padding:clamp(18px,2.6vw,30px);display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:clamp(18px,2vw,28px)}
+  .villa-modal-grid .villa{flex:none!important;width:auto}
+  .villa-modal-grid .villa-gallery{aspect-ratio:2/3}
+  @media(max-width:860px){
+    .villas-row{flex-direction:column;align-items:stretch;gap:clamp(24px,5vw,40px);padding-left:0;padding-right:0}
+    .villas-head{flex:none;display:flex;flex-direction:column;align-items:flex-start;gap:18px;
+      padding:0 max(20px,calc((100vw - 1240px)/2 + 40px))}
+    .villas-all{margin-top:0}
+    .villas-viewport{padding-left:max(20px,calc((100vw - 1240px)/2 + 40px))!important;
+      scroll-padding-left:max(20px,calc((100vw - 1240px)/2 + 40px))}
+    .villas-progress{padding:0 max(20px,calc((100vw - 1240px)/2 + 40px))}
+    .villa{flex:0 0 82%!important}
+  }
+  @media(max-width:560px){.villa-modal-grid{grid-template-columns:1fr}}
 
   /* —— "why this one was kept": no table lines, just open space —— */
   .reasons{background:none!important;border:none!important;grid-template-columns:1fr 1fr;
@@ -561,50 +627,124 @@ body.villa{--accent:var(--accent-villa)}
 
 <!-- VILLAS -->
 <section class="pad villas-section" id="villas">
-  <div class="wrap"><div class="villas-head reveal">
-    <div><p class="kick">Choose your water</p><h2 style="margin-top:18px">Three ways <em>to stay.</em></h2></div>
-    <div class="villas-nav"><span class="villas-count" id="vCount">1 / 3</span>
-      <button class="vnav-btn" id="vPrev" aria-label="Previous">←</button>
-      <button class="vnav-btn" id="vNext" aria-label="Next">→</button></div>
+  <div class="villas-row">
+    <div class="villas-head reveal">
+      <div><p class="kick">Choose your water</p><h2 style="margin-top:18px"><span id="vWays">3</span> ways <em>to stay.</em></h2></div>
+      <button class="villas-all" id="vAll" type="button">View all villas <span aria-hidden="true">→</span></button>
+    </div>
+    <div class="villas-right">
+    <div class="villas-viewport"><div class="villas-track" id="vTrack">
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["pictures/hotelroom-1.jpg", "pictures/hotelroom-2.jpg"]'>
+        <div class="villa-img" style="background-image:url('pictures/hotelroom-1.jpg')"></div>
+        <div class="villa-tag">1 Bedroom</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="villa-overlay">
+          <h3>One-Bedroom Overwater Pool Villa with Retractable Roof</h3>
+          <div class="vfoot"><span class="vprice">$3,850 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["pictures/hotelroom-3.jpg", "pictures/hotelroom-4.jpg"]'>
+        <div class="villa-img" style="background-image:url('pictures/hotelroom-3.jpg')"></div>
+        <div class="villa-tag">2 Bedrooms</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="villa-overlay">
+          <h3>Two-Bedroom Sunset Water Villa with Private Pool</h3>
+          <div class="vfoot"><span class="vprice">$6,200 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["pictures/hotelroom-5.jpg", "pictures/hotelroom-1.jpg"]'>
+        <div class="villa-img" style="background-image:url('pictures/hotelroom-5.jpg')"></div>
+        <div class="villa-tag">4 Bedrooms</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="villa-overlay">
+          <h3>Four-Bedroom Beach &amp; Lagoon Reserve with Private Staff</h3>
+          <div class="vfoot"><span class="vprice">$14,900 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["pictures/hotelroom-2.jpg", "pictures/hotelroom-3.jpg"]'>
+        <div class="villa-img" style="background-image:url('pictures/hotelroom-2.jpg')"></div>
+        <div class="villa-tag">1 Bedroom</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="villa-overlay">
+          <h3>One-Bedroom Lagoon Villa with Sunrise Deck</h3>
+          <div class="vfoot"><span class="vprice">$3,200 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["pictures/hotelroom-4.jpg", "pictures/hotelroom-5.jpg"]'>
+        <div class="villa-img" style="background-image:url('pictures/hotelroom-4.jpg')"></div>
+        <div class="villa-tag">2 Bedrooms</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="villa-overlay">
+          <h3>Two-Bedroom Beach Pool Villa</h3>
+          <div class="vfoot"><span class="vprice">$5,400 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["pictures/hotelroom-1.jpg", "pictures/hotelroom-3.jpg"]'>
+        <div class="villa-img" style="background-image:url('pictures/hotelroom-1.jpg')"></div>
+        <div class="villa-tag">3 Bedrooms</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="villa-overlay">
+          <h3>Three-Bedroom Overwater Residence with Pool</h3>
+          <div class="vfoot"><span class="vprice">$9,800 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["pictures/hotelroom-2.jpg", "pictures/hotelroom-4.jpg"]'>
+        <div class="villa-img" style="background-image:url('pictures/hotelroom-2.jpg')"></div>
+        <div class="villa-tag">1 Bedroom</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="villa-overlay">
+          <h3>One-Bedroom Garden Pool Villa</h3>
+          <div class="vfoot"><span class="vprice">$2,900 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["pictures/hotelroom-5.jpg", "pictures/hotelroom-2.jpg"]'>
+        <div class="villa-img" style="background-image:url('pictures/hotelroom-5.jpg')"></div>
+        <div class="villa-tag">2 Bedrooms</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="villa-overlay">
+          <h3>Two-Bedroom Family Water Villa</h3>
+          <div class="vfoot"><span class="vprice">$5,900 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+        </div>
+      </div>
+    </div>
   </div></div>
-  <div class="villas-viewport"><div class="villas-track" id="vTrack">
-    <div class="villa">
-      <div class="villa-gallery" data-imgs='["pictures/chelsea-gates-0653_wY0nRc-unsplash.jpg", "pictures/mike-swigunski-k9Zeq6EH_bk-unsplash.jpg", "pictures/nattu-adnan-atSUvc1hMwk-unsplash.jpg"]'>
-        <div class="villa-img" style="background-image:url('pictures/chelsea-gates-0653_wY0nRc-unsplash.jpg')"></div>
-        <button class="gal-prev" aria-label="Previous photo">‹</button>
-        <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
-      </div>
-      <div class="villa-loc">Noonu Atoll · Overwater</div><div class="villa-stat">1 Bedroom · Sleeps 2</div>
-      <h3>Chapter One · Water Retreat</h3>
-      <p class="vdesc">411 m² over the lagoon, with a slide from the deck into the water and a roof that rolls back above the bed.</p>
-      <div class="vfoot"><span class="vprice">$3,850 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+    <div class="villas-progress">
+      <span class="vprog-count"><span id="vCur">01</span> <i>/</i> <span id="vTotal">08</span></span>
+      <div class="vbar" id="vBar"><div class="vbar-thumb" id="vThumb"></div></div>
     </div>
-    <div class="villa">
-      <div class="villa-gallery" data-imgs='["pictures/matheen-faiz-OcrTk7qXcdM-unsplash.jpg", "pictures/moosa-haleem-758Km8MAcyI-unsplash.jpg", "pictures/Hero_sunset.jpg"]'>
-        <div class="villa-img" style="background-image:url('pictures/matheen-faiz-OcrTk7qXcdM-unsplash.jpg')"></div>
-        <button class="gal-prev" aria-label="Previous photo">‹</button>
-        <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
-      </div>
-      <div class="villa-loc">Noonu Atoll · Overwater</div><div class="villa-stat">2 Bedrooms · Sleeps 4</div>
-      <h3>Chapter Two · Water Reserve</h3>
-      <p class="vdesc">769 m² with a private pool on the sunset side and a second bedroom made for the family.</p>
-      <div class="vfoot"><span class="vprice">$6,200 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
     </div>
-    <div class="villa">
-      <div class="villa-gallery" data-imgs='["pictures/shifaaz-shamoon-qtbV_8P_Ksk-unsplash.jpg", "pictures/LandingPage_hero.jpg", "pictures/pedro-bariak-lVRolxDY5q0-unsplash.jpg"]'>
-        <div class="villa-img" style="background-image:url('pictures/shifaaz-shamoon-qtbV_8P_Ksk-unsplash.jpg')"></div>
-        <button class="gal-prev" aria-label="Previous photo">‹</button>
-        <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
-      </div>
-      <div class="villa-loc">Noonu Atoll · Beach + Lagoon</div><div class="villa-stat">4 Bedrooms · Sleeps 8</div>
-      <h3>Island Reserve</h3>
-      <p class="vdesc">1,664 m² across beach and lagoon, with its own staff, gym and private cinema.</p>
-      <div class="vfoot"><span class="vprice">$14,900 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
-    </div>
-  </div></div>
+  </div>
 </section>
 
 <!-- A CLOSER LOOK -->
@@ -730,6 +870,18 @@ body.villa{--accent:var(--accent-villa)}
   </div>
 </div>
 
+<!-- ALL VILLAS DIALOG -->
+<div class="gal-modal" id="villaModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="All villas">
+  <div class="gal-backdrop" data-close></div>
+  <div class="gal-dialog">
+    <div class="gal-bar">
+      <div><p class="kick">Choose your water</p><div class="gal-title"><span id="vWaysModal">3</span> ways to stay</div></div>
+      <button class="gal-close" type="button" data-close aria-label="Close">&#10005;</button>
+    </div>
+    <div class="villa-modal-grid" id="villaModalGrid"></div>
+  </div>
+</div>
+
 <script>
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   // fit the resort name to its column (text autofit / fit-to-width, with 2-line fallback)
@@ -811,24 +963,55 @@ body.villa{--accent:var(--accent-villa)}
     items.forEach(it=>it.addEventListener('click',()=>{items.forEach(x=>x.classList.remove('active'));it.classList.add('active');
       if(img){img.style.opacity=0;setTimeout(()=>{img.style.backgroundImage="url('"+it.dataset.img+"')";img.style.opacity=1;},180);}}));
   });
-  // villa galleries (per-card photo arrows)
-  document.querySelectorAll('.villa-gallery').forEach(g=>{let imgs;try{imgs=JSON.parse(g.dataset.imgs)}catch(e){imgs=[]}let i=0;
+  // villa galleries (per-card photo arrows) — reusable so cloned cards work too
+  function initVillaGallery(g){let imgs;try{imgs=JSON.parse(g.dataset.imgs)}catch(e){imgs=[]}let i=0;
     const layer=g.querySelector('.villa-img'),dots=[...g.querySelectorAll('.gal-dots i')];
+    const p=g.querySelector('.gal-prev'),nx=g.querySelector('.gal-next'),dotsWrap=g.querySelector('.gal-dots');
+    if(imgs.length<=1){[p,nx,dotsWrap].forEach(el=>{if(el)el.style.display='none';});return;}
     function set(n){i=(n+imgs.length)%imgs.length;layer.style.backgroundImage="url('"+imgs[i]+"')";dots.forEach((d,k)=>d.classList.toggle('on',k===i));}
-    const p=g.querySelector('.gal-prev'),nx=g.querySelector('.gal-next');
     if(p)p.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();set(i-1);});
-    if(nx)nx.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();set(i+1);});});
-  // villa pager (two-up, slide)
-  (function(){const track=document.getElementById('vTrack');if(!track)return;const cards=[...track.children];let idx=0;
-    const cnt=document.getElementById('vCount'),prev=document.getElementById('vPrev'),next=document.getElementById('vNext');
-    function step(){const cs=getComputedStyle(track);const gap=parseFloat(cs.columnGap||cs.gap||0);return cards[0].offsetWidth+gap;}
-    function visible(){return Math.max(1,Math.round(track.parentElement.clientWidth/step()));}
-    function maxi(){return Math.max(0,cards.length-visible());}
-    function upd(){idx=Math.min(idx,maxi());track.style.transform='translateX('+(-idx*step())+'px)';
-      cnt.textContent=(idx+1)+' / '+cards.length;prev.disabled=idx<=0;next.disabled=idx>=maxi();}
-    prev.addEventListener('click',()=>{idx=Math.max(0,idx-1);upd();});
-    next.addEventListener('click',()=>{idx=Math.min(maxi(),idx+1);upd();});
-    addEventListener('resize',upd);upd();})();
+    if(nx)nx.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();set(i+1);});}
+  document.querySelectorAll('#vTrack .villa-gallery').forEach(initVillaGallery);
+  // villa count + scroll-strip progress bar + "view all villas" dialog
+  (function(){const track=document.getElementById('vTrack');if(!track)return;
+    const cards=[...track.children];const n=cards.length;const pad=x=>String(x).padStart(2,'0');
+    const ways=document.getElementById('vWays'),waysM=document.getElementById('vWaysModal');
+    if(ways)ways.textContent=n;if(waysM)waysM.textContent=n;     // headline number tracks the villa count
+    const total=document.getElementById('vTotal'),curEl=document.getElementById('vCur');
+    if(total)total.textContent=pad(n);
+    // draggable progress bar synced to the horizontal scroll strip
+    const vp=track.parentElement,bar=document.getElementById('vBar'),thumb=document.getElementById('vThumb');
+    if(vp&&bar&&thumb){
+      const metrics=()=>{const max=Math.max(0,vp.scrollWidth-vp.clientWidth),barW=bar.clientWidth,
+        tW=Math.max(26,barW*Math.min(1,vp.clientWidth/vp.scrollWidth));return{max,barW,tW};};
+      function render(){const{max,barW,tW}=metrics();const ratio=max>0?vp.scrollLeft/max:0;
+        thumb.style.width=tW+'px';thumb.style.left=(ratio*(barW-tW))+'px';
+        if(curEl)curEl.textContent=pad(1+Math.round(ratio*(n-1)));}
+      vp.addEventListener('scroll',()=>requestAnimationFrame(render),{passive:true});
+      addEventListener('resize',render);
+      let drag=false,sx=0,sl=0;
+      thumb.addEventListener('pointerdown',e=>{drag=true;sx=e.clientX;sl=vp.scrollLeft;bar.classList.add('drag');
+        thumb.setPointerCapture(e.pointerId);e.preventDefault();});
+      thumb.addEventListener('pointermove',e=>{if(!drag)return;const{max,barW,tW}=metrics();const span=barW-tW;
+        if(span>0)vp.scrollLeft=sl+(e.clientX-sx)*(max/span);});
+      const end=()=>{drag=false;bar.classList.remove('drag');};
+      thumb.addEventListener('pointerup',end);thumb.addEventListener('pointercancel',end);
+      bar.addEventListener('pointerdown',e=>{if(e.target===thumb)return;const{max,barW,tW}=metrics();
+        const x=e.clientX-bar.getBoundingClientRect().left-tW/2;vp.scrollLeft=Math.max(0,Math.min(1,x/(barW-tW)))*max;});
+      requestAnimationFrame(render);
+    }
+    // "view all villas" dialog (clones every villa into a grid)
+    const modal=document.getElementById('villaModal'),grid=document.getElementById('villaModalGrid'),btn=document.getElementById('vAll');
+    if(modal&&grid&&btn){
+      cards.forEach(c=>{const clone=c.cloneNode(true);grid.appendChild(clone);initVillaGallery(clone.querySelector('.villa-gallery'));});
+      let lastFocus=null;
+      const open=()=>{lastFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';};
+      const close=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus();};
+      btn.addEventListener('click',open);
+      modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',close));
+      addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))close();});
+    }
+  })();
   // shared-spaces gallery (journey section) + dialog
   (function(){
     const strip=document.querySelector('.j-gallery'),modal=document.getElementById('galModal'),grid=document.getElementById('galGrid');
