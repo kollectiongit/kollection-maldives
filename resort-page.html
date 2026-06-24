@@ -392,7 +392,7 @@ body.villa{--accent:var(--accent-villa)}
     background-size:cover;background-position:center}
   .gal-dots{top:18px;bottom:auto}
   /* corner number tag (Black-Tomato style) */
-  .villa-tag{position:absolute;top:clamp(18px,2vw,26px);right:clamp(18px,2vw,26px);z-index:2;
+  .villa-tag{position:absolute;top:clamp(16px,1.6vw,22px);right:clamp(16px,1.6vw,22px);z-index:3;padding:6px 12px;border-radius:40px;background:rgba(13,18,20,.4);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);border:1px solid rgba(244,238,223,.22);
     font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);
     text-shadow:0 1px 14px rgba(0,0,0,.55)}
   /* "View all villas" trigger button */
@@ -546,6 +546,7 @@ body.villa{--accent:var(--accent-villa)}
 .vnav:hover{border-color:var(--cream);background:rgba(239,230,210,.06)}
 @media(max-width:760px){#vTrack>.villa{flex:0 0 auto;width:calc(min(100vw - 80px, 1160px) - var(--vpeek))}}
 #villas .villas-viewport{scroll-padding-left:var(--vmargin);scroll-padding-right:var(--vmargin)}
+#vTrack .gal-dots{filter:drop-shadow(0 1px 4px rgba(0,0,0,.5))}
 </style></head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -651,12 +652,12 @@ body.villa{--accent:var(--accent-villa)}
   </div>
   <div class="villas-viewport"><div class="villas-track" id="vTrack">
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/017752cf-0160-45d0-aef8-639bb5cc8529.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/4804ca5e-5acf-4d9b-a2c1-745ae5de5ba2.jpg"]'>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/017752cf-0160-45d0-aef8-639bb5cc8529.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/4804ca5e-5acf-4d9b-a2c1-745ae5de5ba2.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/535d6a15-4dba-474a-a3b4-0eed41b0ce82.jpg"]'>
         <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/017752cf-0160-45d0-aef8-639bb5cc8529.jpg')"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
       </div>
       <div class="villa-caption">
         <h3>Overwater Villa with Pool</h3>
@@ -664,12 +665,12 @@ body.villa{--accent:var(--accent-villa)}
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/10663a4d-161d-4ccc-a840-4f4a911f87b7.jpg", "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/125ab4c3-4ca0-470d-976c-c278a4f9f0e8.jpg"]'>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/10663a4d-161d-4ccc-a840-4f4a911f87b7.jpg", "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/125ab4c3-4ca0-470d-976c-c278a4f9f0e8.jpg", "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/156ad789-bc46-4836-b760-c583fe69322f.jpg"]'>
         <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/10663a4d-161d-4ccc-a840-4f4a911f87b7.jpg')"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
       </div>
       <div class="villa-caption">
         <h3>Sunset Overwater Villa with Pool</h3>
@@ -677,12 +678,12 @@ body.villa{--accent:var(--accent-villa)}
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0d104e1c-42b6-46e0-b4a6-f04b4a7be311.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0fc4d38e-59c5-49c3-88d4-750fa037e55e.jpg"]'>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0d104e1c-42b6-46e0-b4a6-f04b4a7be311.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0fc4d38e-59c5-49c3-88d4-750fa037e55e.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/11832f7b-6b8a-40a3-9b43-ff54aeb41886.jpg"]'>
         <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0d104e1c-42b6-46e0-b4a6-f04b4a7be311.jpg')"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
       </div>
       <div class="villa-caption">
         <h3>Overwater St. Regis Suite with Pool</h3>
@@ -690,12 +691,12 @@ body.villa{--accent:var(--accent-villa)}
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/264f03f0-0583-4798-bd21-dc8f4b600b36.jpg", "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/5212fb3a-35a6-4468-9bca-2ed9173641f8.jpg"]'>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/264f03f0-0583-4798-bd21-dc8f4b600b36.jpg", "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/5212fb3a-35a6-4468-9bca-2ed9173641f8.jpg", "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/55a51218-83cb-4d70-9573-5f8783fb7a17.jpg"]'>
         <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/264f03f0-0583-4798-bd21-dc8f4b600b36.jpg')"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
       </div>
       <div class="villa-caption">
         <h3>Beach Villa with Pool</h3>
@@ -703,12 +704,12 @@ body.villa{--accent:var(--accent-villa)}
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/1b32eb7c-6cc0-453a-b5b7-3b7fabe5421c.jpg", "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/4ce84233-6a64-4a9a-b532-e7392936548d.jpg"]'>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/1b32eb7c-6cc0-453a-b5b7-3b7fabe5421c.jpg", "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/4ce84233-6a64-4a9a-b532-e7392936548d.jpg", "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/51cb6479-7a93-42ad-8a15-87b35f8babd3.jpg"]'>
         <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/1b32eb7c-6cc0-453a-b5b7-3b7fabe5421c.jpg')"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
       </div>
       <div class="villa-caption">
         <h3>Garden Villa with Pool</h3>
@@ -716,12 +717,12 @@ body.villa{--accent:var(--accent-villa)}
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/1ae36f39-9f2d-4d2b-8536-9beee174d57c.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/22e27bf8-d628-4727-a6d3-28ed627f8208.jpg"]'>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/1ae36f39-9f2d-4d2b-8536-9beee174d57c.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/22e27bf8-d628-4727-a6d3-28ed627f8208.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/305c4cc1-9e8b-4d85-b8e9-492b4ca6ac68.jpg"]'>
         <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/1ae36f39-9f2d-4d2b-8536-9beee174d57c.jpg')"></div>
         <div class="villa-tag">2 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
       </div>
       <div class="villa-caption">
         <h3>Two-Bedroom Ocean Villa with Pool</h3>
@@ -729,12 +730,12 @@ body.villa{--accent:var(--accent-villa)}
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/01eab34b-124e-411e-900c-6fbd8c43ca30.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/08f69ea0-e163-4bf6-ad17-8a992d90cd36.jpg"]'>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/01eab34b-124e-411e-900c-6fbd8c43ca30.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/08f69ea0-e163-4bf6-ad17-8a992d90cd36.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/0ce9c1a0-bcb1-40ff-b4e2-6141549cb85d.jpg"]'>
         <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/01eab34b-124e-411e-900c-6fbd8c43ca30.jpg')"></div>
         <div class="villa-tag">2 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
       </div>
       <div class="villa-caption">
         <h3>Two-Bedroom Sunset Overwater Villa with Pool</h3>
@@ -742,12 +743,12 @@ body.villa{--accent:var(--accent-villa)}
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/01d33fa7-9f44-411a-84ac-ac8729cd1c5a.jpg", "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/09b6fa0b-c156-47f5-b682-2398169b1611.jpeg"]'>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/01d33fa7-9f44-411a-84ac-ac8729cd1c5a.jpg", "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/09b6fa0b-c156-47f5-b682-2398169b1611.jpeg", "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/1099d700-2fe9-487d-b2cf-107ccfe29e2e.jpg"]'>
         <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/01d33fa7-9f44-411a-84ac-ac8729cd1c5a.jpg')"></div>
         <div class="villa-tag">2 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
       </div>
       <div class="villa-caption">
         <h3>Knickerbocker Villa</h3>
@@ -755,12 +756,12 @@ body.villa{--accent:var(--accent-villa)}
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0055ea64-9af5-44da-9496-1981cc9ca34d.jpg", "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/090897d7-2aee-4970-aff1-66f7ad0baacd.jpg"]'>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0055ea64-9af5-44da-9496-1981cc9ca34d.jpg", "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/090897d7-2aee-4970-aff1-66f7ad0baacd.jpg", "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0c4b4600-c58d-41ac-9ebf-a73d9cf3922b.jpg"]'>
         <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0055ea64-9af5-44da-9496-1981cc9ca34d.jpg')"></div>
         <div class="villa-tag">3 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
       </div>
       <div class="villa-caption">
         <h3>Cesar Balsa Villa</h3>
@@ -768,12 +769,12 @@ body.villa{--accent:var(--accent-villa)}
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/00f35a3c-be6d-440c-8ddb-9d17ad0aa386.jpg", "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/0267913a-8813-4852-9cf4-f1448f86969a.jpg"]'>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/00f35a3c-be6d-440c-8ddb-9d17ad0aa386.jpg", "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/0267913a-8813-4852-9cf4-f1448f86969a.jpg", "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/0e5c4167-4473-4b36-9900-82293956cdb7.jpg"]'>
         <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/00f35a3c-be6d-440c-8ddb-9d17ad0aa386.jpg')"></div>
         <div class="villa-tag">2 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
       </div>
       <div class="villa-caption">
         <h3>The Caroline Astor Estate</h3>
@@ -781,12 +782,12 @@ body.villa{--accent:var(--accent-villa)}
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/17198373-73ab-4906-800d-57339c88c912.jpg", "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/174f0ca1-de7c-4bbd-aa42-1bc29a674e20.jpg"]'>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/17198373-73ab-4906-800d-57339c88c912.jpg", "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/174f0ca1-de7c-4bbd-aa42-1bc29a674e20.jpg", "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/21241219-adc0-4f19-a758-6360c9a19521.jpg"]'>
         <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/17198373-73ab-4906-800d-57339c88c912.jpg')"></div>
         <div class="villa-tag">3 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
+        <div class="gal-dots"><i class="on"></i><i></i><i></i></div>
       </div>
       <div class="villa-caption">
         <h3>The John Jacob Astor Estate</h3>
