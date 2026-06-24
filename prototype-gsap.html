@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kollection Maldives — GSAP motion prototype</title>
+
+    <!--
+      PROTOTYPE ONLY — does not touch index.html / resort-page.html / nav.html.
+      Demonstrates two signature moments rebuilt with GSAP:
+        1. Home hero  — SplitText wordmark reveal + scroll-scrubbed parallax
+        2. Journey band — full-bleed scroll-scrubbed parallax with caption reveal
+      Brand easing is preserved exactly via CustomEase ("brand" = cubic-bezier(.22,.61,.36,1)).
+      All motion is wrapped in gsap.matchMedia() so prefers-reduced-motion users
+      get the static, fully-legible layout with no animation.
+    -->
+
+    <!-- Brand type. Real site uses the Kudryashev Display Adobe kit; here we fall
+         back to Bodoni Moda so the prototype still reads as high-end without the kit. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Pre-hide animated hero copy ONLY when motion is allowed, to avoid a flash
+         of content before GSAP initialises. Reduced-motion users never get this class. -->
+    <script>
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("anim");
+      }
+    </script>
+
+    <style>
+      :root {
+        --paper: #efeadf;
+        --paper-2: #f3ede2;
+        --cream: #f6f1e7;
+        --ink: #2d2a24;
+        --stone: #93826b;
+        --coral: #c4502e;
+        --hairline: rgba(45, 42, 36, 0.14);
+
+        --display: "Kudryashev Display", "Bodoni Moda", Georgia, serif;
+        --sans: "Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+        --track: 0.22em;
+        --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-weight: 300;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+      .display { font-family: var(--display); }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: var(--track);
+        text-transform: uppercase;
+        font-weight: 400;
+        color: var(--stone);
+      }
+
+      /* film grain — static texture, kept for everyone */
+      .grain {
+        position: fixed;
+        inset: -50%;
+        width: 200%;
+        height: 200%;
+        pointer-events: none;
+        z-index: 9000;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        opacity: 0.035;
+        mix-blend-mode: multiply;
+      }
+
+      /* ============ HERO ============ */
+      .hero {
+        position: relative;
+        height: 100vh;
+        min-height: 640px;
+        overflow: hidden;
+        color: var(--cream);
+      }
+      /* .scene sits in its own layer so GSAP can scale/translate it on scroll
+         without disturbing the copy. The original CSS heroZoom is removed —
+         GSAP now owns this motion (intro lift + scroll scrub). */
+      .scene {
+        position: absolute;
+        inset: -6% -2%; /* bleed so scale/translate never reveals an edge */
+        background:
+          linear-gradient(
+            180deg,
+            rgba(16, 20, 24, 0.42),
+            rgba(16, 20, 24, 0.16) 38%,
+            rgba(16, 20, 24, 0.54)
+          ),
+          url("pictures/LandingPage_hero.jpg") center/cover no-repeat;
+        transform-origin: 50% 60%;
+        will-change: transform;
+      }
+      .vignette {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        box-shadow:
+          inset 0 -150px 180px -70px rgba(45, 42, 36, 0.3),
+          inset 0 90px 130px -60px rgba(45, 42, 36, 0.12);
+      }
+
+      .topbar {
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        z-index: 6;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: 30px 38px;
+      }
+      .burger { cursor: pointer; width: 30px; }
+      .burger span { display: block; height: 1px; background: var(--cream); margin: 7px 0; }
+      .crest { justify-self: center; text-align: center; }
+      .crest .stars { font-size: 10px; letter-spacing: 0.4em; opacity: 0.9; }
+      .crest .km { margin-top: 7px; font-size: 13px; letter-spacing: 0.55em; padding-left: 0.55em; }
+      .actions { justify-self: end; display: flex; gap: 12px; }
+      .btn {
+        font-family: var(--sans);
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--cream);
+        text-decoration: none;
+        border: 1px solid rgba(246, 241, 231, 0.6);
+        padding: 12px 24px;
+        position: relative;
+        overflow: hidden;
+        transition: color 0.4s var(--ease);
+      }
+      .btn span { position: relative; z-index: 2; }
+      .btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--cream);
+        transform: translateY(101%);
+        transition: transform 0.42s var(--ease);
+        z-index: 1;
+      }
+      .btn:hover, .btn:focus-visible { color: var(--ink); outline: none; }
+      .btn:hover::before, .btn:focus-visible::before { transform: translateY(0); }
+      .btn.solid { background: var(--coral); border-color: var(--coral); }
+      .btn.solid::before { background: var(--cream); }
+
+      .hero-copy {
+        position: absolute;
+        left: 0; right: 0;
+        bottom: 20vh;
+        z-index: 5;
+        text-align: center;
+        padding: 0 24px;
+        pointer-events: none;
+        will-change: transform, opacity;
+      }
+      .hero-copy .eyebrow { color: rgba(246, 241, 231, 0.85); margin-bottom: 22px; }
+      .wordmark {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(58px, 15vw, 232px);
+        line-height: 0.84;
+        letter-spacing: 0.005em;
+        /* helps SplitText keep clean kerning while animating chars */
+        font-kerning: none;
+      }
+      .wordmark .sub {
+        font-family: var(--sans);
+        font-weight: 300;
+        font-size: clamp(11px, 1.3vw, 15px);
+        letter-spacing: 0.6em;
+        padding-left: 0.6em;
+        margin-top: 14px;
+      }
+      .hero-lede {
+        max-width: 540px;
+        margin: 26px auto 0;
+        font-size: 15px;
+        line-height: 1.8;
+        color: rgba(246, 241, 231, 0.92);
+      }
+      .categories {
+        position: absolute;
+        left: 0; right: 0;
+        bottom: 54px;
+        z-index: 5;
+        display: flex;
+        gap: clamp(20px, 4vw, 56px);
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .cat {
+        font-family: var(--sans);
+        font-size: 12px;
+        letter-spacing: var(--track);
+        text-transform: uppercase;
+        color: rgba(246, 241, 231, 0.86);
+        text-decoration: none;
+        position: relative;
+        padding-bottom: 6px;
+      }
+      .cat::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: 1px;
+        background: var(--cream);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s var(--ease);
+      }
+      .cat:hover::after { transform: scaleX(1); }
+
+      /* ============ INTRO LINE (connective tissue between the two demos) ====== */
+      .intro {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: clamp(110px, 16vh, 220px) 38px;
+        text-align: center;
+      }
+      .intro .eyebrow { margin-bottom: 26px; }
+      .intro h2 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(30px, 4.6vw, 64px);
+        line-height: 1.12;
+        letter-spacing: 0.005em;
+      }
+      .intro h2 em { font-style: italic; color: var(--stone); }
+
+      /* ============ JOURNEY BAND (scroll-scrubbed parallax) ============ */
+      .journey {
+        position: relative;
+        height: 96vh;
+        min-height: 560px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      /* The image layer is taller than the panel and is drifted by GSAP on scroll. */
+      .j-bg {
+        position: absolute;
+        left: 0; right: 0;
+        top: -22%;
+        height: 144%;
+        background-size: cover;
+        background-position: center;
+        will-change: transform;
+      }
+      .journey::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(
+          180deg,
+          rgba(8, 11, 13, 0.5),
+          rgba(8, 11, 13, 0.28) 50%,
+          rgba(8, 11, 13, 0.62)
+        );
+      }
+      .j-text {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: var(--cream);
+        max-width: 680px;
+        padding: 0 28px;
+      }
+      .j-no {
+        font-family: var(--sans);
+        font-size: 12px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--cream);
+        opacity: 0.85;
+      }
+      .j-text h3 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(34px, 6vw, 82px);
+        line-height: 1;
+        margin: 18px 0 20px;
+      }
+      .j-text p {
+        font-size: clamp(15px, 1.5vw, 19px);
+        line-height: 1.7;
+        color: rgba(244, 238, 223, 0.92);
+        max-width: 38ch;
+        margin: 0 auto;
+      }
+
+      /* tail spacer so the last journey band can finish its scrub before page end */
+      .tail {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 38px;
+        color: var(--stone);
+      }
+      .tail .eyebrow { letter-spacing: var(--track); }
+
+      /* ---- Pre-hide animated hero copy (motion-enabled visitors only) ---- */
+      .anim .hero-copy .eyebrow,
+      .anim .hero-copy .wordmark,
+      .anim .hero-copy .sub,
+      .anim .hero-copy .hero-lede,
+      .anim .categories { opacity: 0; }
+
+      /* Reduced motion: guarantee everything is visible and still */
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .hero-copy .eyebrow,
+        .hero-copy .wordmark,
+        .hero-copy .sub,
+        .hero-copy .hero-lede,
+        .categories,
+        .j-text { opacity: 1 !important; transform: none !important; }
+        .scene, .j-bg { transform: none !important; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- ============ HERO ============ -->
+    <header class="hero" id="top">
+      <div class="scene" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <nav class="topbar">
+        <div class="burger" role="button" tabindex="0" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="crest">
+          <div class="stars">✦ ✦ ✦</div>
+          <div class="km">KM</div>
+        </div>
+        <div class="actions">
+          <a class="btn" href="#journey"><span>The Collection</span></a>
+          <a class="btn solid" href="#top"><span>Enquire</span></a>
+        </div>
+      </nav>
+
+      <div class="hero-copy">
+        <p class="eyebrow">A private index of the Indian Ocean</p>
+        <div class="wordmark" data-split>KOLLECTION</div>
+        <div class="sub">MALDIVES</div>
+        <p class="hero-lede">
+          A quietly edited collection of the Maldives' finest resorts and
+          private villas, chosen, surveyed and accompanied by hand.
+        </p>
+      </div>
+
+      <nav class="categories">
+        <a class="cat" href="#journey">Resorts</a>
+        <a class="cat" href="#journey">Private villas</a>
+        <a class="cat" href="#journey">The Maldives</a>
+      </nav>
+    </header>
+
+    <!-- ============ INTRO LINE ============ -->
+    <section class="intro">
+      <p class="eyebrow">Our curated approach</p>
+      <h2 data-lines>
+        Every island is surveyed by hand —<br />
+        <em>so the quiet ones find the right guests.</em>
+      </h2>
+    </section>
+
+    <!-- ============ JOURNEY BAND 01 ============ -->
+    <section class="journey" id="journey">
+      <div
+        class="j-bg"
+        style="background-image: url('the-st-regis-maldives-vommuli-resort/photos/3cca861e-1302-4352-b95b-95d5896347aa.jpg')"
+        aria-hidden="true"
+      ></div>
+      <div class="j-text">
+        <div class="j-no">Chapter 01</div>
+        <h3>Arrival by sea</h3>
+        <p>
+          Forty-five minutes by seaplane, then the wake settles and the island
+          holds still. This is where the collection begins.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ JOURNEY BAND 02 ============ -->
+    <section class="journey">
+      <div
+        class="j-bg"
+        style="background-image: url('the-st-regis-maldives-vommuli-resort/photos/02ff41a0-cf18-477f-8a86-cd86fdb81e7a.jpg')"
+        aria-hidden="true"
+      ></div>
+      <div class="j-text">
+        <div class="j-no">Chapter 02</div>
+        <h3>The shared spaces</h3>
+        <p>
+          A whale-shaped bar over the water, an infinity edge that meets the
+          lagoon. Measured by hand, not by brochure.
+        </p>
+      </div>
+    </section>
+
+    <div class="tail">
+      <p class="eyebrow">End of prototype · scroll back up to replay the hero</p>
+    </div>
+
+    <!-- ===================== GSAP ===================== -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+    <script>
+      // Resilience: if the CDN failed to load GSAP, drop the .anim class so the
+      // pre-hidden hero copy becomes visible — the page degrades to the static layout.
+      if (typeof window.gsap === "undefined") {
+        document.documentElement.classList.remove("anim");
+      } else {
+      gsap.registerPlugin(ScrollTrigger, SplitText, CustomEase);
+
+      // Reproduce the site's exact CSS easing curve so GSAP motion matches
+      // every existing CSS transition: cubic-bezier(.22,.61,.36,1).
+      CustomEase.create("brand", "M0,0 C0.22,0.61 0.36,1 1,1");
+      gsap.defaults({ ease: "brand" });
+
+      // All motion lives inside matchMedia → automatically reverted (and never
+      // run) for prefers-reduced-motion users. CSS above keeps them legible.
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // ---------- 1. HERO INTRO (runs once, on load) ----------
+        const heroIn = gsap.timeline({ defaults: { duration: 1.1 } });
+
+        // Slow settle of the background image (replaces the CSS heroZoom).
+        heroIn.from(".scene", { scale: 1.12, duration: 2.4, ease: "brand" }, 0);
+
+        // Wordmark: reveal letter-by-letter from behind a mask — the calmest
+        // possible "cinematic" entrance. Split is masked so chars rise into view.
+        const split = new SplitText(".wordmark", { type: "chars", mask: "chars" });
+        gsap.set(".wordmark", { opacity: 1 });
+
+        // Reveal the category container up front; its children animate in.
+        gsap.set(".categories", { opacity: 1 });
+
+        // fromTo (not from) because the copy is pre-hidden via the .anim CSS —
+        // explicit end states guarantee it animates all the way to visible.
+        heroIn
+          .fromTo(
+            ".hero-copy .eyebrow",
+            { y: 18, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.9 },
+            0.25
+          )
+          .fromTo(
+            split.chars,
+            { yPercent: 120, opacity: 0 },
+            { yPercent: 0, opacity: 1, duration: 1.05, stagger: 0.045 },
+            0.35
+          )
+          .fromTo(
+            ".hero-copy .sub",
+            { y: 14, opacity: 0 },
+            { y: 0, opacity: 1 },
+            "-=0.55"
+          )
+          .fromTo(
+            ".hero-copy .hero-lede",
+            { y: 16, opacity: 0 },
+            { y: 0, opacity: 1 },
+            "-=0.7"
+          )
+          .fromTo(
+            ".categories .cat",
+            { y: 14, opacity: 0 },
+            { y: 0, opacity: 1, stagger: 0.12, duration: 0.8 },
+            "-=0.6"
+          );
+
+        // ---------- 2. HERO PARALLAX (scrubbed to scroll) ----------
+        // As the hero scrolls away, the image scales up a touch and the copy
+        // lifts and fades — depth without motion-sickness.
+        gsap.to(".scene", {
+          scale: 1.14,
+          yPercent: 8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1
+          }
+        });
+        gsap.to(".hero-copy", {
+          yPercent: -38,
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "65% top",
+            scrub: 1
+          }
+        });
+
+        // ---------- 3. INTRO HEADLINE (line-by-line on arrival) ----------
+        const introSplit = new SplitText("[data-lines]", {
+          type: "lines",
+          mask: "lines"
+        });
+        gsap.from(introSplit.lines, {
+          yPercent: 110,
+          opacity: 0,
+          duration: 1.1,
+          stagger: 0.14,
+          scrollTrigger: { trigger: ".intro", start: "top 72%" }
+        });
+
+        // ---------- 4. JOURNEY BANDS (scrubbed parallax + caption reveal) ----------
+        gsap.utils.toArray(".journey").forEach((panel) => {
+          const bg = panel.querySelector(".j-bg");
+
+          // Image drifts slower than the page → parallax. ease:"none" keeps it
+          // perfectly tied to scroll position.
+          gsap.fromTo(
+            bg,
+            { yPercent: -12 },
+            {
+              yPercent: 12,
+              ease: "none",
+              scrollTrigger: {
+                trigger: panel,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+              }
+            }
+          );
+
+          // Caption rises and settles as the band centres.
+          gsap.from(panel.querySelectorAll(".j-text > *"), {
+            y: 34,
+            opacity: 0,
+            duration: 1.1,
+            stagger: 0.12,
+            scrollTrigger: { trigger: panel, start: "top 60%" }
+          });
+        });
+
+        // matchMedia cleanup: revert splits + kill triggers if query stops matching
+        return () => {
+          split.revert();
+          introSplit.revert();
+        };
+      });
+
+      // Recalculate trigger positions once the brand font has loaded (line splits
+      // depend on final metrics).
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => ScrollTrigger.refresh());
+      }
+      } // end GSAP-available guard
+    </script>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Soneva Jani — Kollection Maldives (Dark)</title>
+<title>The St. Regis Maldives Vommuli Resort — Kollection Maldives</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -132,9 +132,9 @@ section{position:relative}
 
 /* VILLAS */
 .villas{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px}
-.villa{text-decoration:none;color:var(--ink);border:1px solid var(--line);transition:transform .45s var(--ease),box-shadow .45s}
+.villa{text-decoration:none;color:var(--ink);border:0;background:none;transition:transform .45s var(--ease),box-shadow .45s}
 .villa:hover{transform:translateY(-4px);box-shadow:0 30px 70px -40px rgba(0,0,0,.6)}
-.villa-img{height:200px;background-size:cover;background-position:center}
+.villa-img{position:absolute;inset:0;background-size:cover;background-position:center}
 .villa-b{padding:22px}
 .villa-b b{font-family:var(--display);font-weight:400;font-size:21px}
 .villa-b p{margin-top:8px;font-family:var(--mono);font-size:12px;letter-spacing:.01em;color:var(--stone);line-height:1.7}
@@ -333,8 +333,8 @@ body.villa{--accent:var(--accent-villa)}
   .vnav-btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer;font-size:16px;transition:border-color .3s var(--ease),color .3s var(--ease)}
   .vnav-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
   .vnav-btn:disabled{opacity:.3;cursor:default}
-  .villas-viewport{overflow:hidden;margin-top:clamp(36px,5vw,62px);
-    padding-left:max(40px,calc((100vw - 1240px)/2 + 40px));padding-right:max(40px,calc((100vw - 1240px)/2 + 40px))}
+  .villas-viewport{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;-ms-overflow-style:none;scrollbar-width:none;margin-top:clamp(22px,2.6vw,34px);
+    padding-left:var(--vmargin);padding-right:var(--vmargin)}
   .villas-track{display:flex;gap:clamp(30px,3.6vw,68px);transition:transform .65s var(--ease)}
   .villa{flex:0 0 calc((100% - clamp(30px,3.6vw,68px))/2);display:block;border:none}
   .villa:hover{transform:none;box-shadow:none}
@@ -376,24 +376,17 @@ body.villa{--accent:var(--accent-villa)}
     gap:var(--vrowgap);padding-left:var(--vmargin)}
   .villas-head{flex:0 0 var(--vhead);display:block;margin:0}
   .villas-right{flex:1 1 auto;min-width:0}
-  /* horizontal scroll strip (native swipe/trackpad) with hidden scrollbar */
-  .villas-viewport{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
-    scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;margin:0!important;padding:0!important}
-  .villas-viewport::-webkit-scrollbar{display:none}
+  
   .villas-track{--vgap:clamp(18px,2.2vw,34px);display:flex;gap:var(--vgap);width:max-content;transition:none}
-  /* fixed card width = the 2-up size; strip bleeds right so the 3rd card half-peeks (2.5 visible) */
-  .villa{flex:0 0 calc((100vw - (2 * var(--vmargin)) - var(--vhead) - var(--vrowgap) - var(--vgap)) / 2)!important;scroll-snap-align:start}
   /* draggable progress bar + editorial counter under the cards */
-  .villas-progress{display:flex;align-items:center;gap:clamp(16px,2vw,30px);
-    margin-top:clamp(22px,2.6vw,38px);padding-right:var(--vmargin)}
+  .villas-progress{display:flex;align-items:center;gap:clamp(14px,1.6vw,24px);
+    margin-top:clamp(22px,2.6vw,38px);padding-left:var(--vmargin);padding-right:var(--vmargin)}
   .vprog-count{flex:none;font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--soft);font-variant-numeric:tabular-nums}
   .vprog-count i{font-style:normal;color:var(--stone)}
   .vbar{position:relative;flex:1 1 auto;height:2px;background:rgba(239,230,210,.16);border-radius:2px;cursor:pointer}
   .vbar-thumb{position:absolute;top:50%;left:0;transform:translateY(-50%);height:4px;min-width:26px;border-radius:4px;
     background:var(--accent);transition:background .25s var(--ease)}
   .vbar-thumb:hover,.vbar.drag .vbar-thumb{background:var(--cream)}
-  /* card = the image; everything sits on top of a full-bleed tall portrait photo */
-  .villa-gallery{aspect-ratio:3/5;margin-bottom:0!important}
   /* force the photo to fill the tall card (override the inherited 3/2 aspect-ratio) */
   .villa-gallery .villa-img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;
     background-size:cover;background-position:center}
@@ -402,20 +395,6 @@ body.villa{--accent:var(--accent-villa)}
   .villa-tag{position:absolute;top:clamp(18px,2vw,26px);right:clamp(18px,2vw,26px);z-index:2;
     font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);
     text-shadow:0 1px 14px rgba(0,0,0,.55)}
-  .villa-overlay{position:absolute;left:0;right:0;bottom:0;z-index:2;
-    padding:clamp(26px,3vw,42px) clamp(24px,2.6vw,36px) clamp(24px,2.6vw,34px);
-    background:linear-gradient(to top,rgba(13,18,20,.92) 0%,rgba(13,18,20,.6) 44%,rgba(13,18,20,0) 100%)}
-  .villa-overlay h3{font-family:var(--display);font-weight:400;color:var(--cream);
-    font-size:clamp(22px,2.1vw,30px);line-height:1.16;margin:0}
-  .villa-overlay .vfoot{margin-top:clamp(14px,1.6vw,20px);display:flex;align-items:center;
-    justify-content:space-between;gap:14px}
-  .villa-overlay .vprice{font-family:var(--display);font-size:clamp(18px,1.7vw,23px);color:var(--cream)}
-  .villa-overlay .vprice span{font-family:var(--mono);font-size:10px;color:rgba(244,238,223,.7);letter-spacing:.06em}
-  /* "View villa" as a clean outlined pill — no underline */
-  .villa-overlay .vview{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
-    text-decoration:none;color:var(--cream);border:1px solid rgba(244,238,223,.5);border-radius:40px;
-    padding:10px 18px;white-space:nowrap;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
-  .villa-overlay .vview:hover{background:var(--cream);color:var(--bg);border-color:var(--cream)}
   /* "View all villas" trigger button */
   .villas-all{margin-top:clamp(26px,3vw,40px);display:inline-flex;align-items:center;gap:10px;
     font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
@@ -425,8 +404,18 @@ body.villa{--accent:var(--accent-villa)}
   .villas-all:hover{background:var(--accent);border-color:var(--accent);color:var(--bg)}
   .villas-all:hover span{transform:translateX(4px)}
   /* all-villas dialog grid */
-  .villa-modal-grid{overflow-y:auto;padding:clamp(18px,2.6vw,30px);display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:clamp(18px,2vw,28px)}
+  .villa-modal-grid{overflow-y:auto;padding:clamp(8px,2vw,24px) clamp(20px,5vw,72px) clamp(30px,4vw,60px);display:flex;flex-direction:column}
+  .villa-row{display:flex;align-items:center;gap:clamp(26px,4vw,60px);padding:clamp(34px,4.6vw,62px) 0;border:0;border-bottom:1px solid var(--line);transform:none;box-shadow:none}
+  .villa-row:last-child{border-bottom:0}
+  .villa-row:nth-child(even){flex-direction:row-reverse}
+  .villa-row:hover{transform:none;box-shadow:none}
+  .vr-img{flex:0 0 54%;aspect-ratio:16/10;border-radius:14px;background:var(--raise) center/cover no-repeat}
+  .vr-body{flex:1;min-width:0}
+  .vr-meta{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);opacity:.5;margin-bottom:14px}
+  .villa-row h3{font-family:var(--display);font-weight:400;color:var(--cream);font-size:clamp(26px,2.6vw,38px);line-height:1.1;margin:0 0 16px}
+  .vr-desc{font-size:15px;line-height:1.62;color:var(--soft);max-width:46ch;margin:0 0 24px}
+  .vr-foot{display:flex;align-items:baseline;gap:24px;flex-wrap:wrap}
+  @media(max-width:720px){.villa-row,.villa-row:nth-child(even){flex-direction:column;align-items:stretch;gap:18px}.vr-img{flex:none;width:100%}}
   .villa-modal-grid .villa{flex:none!important;width:auto}
   .villa-modal-grid .villa-gallery{aspect-ratio:2/3}
   @media(max-width:860px){
@@ -515,7 +504,7 @@ body.villa{--accent:var(--accent-villa)}
   .qb-by{color:rgba(244,238,223,.72)}
   .qb-link{color:var(--cream);border-bottom-color:var(--accent)}
   .qb-link:hover{border-color:var(--cream)}
-  .villas-section{background:#141B1E}
+  .villas-section{background:#141B1E;--vmargin:max(40px,calc((100vw - 1240px)/2 + 40px))}
   .inquiry{background:#0D1214}
   #inquiry{--ink:#EFE6D2;--soft:rgba(239,230,210,.78);--stone:#D4ADA6;--line:rgba(239,230,210,.14);background:#0D1214}
   #inquiry h2 em{color:var(--accent)}
@@ -531,6 +520,32 @@ body.villa{--accent:var(--accent-villa)}
   :root{--accent:#79AECE}
 .iq-cta{background:#8A5A2C;color:#EFE6D2}
   .nav-cta:hover{background:#2A6188;border-color:#2A6188;color:#F6F1E7}
+
+/* villa filters (setting + bedrooms) in the all-villas dialog */
+#villaModal .gal-bar{align-items:flex-start}
+.villa-filters{display:flex;flex-direction:column;gap:9px;margin-top:18px}
+.vf-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.vf-lab{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);opacity:.5;min-width:78px}
+.vf-pill{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--cream);cursor:pointer;transition:.25s var(--ease);opacity:.72}
+.vf-pill:hover{opacity:1;border-color:var(--cream)}
+.vf-pill.on{background:var(--accent);border-color:var(--accent);color:#0b0b0b;opacity:1}
+.vf-empty{padding:34px clamp(20px,3vw,34px);color:var(--cream);opacity:.6;font-size:14px}
+@media(max-width:560px){.vf-lab{min-width:0;width:100%}}
+
+/* villas section — editorial 2-up carousel */
+.villas-head2{padding:0 var(--vmargin)}
+.villas-head2-top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+#villas .villa-filters{margin-top:clamp(20px,2.4vw,32px)}
+.villas-viewport::-webkit-scrollbar{display:none}
+#vTrack{--vgap:clamp(22px,2.4vw,40px);--vpeek:clamp(34px,6vw,76px);gap:var(--vgap)}
+#vTrack>.villa{flex:0 0 auto;width:calc((min(100vw - 80px, 1160px) - var(--vgap) - var(--vpeek)) / 2);scroll-snap-align:start}
+#vTrack .villa-gallery{aspect-ratio:4/3;margin-bottom:clamp(14px,1.4vw,20px)}
+.villa-caption{display:flex;flex-direction:column}
+.villa-caption h3{font-family:var(--display);font-weight:400;color:var(--cream);font-size:clamp(20px,1.7vw,27px);line-height:1.14;margin:0}
+.vnav{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--ink);font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.25s var(--ease)}
+.vnav:hover{border-color:var(--cream);background:rgba(239,230,210,.06)}
+@media(max-width:760px){#vTrack>.villa{flex:0 0 auto;width:calc(min(100vw - 80px, 1160px) - var(--vpeek))}}
+#villas .villas-viewport{scroll-padding-left:var(--vmargin);scroll-padding-right:var(--vmargin)}
 </style></head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -549,18 +564,18 @@ body.villa{--accent:var(--accent-villa)}
 
 <!-- HERO -->
 <header class="hero" id="hero">
-  <div class="hscene active" style="background-image:url('pictures/pedro-bariak-lVRolxDY5q0-unsplash.jpg')"></div>
-  <div class="hscene" style="background-image:url('pictures/mike-swigunski-k9Zeq6EH_bk-unsplash.jpg')"></div>
-  <div class="hscene" style="background-image:url('pictures/nattu-adnan-atSUvc1hMwk-unsplash.jpg')"></div>
+  <div class="hscene active" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/02ff41a0-cf18-477f-8a86-cd86fdb81e7a.jpg')"></div>
+  <div class="hscene" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/94cd7bcd-6821-4aa4-9132-834987003104.jpg')"></div>
+  <div class="hscene" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/c5f09992-7a6b-4851-8898-a59f19d9e169.jpg')"></div>
   <div class="hero-shade"></div>
   <div class="hero-content"><div class="wrap hero-grid">
     <div class="hero-main">
-      <p class="kick" id="h-kick" data-resort="Noonu Atoll · Maldives · Kept after three visits" data-villa="Baa Atoll · Maldives · Whole-island, by request" style="color:var(--cream)">Noonu Atoll · Maldives · Kept after three visits</p>
-      <h1 id="h-name" data-resort="NH Collection Maldives <em>Havodda</em> Resort" data-villa="The Lagoon <em>House</em>">NH Collection Maldives <em>Havodda</em> Resort</h1>
+      <p class="kick" id="h-kick" data-resort="Dhaalu Atoll · Maldives · Kept for the index" data-villa="Dhaalu Atoll · Maldives · The grand residence" style="color:var(--cream)">Dhaalu Atoll · Maldives · Kept for the index</p>
+      <h1 id="h-name" data-resort="The St. Regis Maldives <em>Vommuli</em> Resort" data-villa="The John Jacob <em>Astor</em> Estate">The St. Regis Maldives <em>Vommuli</em> Resort</h1>
       <div class="hero-facts" id="h-facts">
-        <span data-resort="<b>Overwater</b> · Water Retreat" data-villa="<b>Private island</b> · 4 bedrooms"><b>Overwater</b> · Water Retreat</span>
-        <span data-resort="<b>40 min</b> seaplane" data-villa="<b>35 min</b> seaplane + dhoni"><b>40 min</b> seaplane</span>
-        <span data-resort="Ranked <b>4 of 31</b> in the index" data-villa="<b>Held privately</b> · enquire">Ranked <b>4 of 31</b> in the index</span>
+        <span data-resort="<b>Overwater &amp; beach</b> · 77 villas" data-villa="<b>Private estate</b> · 3 bedrooms"><b>Overwater &amp; beach</b> · 77 villas</span>
+        <span data-resort="<b>45 min</b> seaplane" data-villa="<b>45 min</b> seaplane"><b>45 min</b> seaplane</span>
+        <span data-resort="Ranked <b>5 of 31</b> in the index" data-villa="<b>By request</b> · enquire">Ranked <b>5 of 31</b> in the index</span>
       </div>
     </div>
   </div></div>
@@ -570,19 +585,19 @@ body.villa{--accent:var(--accent-villa)}
 <section class="pad"><div class="wrap">
   <div class="intro-grid">
     <div class="reveal"><p class="kick">The editorial</p><h2 style="margin-top:18px">Why this one was <em>kept.</em></h2></div>
-    <div class="reveal d1"><p class="lede big">Two hundred and fourteen properties were considered for the index. Thirty-one survived. Soneva Jani stayed for four reasons, with one honest weakness we name up front, because you would notice it anyway.</p></div>
+    <div class="reveal d1"><p class="lede big">Two hundred and fourteen properties were considered for the index. Thirty-one survived. The St. Regis Maldives Vommuli stayed for four reasons, with one honest weakness we name up front, because you would notice it anyway.</p></div>
   </div>
   <div class="reasons">
-    <div class="reason reveal d1"><div class="r-no"></div><div><h3>The largest overwater villas</h3><p>From 411 m² to 1,664 m², with retractable roofs that open the bedroom to the sky. The waning moon this week makes the timing right.</p></div></div>
-    <div class="reason reveal d2"><div class="r-no"></div><div><h3>The quiet is structural</h3><p>Twenty-four villas across a 5.6 km lagoon. The nearest neighbour is far enough that you will not hear them. We measured.</p></div></div>
-    <div class="reason reveal d1"><div class="r-no"></div><div><h3>The only observatory in the country</h3><p>A roll-back roof, a resident astronomer, and the clearest night skies in the Maldives. Nowhere else has one.</p></div></div>
-    <div class="reason reveal d2"><div class="r-no"></div><div><h3>An honest weakness: the reef</h3><p>The lagoon is sand, not coral. Serious snorkelling is a 20-minute boat ride. If the house reef matters most, see Vakkaru, number 7 in the index.</p></div></div>
+    <div class="reason reveal d1"><div class="r-no"></div><div><h3>Architecture with a signature</h3><p>WOW Architects shaped the whole island — most of all The Whale Bar, a sweeping timber shell over the water that has become the resort’s emblem.</p></div></div>
+    <div class="reason reveal d2"><div class="r-no"></div><div><h3>The Iridium Spa &amp; Blue Hole</h3><p>An overwater spa reached by its own bridge, built around a marine Blue Hole hydrotherapy pool. Few spas in the Maldives match its scale.</p></div></div>
+    <div class="reason reveal d1"><div class="r-no"></div><div><h3>The St. Regis Butler</h3><p>A 24-hour butler to every villa, in the house tradition — the unpacking, the evening ritual, the things you would rather not ask twice for.</p></div></div>
+    <div class="reason reveal d2"><div class="r-no"></div><div><h3>An honest weakness: it is polished, not barefoot</h3><p>This is grand, design-led luxury rather than castaway simplicity. If you want bohemian and sand-between-the-toes, see Soneva, number 1 in the index.</p></div></div>
   </div>
 </div></section>
 
 <!-- VISUAL JOURNEY -->
 <section id="journey">
-  <div class="journey-panel" style="background-image:url('pictures/mike-swigunski-k9Zeq6EH_bk-unsplash.jpg')">
+  <div class="journey-panel" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/3cca861e-1302-4352-b95b-95d5896347aa.jpg')">
     <div class="j-cap">Shared spaces · the resort</div>
     <div class="j-gallery">
       <button class="jg-card" type="button" aria-label="Open shared-spaces gallery"></button>
@@ -598,20 +613,18 @@ body.villa{--accent:var(--accent-villa)}
 <section class="notes pad"><div class="wrap">
   <div class="reveal"><p class="kick">Our Kollection notes</p><h2 style="margin-top:18px">Measured by hand, <em>not by brochure.</em></h2></div>
   <div class="survey">
-    <div class="sv reveal"><div class="k">Sunset orientation</div><div class="v">West deck <em>· unobstructed</em></div></div>
-    
-    <div class="sv reveal d2"><div class="k">Hears the bar at midnight</div><div class="v">No <em>· villas 11–24</em></div></div>
-    <div class="sv reveal"><div class="k">Best villa numbers</div><div class="v">14, 15, 19 <em>· book early</em></div></div>
-    
-    <div class="sv reveal d2"><div class="k">Child policy</div><div class="v">All ages <em>· quiet by design</em></div></div>
+    <div class="sv reveal"><div class="k">Sunset orientation</div><div class="v">West villas <em>· Sunset Overwater</em></div></div>
+    <div class="sv reveal d2"><div class="k">Signature space</div><div class="v">The Whale Bar <em>· over the water</em></div></div>
+    <div class="sv reveal"><div class="k">Best for families</div><div class="v">Two-Bedroom Ocean <em>· beach access</em></div></div>
+    <div class="sv reveal d2"><div class="k">Child policy</div><div class="v">All ages <em>· large Kids’ Club</em></div></div>
   </div>
 <div class="glance">
-    <div class="gl reveal"><svg viewBox="0 0 24 24"><path d="M3 18 L21 18 M5 18 L5 12 L12 8 L19 12 L19 18 M9 18 L9 14 L15 14 L15 18"/></svg><b>24</b><span>Overwater villas</span></div>
-    <div class="gl reveal d1"><svg viewBox="0 0 24 24"><path d="M2 16 L22 16 M6 16 L9 9 L13 9 L18 16 M11 9 L11 5"/></svg><b>40<small style="font-size:13px"> min</small></b><span>Seaplane</span></div>
-    <div class="gl reveal d2"><svg viewBox="0 0 24 24"><path d="M3 12 C7 7,17 7,21 12 C17 17,7 17,3 12 Z"/><circle cx="12" cy="12" r="2.4"/></svg><b>5.6<small style="font-size:13px"> km</small></b><span>Lagoon</span></div>
-    <div class="gl reveal"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 14 L20 14"/></svg><b>411<small style="font-size:13px"> m²</small></b><span>Smallest villa</span></div>
-    <div class="gl reveal d1"><svg viewBox="0 0 24 24"><path d="M4 18 C8 10,16 10,20 18 Z"/><circle cx="12" cy="9" r="1.6"/></svg><b>1</b><span>Observatory</span></div>
-    <div class="gl reveal d2"><svg viewBox="0 0 24 24"><path d="M12 20 C7 14,7 7,12 4 C17 7,17 14,12 20 Z"/></svg><b>94<small style="font-size:13px"> Mbps</small></b><span>Villa wifi</span></div>
+    <div class="gl reveal"><svg viewBox="0 0 24 24"><path d="M3 18 L21 18 M5 18 L5 12 L12 8 L19 12 L19 18 M9 18 L9 14 L15 14 L15 18"/></svg><b>77</b><span>Villas &amp; suites</span></div>
+    <div class="gl reveal d1"><svg viewBox="0 0 24 24"><path d="M2 16 L22 16 M6 16 L9 9 L13 9 L18 16 M11 9 L11 5"/></svg><b>45<small style="font-size:13px"> min</small></b><span>Seaplane</span></div>
+    <div class="gl reveal d2"><svg viewBox="0 0 24 24"><path d="M3 12 C7 7,17 7,21 12 C17 17,7 17,3 12 Z"/><circle cx="12" cy="12" r="2.4"/></svg><b>9<small style="font-size:13px"> ha</small></b><span>Private island</span></div>
+    <div class="gl reveal"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 14 L20 14"/></svg><b>125<small style="font-size:13px"> m²</small></b><span>Smallest villa</span></div>
+    <div class="gl reveal d1"><svg viewBox="0 0 24 24"><path d="M4 18 C8 10,16 10,20 18 Z"/><circle cx="12" cy="9" r="1.6"/></svg><b>6</b><span>Dining venues</span></div>
+    <div class="gl reveal d2"><svg viewBox="0 0 24 24"><path d="M12 20 C7 14,7 7,12 4 C17 7,17 14,12 20 Z"/></svg><b>2016</b><span>Opened</span></div>
   </div>
 </div></section>
 
@@ -619,7 +632,7 @@ body.villa{--accent:var(--accent-villa)}
 <section class="quote-band">
   <div class="qb-inner">
     <p class="qb-eyebrow reveal">In their words</p>
-    <blockquote class="reveal">"We stayed three times before we kept it. The lagoon holds its colour even in flat weather. That is rarer than the brochures admit."</blockquote>
+    <blockquote class="reveal">"The architecture does something rare — it feels designed and effortless at once. The butler made the difference between a lovely stay and one we keep talking about."</blockquote>
     <div class="qb-by reveal">The Kollection survey team</div>
     <a class="qb-link reveal" href="#inquiry">More guest notes</a>
   </div>
@@ -627,123 +640,165 @@ body.villa{--accent:var(--accent-villa)}
 
 <!-- VILLAS -->
 <section class="pad villas-section" id="villas">
-  <div class="villas-row">
-    <div class="villas-head reveal">
-      <div><p class="kick">Choose your water</p><h2 style="margin-top:18px"><span id="vWays">3</span> ways <em>to stay.</em></h2></div>
+  <div class="villas-head2 reveal">
+    <div class="villas-head2-top">
+      <div><p class="kick">Choose your water</p><h2 style="margin-top:14px"><span id="vWays">11</span> ways <em>to stay.</em></h2></div>
       <button class="villas-all" id="vAll" type="button">View all villas <span aria-hidden="true">→</span></button>
     </div>
-    <div class="villas-right">
-    <div class="villas-viewport"><div class="villas-track" id="vTrack">
+    <div class="villa-filters" id="vFilter">
+      <div class="vf-row" data-group="setting"><span class="vf-lab">Setting</span><button class="vf-pill on" type="button" data-val="all">All</button><button class="vf-pill" type="button" data-val="overwater">Overwater</button><button class="vf-pill" type="button" data-val="beach">Beach</button><button class="vf-pill" type="button" data-val="garden">Garden</button></div>
+    </div>
+  </div>
+  <div class="villas-viewport"><div class="villas-track" id="vTrack">
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["pictures/hotelroom-1.jpg", "pictures/hotelroom-2.jpg"]'>
-        <div class="villa-img" style="background-image:url('pictures/hotelroom-1.jpg')"></div>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/017752cf-0160-45d0-aef8-639bb5cc8529.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/4804ca5e-5acf-4d9b-a2c1-745ae5de5ba2.jpg"]'>
+        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/017752cf-0160-45d0-aef8-639bb5cc8529.jpg')"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
         <div class="gal-dots"><i class="on"></i><i></i></div>
-        <div class="villa-overlay">
-          <h3>One-Bedroom Overwater Pool Villa with Retractable Roof</h3>
-          <div class="vfoot"><span class="vprice">$3,850 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
-        </div>
+      </div>
+      <div class="villa-caption">
+        <h3>Overwater Villa with Pool</h3>
+        <div class="vfoot"><span class="vprice">$2,400 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["pictures/hotelroom-3.jpg", "pictures/hotelroom-4.jpg"]'>
-        <div class="villa-img" style="background-image:url('pictures/hotelroom-3.jpg')"></div>
-        <div class="villa-tag">2 Bedrooms</div>
-        <button class="gal-prev" aria-label="Previous photo">‹</button>
-        <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
-        <div class="villa-overlay">
-          <h3>Two-Bedroom Sunset Water Villa with Private Pool</h3>
-          <div class="vfoot"><span class="vprice">$6,200 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
-        </div>
-      </div>
-    </div>
-    <div class="villa">
-      <div class="villa-gallery" data-imgs='["pictures/hotelroom-5.jpg", "pictures/hotelroom-1.jpg"]'>
-        <div class="villa-img" style="background-image:url('pictures/hotelroom-5.jpg')"></div>
-        <div class="villa-tag">4 Bedrooms</div>
-        <button class="gal-prev" aria-label="Previous photo">‹</button>
-        <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
-        <div class="villa-overlay">
-          <h3>Four-Bedroom Beach &amp; Lagoon Reserve with Private Staff</h3>
-          <div class="vfoot"><span class="vprice">$14,900 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
-        </div>
-      </div>
-    </div>
-    <div class="villa">
-      <div class="villa-gallery" data-imgs='["pictures/hotelroom-2.jpg", "pictures/hotelroom-3.jpg"]'>
-        <div class="villa-img" style="background-image:url('pictures/hotelroom-2.jpg')"></div>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/10663a4d-161d-4ccc-a840-4f4a911f87b7.jpg", "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/125ab4c3-4ca0-470d-976c-c278a4f9f0e8.jpg"]'>
+        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/10663a4d-161d-4ccc-a840-4f4a911f87b7.jpg')"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
         <div class="gal-dots"><i class="on"></i><i></i></div>
-        <div class="villa-overlay">
-          <h3>One-Bedroom Lagoon Villa with Sunrise Deck</h3>
-          <div class="vfoot"><span class="vprice">$3,200 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
-        </div>
+      </div>
+      <div class="villa-caption">
+        <h3>Sunset Overwater Villa with Pool</h3>
+        <div class="vfoot"><span class="vprice">$2,900 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["pictures/hotelroom-4.jpg", "pictures/hotelroom-5.jpg"]'>
-        <div class="villa-img" style="background-image:url('pictures/hotelroom-4.jpg')"></div>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0d104e1c-42b6-46e0-b4a6-f04b4a7be311.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0fc4d38e-59c5-49c3-88d4-750fa037e55e.jpg"]'>
+        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0d104e1c-42b6-46e0-b4a6-f04b4a7be311.jpg')"></div>
+        <div class="villa-tag">1 Bedroom</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+      </div>
+      <div class="villa-caption">
+        <h3>Overwater St. Regis Suite with Pool</h3>
+        <div class="vfoot"><span class="vprice">$4,200 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/264f03f0-0583-4798-bd21-dc8f4b600b36.jpg", "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/5212fb3a-35a6-4468-9bca-2ed9173641f8.jpg"]'>
+        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/264f03f0-0583-4798-bd21-dc8f4b600b36.jpg')"></div>
+        <div class="villa-tag">1 Bedroom</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+      </div>
+      <div class="villa-caption">
+        <h3>Beach Villa with Pool</h3>
+        <div class="vfoot"><span class="vprice">$2,200 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/1b32eb7c-6cc0-453a-b5b7-3b7fabe5421c.jpg", "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/4ce84233-6a64-4a9a-b532-e7392936548d.jpg"]'>
+        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/1b32eb7c-6cc0-453a-b5b7-3b7fabe5421c.jpg')"></div>
+        <div class="villa-tag">1 Bedroom</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+      </div>
+      <div class="villa-caption">
+        <h3>Garden Villa with Pool</h3>
+        <div class="vfoot"><span class="vprice">$1,950 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/1ae36f39-9f2d-4d2b-8536-9beee174d57c.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/22e27bf8-d628-4727-a6d3-28ed627f8208.jpg"]'>
+        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/1ae36f39-9f2d-4d2b-8536-9beee174d57c.jpg')"></div>
         <div class="villa-tag">2 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
         <div class="gal-dots"><i class="on"></i><i></i></div>
-        <div class="villa-overlay">
-          <h3>Two-Bedroom Beach Pool Villa</h3>
-          <div class="vfoot"><span class="vprice">$5,400 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
-        </div>
+      </div>
+      <div class="villa-caption">
+        <h3>Two-Bedroom Ocean Villa with Pool</h3>
+        <div class="vfoot"><span class="vprice">$4,800 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["pictures/hotelroom-1.jpg", "pictures/hotelroom-3.jpg"]'>
-        <div class="villa-img" style="background-image:url('pictures/hotelroom-1.jpg')"></div>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/01eab34b-124e-411e-900c-6fbd8c43ca30.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/08f69ea0-e163-4bf6-ad17-8a992d90cd36.jpg"]'>
+        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/01eab34b-124e-411e-900c-6fbd8c43ca30.jpg')"></div>
+        <div class="villa-tag">2 Bedrooms</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+      </div>
+      <div class="villa-caption">
+        <h3>Two-Bedroom Sunset Overwater Villa with Pool</h3>
+        <div class="vfoot"><span class="vprice">$5,600 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/01d33fa7-9f44-411a-84ac-ac8729cd1c5a.jpg", "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/09b6fa0b-c156-47f5-b682-2398169b1611.jpeg"]'>
+        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/01d33fa7-9f44-411a-84ac-ac8729cd1c5a.jpg')"></div>
+        <div class="villa-tag">2 Bedrooms</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+      </div>
+      <div class="villa-caption">
+        <h3>Knickerbocker Villa</h3>
+        <div class="vfoot"><span class="vprice">$6,400 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0055ea64-9af5-44da-9496-1981cc9ca34d.jpg", "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/090897d7-2aee-4970-aff1-66f7ad0baacd.jpg"]'>
+        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0055ea64-9af5-44da-9496-1981cc9ca34d.jpg')"></div>
         <div class="villa-tag">3 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
         <div class="gal-dots"><i class="on"></i><i></i></div>
-        <div class="villa-overlay">
-          <h3>Three-Bedroom Overwater Residence with Pool</h3>
-          <div class="vfoot"><span class="vprice">$9,800 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
-        </div>
+      </div>
+      <div class="villa-caption">
+        <h3>Cesar Balsa Villa</h3>
+        <div class="vfoot"><span class="vprice">$8,900 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
       </div>
     </div>
     <div class="villa">
-      <div class="villa-gallery" data-imgs='["pictures/hotelroom-2.jpg", "pictures/hotelroom-4.jpg"]'>
-        <div class="villa-img" style="background-image:url('pictures/hotelroom-2.jpg')"></div>
-        <div class="villa-tag">1 Bedroom</div>
-        <button class="gal-prev" aria-label="Previous photo">‹</button>
-        <button class="gal-next" aria-label="Next photo">›</button>
-        <div class="gal-dots"><i class="on"></i><i></i></div>
-        <div class="villa-overlay">
-          <h3>One-Bedroom Garden Pool Villa</h3>
-          <div class="vfoot"><span class="vprice">$2,900 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
-        </div>
-      </div>
-    </div>
-    <div class="villa">
-      <div class="villa-gallery" data-imgs='["pictures/hotelroom-5.jpg", "pictures/hotelroom-2.jpg"]'>
-        <div class="villa-img" style="background-image:url('pictures/hotelroom-5.jpg')"></div>
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/00f35a3c-be6d-440c-8ddb-9d17ad0aa386.jpg", "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/0267913a-8813-4852-9cf4-f1448f86969a.jpg"]'>
+        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/00f35a3c-be6d-440c-8ddb-9d17ad0aa386.jpg')"></div>
         <div class="villa-tag">2 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
         <div class="gal-dots"><i class="on"></i><i></i></div>
-        <div class="villa-overlay">
-          <h3>Two-Bedroom Family Water Villa</h3>
-          <div class="vfoot"><span class="vprice">$5,900 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
-        </div>
+      </div>
+      <div class="villa-caption">
+        <h3>The Caroline Astor Estate</h3>
+        <div class="vfoot"><span class="vprice">$11,500 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+      </div>
+    </div>
+    <div class="villa">
+      <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/17198373-73ab-4906-800d-57339c88c912.jpg", "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/174f0ca1-de7c-4bbd-aa42-1bc29a674e20.jpg"]'>
+        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/17198373-73ab-4906-800d-57339c88c912.jpg')"></div>
+        <div class="villa-tag">3 Bedrooms</div>
+        <button class="gal-prev" aria-label="Previous photo">‹</button>
+        <button class="gal-next" aria-label="Next photo">›</button>
+        <div class="gal-dots"><i class="on"></i><i></i></div>
+      </div>
+      <div class="villa-caption">
+        <h3>The John Jacob Astor Estate</h3>
+        <div class="vfoot"><span class="vprice">$16,800 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
       </div>
     </div>
   </div></div>
-    <div class="villas-progress">
-      <span class="vprog-count"><span id="vCur">01</span> <i>/</i> <span id="vTotal">08</span></span>
-      <div class="vbar" id="vBar"><div class="vbar-thumb" id="vThumb"></div></div>
-    </div>
-    </div>
+  <div class="villas-progress">
+    <button class="vnav vnav-prev" id="vPrev" type="button" aria-label="Previous villas">‹</button>
+    <div class="vbar" id="vBar"><div class="vbar-thumb" id="vThumb"></div></div>
+    <button class="vnav vnav-next" id="vNext" type="button" aria-label="Next villas">›</button>
+    <span class="vprog-count"><span id="vCur">01</span> <i>/</i> <span id="vTotal">11</span></span>
   </div>
 </section>
 
@@ -751,25 +806,25 @@ body.villa{--accent:var(--accent-villa)}
 <section class="pad"><div class="wrap" id="closer-look">
   <div class="reveal"><p class="kick">A closer look</p><h2 style="margin-top:18px">Around <em>the island.</em></h2></div>
   <div class="amen amen--reverse">
-    <div class="amen-feature"><div class="amen-img" style="background-image:url('pictures/nattu-adnan-atSUvc1hMwk-unsplash.jpg')"></div></div>
+    <div class="amen-feature"><div class="amen-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/4f94d408-3f58-4a82-9ee2-367492e16a15.jpg')"></div></div>
     <div class="amen-list">
-      <button class="amen-item active" data-img="pictures/nattu-adnan-atSUvc1hMwk-unsplash.jpg">
-        <span class="amen-tag">The grounds</span><span class="amen-name">The atoll</span>
-        <span class="amen-desc">Palm and white sand ringed by a lagoon clear to the bottom — the whole island readable from the air.</span>
+      <button class="amen-item active" data-img="the-st-regis-maldives-vommuli-resort/photos/4f94d408-3f58-4a82-9ee2-367492e16a15.jpg">
+        <span class="amen-tag">The grounds</span><span class="amen-name">Vommuli Island</span>
+        <span class="amen-desc">Nine hectares of palm and white sand ringed by lagoon — a dense, green island you can read from the air.</span>
       </button>
-      <button class="amen-item" data-img="pictures/Massage1.jpg">
-        <span class="amen-tag">Wellness</span><span class="amen-name">The overwater spa</span>
-        <span class="amen-desc">A pavilion of treatment rooms above the water, with therapists chosen by season.</span>
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/iridium-spa/0c200445-8711-4b6c-94f5-c9b5a3343185.jpg">
+        <span class="amen-tag">Wellness</span><span class="amen-name">Iridium Spa</span>
+        <span class="amen-desc">An overwater spa reached by its own bridge, built around a marine Blue Hole hydrotherapy pool.</span>
       </button>
-      <button class="amen-item" data-img="pictures/Yoga.jpg">
-        <span class="amen-tag">At dawn</span><span class="amen-name">Sunrise yoga</span>
-        <span class="amen-desc">A deck facing east, a teacher, and the first light coming up over the reef.</span>
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/yoga-meditation-studio/6856ee6d-b224-4085-9fec-b2b539c23755.jpg">
+        <span class="amen-tag">At dawn</span><span class="amen-name">Yoga &amp; meditation</span>
+        <span class="amen-desc">A dedicated studio and an east-facing deck, with the first light coming up over the reef.</span>
       </button>
-      <button class="amen-item" data-img="pictures/rayyu-maldives-cDsfRDTqg_8-unsplash.jpg">
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/snorkeling/63ec53a6-ea4e-4bfe-b7e0-6f8d996571db.jpg">
         <span class="amen-tag">Marine</span><span class="amen-name">The house reef</span>
-        <span class="amen-desc">Hawksbill turtles and reef fish, a fin-kick from the villa steps.</span>
+        <span class="amen-desc">Turtles and reef fish a fin-kick from the overwater steps, with guided snorkelling on call.</span>
       </button>
-      <button class="amen-item" data-img="pictures/moosa-haleem-758Km8MAcyI-unsplash.jpg">
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/beach/ca18f7f0-fa11-44c2-9d68-50965298be9f.jpg">
         <span class="amen-tag">The shore</span><span class="amen-name">The beach</span>
         <span class="amen-desc">Powder sand the length of the island, raked at dawn and yours by mid-morning.</span>
       </button>
@@ -781,31 +836,38 @@ body.villa{--accent:var(--accent-villa)}
 <section class="pad" id="dining" style="background:var(--bg2)"><div class="wrap">
   <div class="reveal"><p class="kick">On the island</p><h2 style="margin-top:18px">Amenities, <em>and the table.</em></h2></div>
   <div class="chips reveal d1">
-    <span class="chip">Observatory</span><span class="chip">Outdoor cinema</span><span class="chip">Overwater spa</span><span class="chip">Dive centre</span><span class="chip">Tennis</span><span class="chip">Kids' den</span><span class="chip">Wine cellar</span><span class="chip">Chocolate room</span><span class="chip">Sandbank dining</span><span class="chip">Gym &amp; yoga</span>
+    <span class="chip">Iridium Spa</span><span class="chip">Blue Hole hydrotherapy</span><span class="chip">Infinity pool</span><span class="chip">The Whale Bar</span><span class="chip">Decanter wine cellar</span><span class="chip">Jungle cinema</span><span class="chip">Dive centre</span><span class="chip">Tennis</span><span class="chip">Children’s Club</span><span class="chip">Yoga studio</span><span class="chip">Fitness centre</span><span class="chip">Library</span><span class="chip">Observatory lounge</span><span class="chip">Boutique</span><span class="chip">Sunset dolphin cruise</span><span class="chip">Luxury yacht</span><span class="chip">Water sports</span><span class="chip">Salon</span><span class="chip">Sandbank picnic</span><span class="chip">Floating breakfast</span>
   </div>
   <div class="amen">
-    <div class="amen-feature"><div class="amen-img" id="amenImg" style="background-image:url('pictures/Plate.jpg')"></div></div>
+    <div class="amen-feature"><div class="amen-img" id="amenImg" style="background-image:url('the-st-regis-maldives-vommuli-resort/outlets/alba/3abf79bb-20b4-4f2c-b3ef-a27805b135a4.jpg')"></div></div>
     <div class="amen-list">
-      <button class="amen-item active" data-img="pictures/Plate.jpg">
-        <span class="amen-tag">Overwater · All-day</span><span class="amen-name">Out of the Blue</span>
-        <span class="amen-desc">Sushi and teppanyaki counters above the lagoon, with the reef visible through the glass floor at lunch.</span>
+      <button class="amen-item active" data-img="the-st-regis-maldives-vommuli-resort/outlets/alba/3abf79bb-20b4-4f2c-b3ef-a27805b135a4.jpg">
+        <span class="amen-tag">Overwater · Italian</span><span class="amen-name">Alba</span>
+        <span class="amen-desc">Sunlit Italian dining over the lagoon — handmade pasta, wood-fired and bright, from morning to last light.</span>
       </button>
-      <button class="amen-item" data-img="pictures/Restaurant.jpg">
-        <span class="amen-tag">Below the waterline</span><span class="amen-name">The Cellar</span>
-        <span class="amen-desc">A wine-and-cheese room six metres under the surface, wrapped in the house reef. The list runs past a thousand labels.</span>
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/orientale/03484f08-9cdc-43d4-8203-faa06120bc0f.jpg">
+        <span class="amen-tag">Pan-Asian</span><span class="amen-name">Orientale</span>
+        <span class="amen-desc">Cantonese and pan-Asian plates in a lantern-lit room, with a dim sum brunch that draws the whole island.</span>
       </button>
-      <button class="amen-item" data-img="pictures/moosa-haleem-758Km8MAcyI-unsplash.jpg">
-        <span class="amen-tag">Private · By request</span><span class="amen-name">The Sandbank</span>
-        <span class="amen-desc">A single table on a bare sandbank at low tide, reached by dhoni. Your chef, your menu, the ocean on every side.</span>
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/decanter/167c9b49-fe96-4740-918f-a96bce540802.jpg">
+        <span class="amen-tag">Wine cellar</span><span class="amen-name">Decanter</span>
+        <span class="amen-desc">A temperature-kept cellar of old- and new-world labels, poured beside a chef’s tasting counter.</span>
       </button>
-      <button class="amen-item" data-img="pictures/Hero_sunset.jpg">
-        <span class="amen-tag">Nightcaps</span><span class="amen-name">Observatory Bar</span>
-        <span class="amen-desc">Drinks under the open dome with the resident astronomer, and the Milky Way overhead when the moon allows.</span>
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/the-whale-bar/11eb651d-125b-457f-ab3a-451f3486fbce.jpg">
+        <span class="amen-tag">Cocktails</span><span class="amen-name">The Whale Bar</span>
+        <span class="amen-desc">The resort’s sculptural signature — a timber shell over the water where the bar runs long into the evening.</span>
+      </button>
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/cargo/3253d1a2-2552-4c9e-8f3d-421765e05deb.jpg">
+        <span class="amen-tag">Tapas · Lounge</span><span class="amen-name">Cargo</span>
+        <span class="amen-desc">Small plates and cocktails in a shipping-inspired lounge — the island’s easy, late-afternoon gathering point.</span>
+      </button>
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/crust-craft/27b8ea35-7553-4cd9-8858-87046ab59fc9.jpg">
+        <span class="amen-tag">Artisan pizza</span><span class="amen-name">Crust</span>
+        <span class="amen-desc">Thin, blistered pizza from a wood oven, served barefoot by the pool through the afternoon.</span>
       </button>
     </div>
   </div>
 </div></section>
-
 
 <!-- INQUIRY -->
 <section class="inquiry pad" id="inquiry"><div class="wrap">
@@ -813,7 +875,7 @@ body.villa{--accent:var(--accent-villa)}
   <div class="iq-grid">
     <div class="iq-form reveal d1">
       <div class="iq-row"><div class="iq"><div class="k">Arrive</div><div class="v">12 Nov 2026</div></div><div class="iq"><div class="k">Depart</div><div class="v">19 Nov 2026</div></div></div>
-      <div class="iq-row"><div class="iq"><div class="k">Guests</div><div class="v">2 adults</div></div><div class="iq"><div class="k">Villa</div><div class="v" id="iq-villa">Chapter One · Water Retreat</div></div></div>
+      <div class="iq-row"><div class="iq"><div class="k">Guests</div><div class="v">2 adults</div></div><div class="iq"><div class="k">Villa</div><div class="v" id="iq-villa">Overwater Villa with Pool</div></div></div>
       <div class="iq-msg"><div class="k">A note to your advisor</div><div class="v">An anniversary , a quiet, sunset-facing villa, with the observatory dinner one evening…</div></div>
       <div style="padding:0 18px 18px"><button class="iq-cta">Make an enquiry</button><p class="iq-note">No card needed · a real person replies within a day</p></div>
     </div>
@@ -824,9 +886,6 @@ body.villa{--accent:var(--accent-villa)}
     </div>
   </div>
 </div></section>
-
-
-
 
 <footer class="sitefoot">
   <div class="wrap">
@@ -879,6 +938,23 @@ body.villa{--accent:var(--accent-villa)}
       <button class="gal-close" type="button" data-close aria-label="Close">&#10005;</button>
     </div>
     <div class="villa-modal-grid" id="villaModalGrid"></div>
+    <p class="vf-empty" id="vf-empty" hidden>No villas match those filters — try another combination.</p>
+  </div>
+</div>
+
+<!-- VILLA DETAIL GALLERY DIALOG -->
+<div class="gal-modal" id="villaDetailModal" style="z-index:9600" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Villa gallery">
+  <div class="gal-backdrop" data-close></div>
+  <div class="gal-dialog">
+    <div class="gal-bar">
+      <div>
+        <p class="kick" id="vd-tag"></p>
+        <div class="gal-title" id="vd-name"></div>
+        <p id="vd-meta" style="margin-top:10px;max-width:62ch;color:var(--cream);opacity:.82;font-size:14px;line-height:1.55"></p>
+      </div>
+      <button class="gal-close" type="button" data-close aria-label="Close">&#10005;</button>
+    </div>
+    <div class="gal-grid" id="vd-grid"></div>
   </div>
 </div>
 
@@ -952,7 +1028,7 @@ body.villa{--accent:var(--accent-villa)}
     swap.forEach(el=>el.innerHTML=el.dataset[m]);
     if(tr)tr.classList.toggle('on',m==='resort');if(tv)tv.classList.toggle('on',m==='villa');
     const iq=document.getElementById('iq-villa');
-    if(iq)iq.textContent = m==='villa'?'The Lagoon House \u00b7 4 BR':'Chapter One \u00b7 Water Retreat';
+    if(iq)iq.textContent = m==='villa'?'John Jacob Astor Estate \u00b7 3 BR':'Overwater Villa with Pool';
     fitHeroName();   // name length changed \u2014 refit
   }
   if(tr)tr.addEventListener('click',e=>{e.preventDefault();setMode('resort');});
@@ -972,65 +1048,94 @@ body.villa{--accent:var(--accent-villa)}
     if(p)p.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();set(i-1);});
     if(nx)nx.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();set(i+1);});}
   document.querySelectorAll('#vTrack .villa-gallery').forEach(initVillaGallery);
-  // villa count + scroll-strip progress bar + "view all villas" dialog
-  (function(){const track=document.getElementById('vTrack');if(!track)return;
-    const cards=[...track.children];const n=cards.length;const pad=x=>String(x).padStart(2,'0');
-    const ways=document.getElementById('vWays'),waysM=document.getElementById('vWaysModal');
-    if(ways)ways.textContent=n;if(waysM)waysM.textContent=n;     // headline number tracks the villa count
-    const total=document.getElementById('vTotal'),curEl=document.getElementById('vCur');
-    if(total)total.textContent=pad(n);
-    // draggable progress bar synced to the horizontal scroll strip
-    const vp=track.parentElement,bar=document.getElementById('vBar'),thumb=document.getElementById('vThumb');
-    if(vp&&bar&&thumb){
-      const metrics=()=>{const max=Math.max(0,vp.scrollWidth-vp.clientWidth),barW=bar.clientWidth,
-        tW=Math.max(26,barW*Math.min(1,vp.clientWidth/vp.scrollWidth));return{max,barW,tW};};
-      function render(){const{max,barW,tW}=metrics();const ratio=max>0?vp.scrollLeft/max:0;
-        thumb.style.width=tW+'px';thumb.style.left=(ratio*(barW-tW))+'px';
-        if(curEl)curEl.textContent=pad(1+Math.round(ratio*(n-1)));}
-      vp.addEventListener('scroll',()=>requestAnimationFrame(render),{passive:true});
-      addEventListener('resize',render);
-      let drag=false,sx=0,sl=0;
-      thumb.addEventListener('pointerdown',e=>{drag=true;sx=e.clientX;sl=vp.scrollLeft;bar.classList.add('drag');
-        thumb.setPointerCapture(e.pointerId);e.preventDefault();});
-      thumb.addEventListener('pointermove',e=>{if(!drag)return;const{max,barW,tW}=metrics();const span=barW-tW;
-        if(span>0)vp.scrollLeft=sl+(e.clientX-sx)*(max/span);});
-      const end=()=>{drag=false;bar.classList.remove('drag');};
-      thumb.addEventListener('pointerup',end);thumb.addEventListener('pointercancel',end);
-      bar.addEventListener('pointerdown',e=>{if(e.target===thumb)return;const{max,barW,tW}=metrics();
-        const x=e.clientX-bar.getBoundingClientRect().left-tW/2;vp.scrollLeft=Math.max(0,Math.min(1,x/(barW-tW)))*max;});
+  // villas carousel — count, scrubber, arrows, setting filter + the all-villas dialog
+  (function(){
+    const track=document.getElementById('vTrack'); if(!track)return;
+    const allCards=[...track.children];
+    const pad=function(x){return String(x).padStart(2,'0');};
+    const SETTING={"Overwater Villa with Pool": "overwater", "Sunset Overwater Villa with Pool": "overwater", "Overwater St. Regis Suite with Pool": "overwater", "Beach Villa with Pool": "beach", "Garden Villa with Pool": "garden", "Two-Bedroom Ocean Villa with Pool": "beach", "Two-Bedroom Sunset Overwater Villa with Pool": "overwater", "Knickerbocker Villa": "beach", "Cesar Balsa Villa": "beach", "The Caroline Astor Estate": "overwater", "The John Jacob Astor Estate": "beach"};
+    const vp=track.parentElement,bar=document.getElementById('vBar'),thumb=document.getElementById('vThumb'),
+          curEl=document.getElementById('vCur'),totalEl=document.getElementById('vTotal'),
+          waysEl=document.getElementById('vWays'),waysM=document.getElementById('vWaysModal'),
+          prevBtn=document.getElementById('vPrev'),nextBtn=document.getElementById('vNext'),
+          modal=document.getElementById('villaModal'),grid=document.getElementById('villaModalGrid'),
+          openBtn=document.getElementById('vAll'),emptyEl=document.getElementById('vf-empty');
+    let setting='all';
+    function settingOf(el){var h=el.querySelector('h3');return h?SETTING[h.textContent.trim()]:null;}
+    function shown(){return allCards.filter(function(c){return c.style.display!=='none';});}
+    function metrics(){var max=Math.max(0,vp.scrollWidth-vp.clientWidth),barW=bar?bar.clientWidth:0,
+      tW=Math.max(28,barW*Math.min(1,vp.clientWidth/Math.max(1,vp.scrollWidth)));return{max:max,barW:barW,tW:tW};}
+    function render(){var n=shown().length;var m=metrics();var ratio=m.max>0?vp.scrollLeft/m.max:0;
+      if(thumb){thumb.style.width=m.tW+'px';thumb.style.left=(ratio*(m.barW-m.tW))+'px';}
+      if(curEl)curEl.textContent=pad(Math.min(n,1+Math.round(ratio*(Math.max(1,n)-1))));}
+    const VILLAS=[{"name": "Overwater Villa with Pool", "meta": "1 Bedroom · Overwater", "price": "$2,400", "desc": "A glass-railed deck over the lagoon, a private pool at its edge, and steps that drop straight into water clear to the sand.", "img": "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/017752cf-0160-45d0-aef8-639bb5cc8529.jpg"}, {"name": "Sunset Overwater Villa with Pool", "meta": "1 Bedroom · Overwater", "price": "$2,900", "desc": "West-facing over the lagoon, angled for the evening light, with an infinity pool that runs into the colour of the sky.", "img": "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/10663a4d-161d-4ccc-a840-4f4a911f87b7.jpg"}, {"name": "Overwater St. Regis Suite with Pool", "meta": "1 Bedroom · Overwater", "price": "$4,200", "desc": "The signature suite on the water — a wraparound deck, a sunken lounge and a pool set above the reef, with a butler on call.", "img": "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0d104e1c-42b6-46e0-b4a6-f04b4a7be311.jpg"}, {"name": "Beach Villa with Pool", "meta": "1 Bedroom · Beach", "price": "$2,200", "desc": "Powder sand at the threshold, a walled garden and a private pool, a short barefoot walk from the lagoon’s edge.", "img": "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/264f03f0-0583-4798-bd21-dc8f4b600b36.jpg"}, {"name": "Garden Villa with Pool", "meta": "1 Bedroom · Garden", "price": "$1,950", "desc": "Tucked into the island’s greenery, a quiet pavilion with its own pool and courtyard, screened by palms.", "img": "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/1b32eb7c-6cc0-453a-b5b7-3b7fabe5421c.jpg"}, {"name": "Two-Bedroom Ocean Villa with Pool", "meta": "2 Bedrooms · Beach", "price": "$4,800", "desc": "Two bedrooms opening to the Indian Ocean, a generous deck and pool — built for a family or two couples sharing the water.", "img": "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/1ae36f39-9f2d-4d2b-8536-9beee174d57c.jpg"}, {"name": "Two-Bedroom Sunset Overwater Villa with Pool", "meta": "2 Bedrooms · Overwater", "price": "$5,600", "desc": "A double overwater villa facing the sunset, with two suites, a long pool deck and an uninterrupted western horizon.", "img": "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/01eab34b-124e-411e-900c-6fbd8c43ca30.jpg"}, {"name": "Knickerbocker Villa", "meta": "2 Bedrooms · Beach", "price": "$6,400", "desc": "A beachfront residence named for the St. Regis legacy — two bedrooms, a private pool and lawn opening onto the sand.", "img": "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/01d33fa7-9f44-411a-84ac-ac8729cd1c5a.jpg"}, {"name": "Cesar Balsa Villa", "meta": "3 Bedrooms · Beach", "price": "$8,900", "desc": "A three-bedroom beach retreat with its own pool, garden and direct shore access — space enough to disappear into.", "img": "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0055ea64-9af5-44da-9496-1981cc9ca34d.jpg"}, {"name": "The Caroline Astor Estate", "meta": "2 Bedrooms · Overwater", "price": "$11,500", "desc": "An overwater estate with a sweeping deck, private pool and dedicated butler — the quieter of the two grand residences.", "img": "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/00f35a3c-be6d-440c-8ddb-9d17ad0aa386.jpg"}, {"name": "The John Jacob Astor Estate", "meta": "3 Bedrooms · Beach", "price": "$16,800", "desc": "The flagship — a three-bedroom estate over the water with a gym, spa room, sweeping pool and a team to run it all.", "img": "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/17198373-73ab-4906-800d-57339c88c912.jpg"}];
+    if(grid){VILLAS.forEach(function(v){var row=document.createElement('div');row.className='villa villa-row';
+      row.innerHTML='<div class="vr-img" style="background-image:url(\''+v.img+'\')"></div>'
+        +'<div class="vr-body"><div class="vr-meta">'+v.meta+'</div><h3>'+v.name+'</h3>'
+        +'<p class="vr-desc">'+v.desc+'</p>'
+        +'<div class="vr-foot"><span class="vprice">'+v.price+' <span>/ night</span></span>'
+        +'<a class="vview" href="#inquiry">View villa →</a></div></div>';
+      grid.appendChild(row);});}
+    function applyFilter(){
+      allCards.forEach(function(c){var s=settingOf(c);c.style.display=(setting==='all'||s===setting)?'':'none';});
+      var vis=shown().length;
+      if(waysEl)waysEl.textContent=vis; if(totalEl)totalEl.textContent=pad(vis);
+      vp.scrollLeft=0;
+      if(grid){var mv=0;[...grid.children].forEach(function(r){var s=settingOf(r);var ok=(setting==='all'||s===setting);
+        r.style.display=ok?'':'none';if(ok)mv++;});
+        if(waysM)waysM.textContent=mv; if(emptyEl)emptyEl.hidden=mv>0;}
       requestAnimationFrame(render);
     }
-    // "view all villas" dialog (clones every villa into a grid)
-    const modal=document.getElementById('villaModal'),grid=document.getElementById('villaModalGrid'),btn=document.getElementById('vAll');
-    if(modal&&grid&&btn){
-      cards.forEach(c=>{const clone=c.cloneNode(true);grid.appendChild(clone);initVillaGallery(clone.querySelector('.villa-gallery'));});
-      let lastFocus=null;
-      const open=()=>{lastFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';};
-      const close=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus();};
-      btn.addEventListener('click',open);
-      modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',close));
-      addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))close();});
+    document.querySelectorAll('#vFilter .vf-pill').forEach(function(p){
+      p.addEventListener('click',function(){
+        document.querySelectorAll('#vFilter .vf-pill').forEach(function(x){x.classList.remove('on');});
+        p.classList.add('on');setting=p.dataset.val;applyFilter();});
+    });
+    if(vp&&bar&&thumb){
+      vp.addEventListener('scroll',function(){requestAnimationFrame(render);},{passive:true});
+      addEventListener('resize',render);
+      var drag=false,sx=0,sl=0;
+      thumb.addEventListener('pointerdown',function(e){drag=true;sx=e.clientX;sl=vp.scrollLeft;bar.classList.add('drag');thumb.setPointerCapture(e.pointerId);e.preventDefault();});
+      thumb.addEventListener('pointermove',function(e){if(!drag)return;var m=metrics();var span=m.barW-m.tW;if(span>0)vp.scrollLeft=sl+(e.clientX-sx)*(m.max/span);});
+      var endDrag=function(){drag=false;bar.classList.remove('drag');};
+      thumb.addEventListener('pointerup',endDrag);thumb.addEventListener('pointercancel',endDrag);
+      bar.addEventListener('pointerdown',function(e){if(e.target===thumb)return;var m=metrics();var x=e.clientX-bar.getBoundingClientRect().left-m.tW/2;vp.scrollLeft=Math.max(0,Math.min(1,x/(m.barW-m.tW)))*m.max;});
     }
+    function step(){var c=shown()[0];var cs=getComputedStyle(track);var gap=parseFloat(cs.columnGap||cs.gap)||32;return c?c.getBoundingClientRect().width+gap:vp.clientWidth*0.6;}
+    if(prevBtn)prevBtn.addEventListener('click',function(){vp.scrollBy({left:-step(),behavior:'smooth'});});
+    if(nextBtn)nextBtn.addEventListener('click',function(){vp.scrollBy({left:step(),behavior:'smooth'});});
+    if(modal&&grid&&openBtn){
+      var lastFocus=null;
+      var open=function(){lastFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';};
+      var close=function(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus();};
+      openBtn.addEventListener('click',open);
+      modal.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',close);});
+      addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open'))close();});
+    }
+    if(waysEl)waysEl.textContent=allCards.length;
+    if(totalEl)totalEl.textContent=pad(allCards.length);
+    if(waysM)waysM.textContent=allCards.length;
+    requestAnimationFrame(render);
   })();
   // shared-spaces gallery (journey section) + dialog
   (function(){
     const strip=document.querySelector('.j-gallery'),modal=document.getElementById('galModal'),grid=document.getElementById('galGrid');
     if(!strip||!modal||!grid)return;
     const JG=[
-      {src:'pictures/LandingPage_hero.jpg',cap:'Arrival jetty'},
-      {src:'pictures/Restaurant.jpg',cap:'Main restaurant'},
-      {src:'pictures/chelsea-gates-0653_wY0nRc-unsplash.jpg',cap:'Lagoon deck'},
-      {src:'pictures/Yoga.jpg',cap:'Yoga pavilion'},
-      {src:'pictures/Plate.jpg',cap:"Chef's table"},
-      {src:'pictures/Massage1.jpg',cap:'Overwater spa'},
-      {src:'pictures/Massage2.jpg',cap:'Treatment room'},
-      {src:'pictures/Hero_sunset.jpg',cap:'Sunset bar'},
-      {src:'pictures/pedro-bariak-lVRolxDY5q0-unsplash.jpg',cap:'Reef boardwalk'},
-      {src:'pictures/moosa-haleem-758Km8MAcyI-unsplash.jpg',cap:'Beach garden'},
-      {src:'pictures/rayyu-maldives-cDsfRDTqg_8-unsplash.jpg',cap:'Reception & arrival'},
-      {src:'pictures/shifaaz-shamoon-qtbV_8P_Ksk-unsplash.jpg',cap:'House reef'},
-      {src:'pictures/matheen-faiz-OcrTk7qXcdM-unsplash.jpg',cap:'Island walk'},
-      {src:'pictures/nattu-adnan-atSUvc1hMwk-unsplash.jpg',cap:'Evening lounge'}
+      {src:'the-st-regis-maldives-vommuli-resort/photos/02ff41a0-cf18-477f-8a86-cd86fdb81e7a.jpg',cap:"Island arrival"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/1d7bdf18-acf5-4055-a929-59142c32af23.jpg',cap:"Vommuli House"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/262501f4-58e6-4c91-9310-f27f4ffa1f9c.jpg',cap:"Overwater walkways"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/3cca861e-1302-4352-b95b-95d5896347aa.jpg',cap:"The Whale Bar"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/4c2af86e-9ebd-48bc-bf89-01f9564ab858.jpg',cap:"Lagoon & pool"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/4f94d408-3f58-4a82-9ee2-367492e16a15.jpg',cap:"Iridium Spa"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/82756301-654d-46cf-a045-7a2817d937c9.jpg',cap:"Sandbank"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/94cd7bcd-6821-4aa4-9132-834987003104.jpg',cap:"Reef boardwalk"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/a4e6c5b7-b0fc-4afb-95f5-8853a997d964.jpg',cap:"Island greenery"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/b41100b3-cd61-4042-bdd5-b4f726e9b7e2.jpg',cap:"Sunset on the water"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/bc0ff311-f6db-4722-97d8-b28f2401f110.jpg',cap:"Beach & shore"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/c25249b7-f066-49cd-8a96-fcc8d36c9a75.jpg',cap:"Reception & arrival"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/c5f09992-7a6b-4851-8898-a59f19d9e169.jpg',cap:"House reef"},
+      {src:'the-st-regis-maldives-vommuli-resort/photos/c84044c6-254e-4de9-893f-8dcc1f86c990.jpg',cap:"Evening on the island"}
     ];
     const cards=[...strip.querySelectorAll('.jg-card')],previews=cards.slice(0,-1),more=cards[cards.length-1];
     previews.forEach((c,i)=>{if(JG[i])c.style.backgroundImage="url('"+JG[i].src+"')";});
@@ -1043,5 +1148,348 @@ body.villa{--accent:var(--accent-villa)}
     modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',close));
     addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))close();});
   })();
+</script>
+<script>
+// per-villa photo galleries — "View villa →" opens the matching villa's full photo set
+(function(){
+  const VILLA_GALLERIES = {
+  "Overwater Villa with Pool": {
+    "tag": "1 Bedroom",
+    "price": "$2,400",
+    "desc": "A glass-railed deck over the lagoon, a private pool at its edge, and steps that drop straight into water clear to the sand.",
+    "imgs": [
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/017752cf-0160-45d0-aef8-639bb5cc8529.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/4804ca5e-5acf-4d9b-a2c1-745ae5de5ba2.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/535d6a15-4dba-474a-a3b4-0eed41b0ce82.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/5f345688-dbbc-410a-a3b5-acc2779e3e89.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/6077809c-1a23-4766-aa81-6ec5fa689d92.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/77cc84d6-bd68-483b-9034-c9f78b9e5e27.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/7b580084-8afd-470d-ad94-d9a7ff9df808.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/9ea92959-2dad-4017-b1dd-2974b7947b00.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/b320e462-37a9-46d0-8ef9-6da2bfcf0a1f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/c07829ca-ac33-4c33-a8c6-6d7d523409eb.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/cb34b30a-dc19-4697-9e71-a9d272b15cd6.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/d9f400c3-b8e9-45e6-ab5a-611d60400cfe.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/e7caec90-3d67-493c-9bbd-c4d1f86392f5.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/ef4fb946-e945-406a-8772-85010d67178d.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/f5389682-1418-494f-8c90-a5a40777c46f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/f6ce5b3c-a38a-4686-8d75-3dc65d77714b.jpg"
+    ]
+  },
+  "Sunset Overwater Villa with Pool": {
+    "tag": "1 Bedroom",
+    "price": "$2,900",
+    "desc": "West-facing over the lagoon, angled for the evening light, with an infinity pool that runs into the colour of the sky.",
+    "imgs": [
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/10663a4d-161d-4ccc-a840-4f4a911f87b7.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/125ab4c3-4ca0-470d-976c-c278a4f9f0e8.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/156ad789-bc46-4836-b760-c583fe69322f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/1c2e9483-5537-4b27-b367-88433cc5f0ff.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/385bd890-58f0-4266-9022-eaf890253ced.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/3b10273b-dd5b-47ef-9708-6ec80682201c.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/438cad5e-f7f2-4814-ab3a-380b67495bf3.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/4e8cdaf4-7e33-48f4-a44c-e63f23a46c13.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/5cf17af1-b136-40ae-800c-3bdf6031bcc4.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/5fd57e0e-09db-4c0a-ab0b-c7821342349e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/7996a8b2-39a5-4049-85a9-b0f9fe5a9d1e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/7fcf0139-351c-4b0f-891a-afbb0dd7358a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/80a92000-9da3-4f47-8a60-cb05e86e598e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/9c929aad-801b-4716-90a0-a2f2be4f5327.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/ab43e3bf-a11f-4105-ac10-38af7470d05c.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/abcf5fd9-2927-49fe-b1c2-9c2ec9e84eb2.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/b1d930aa-f68f-4d9e-baa7-bc972ad8ae76.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/b79571f0-d3cd-451e-b918-f8110759c572.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/bb86d392-32a6-4036-a4b7-fb1ce2b33b3e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/e9e48b90-a6d8-48d6-93ab-ea2ce3daf771.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/ebc7cbb9-14f4-4e08-8deb-06525a1d8e9f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/f0310c0c-3021-4e48-abdd-888c634c53fa.jpg"
+    ]
+  },
+  "Overwater St. Regis Suite with Pool": {
+    "tag": "1 Bedroom",
+    "price": "$4,200",
+    "desc": "The signature suite on the water — a wraparound deck, a sunken lounge and a pool set above the reef, with a butler on call.",
+    "imgs": [
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0d104e1c-42b6-46e0-b4a6-f04b4a7be311.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0fc4d38e-59c5-49c3-88d4-750fa037e55e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/11832f7b-6b8a-40a3-9b43-ff54aeb41886.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/1b87d01e-ceec-4aed-9800-801334026d1e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/2a3ac874-4fb8-4cce-930d-444c6ab02ea2.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/2c82f894-e86c-47c2-b5a7-91c1c44691c9.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/3db5a171-5d93-4791-8537-2e60e1f99de0.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/44ed140c-3b8a-4c1c-b404-bcf9b7bd971b.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/4d64bdda-5c11-4aa4-9fe2-996a4515c2d5.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/5284440c-fc07-4c49-a790-3b20c7e5ea6b.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/92cc9ec4-8f00-4162-a809-37d27e84611d.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/aca87c27-e2d7-4270-9b06-6952d7b01e13.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/bd3da2e9-ba71-4cbf-ab15-8b531f8b01fa.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/d287db0c-c59f-407b-aa9d-596842cda7b2.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/d2f30592-7c5f-490a-81b0-2def9fddaf81.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/deae2a96-0053-4a37-908f-6e983cc884f0.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/eb23438a-4a07-4054-9595-d2cbe9e23677.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/f262083a-223b-47b9-8af2-725811fec95a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/f2eda91e-6d99-4ee8-9a59-7c2523f801b4.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/f8c491c1-6dc9-4ba6-b5d7-ce25a2d82015.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/fdffc7d9-f085-4f8d-8b11-8c22f54a7075.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/fe726308-0f27-4f4f-9e2d-522b465a75f1.jpg"
+    ]
+  },
+  "Beach Villa with Pool": {
+    "tag": "1 Bedroom",
+    "price": "$2,200",
+    "desc": "Powder sand at the threshold, a walled garden and a private pool, a short barefoot walk from the lagoon’s edge.",
+    "imgs": [
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/264f03f0-0583-4798-bd21-dc8f4b600b36.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/5212fb3a-35a6-4468-9bca-2ed9173641f8.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/55a51218-83cb-4d70-9573-5f8783fb7a17.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/5a413349-7bd3-49a1-a6fe-f30ff324556c.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/6bc67ba3-6eca-4cf0-be24-79003c15d503.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/7b288a58-8d21-4a33-9c7d-0c7504f4e779.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/7c4e5d36-b2e7-4be8-a357-c5d3be133e80.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/7d1e30fb-64bf-45ca-99ac-b3f9fb915c55.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/85300204-b084-416b-8bd4-4c180ceb73ff.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/8d27ffd8-a929-4402-bf94-b582ce9780b8.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/98b4fc3c-49f1-4eb0-9d40-76f91c458529.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/a0315fc0-7eb6-4021-8624-ac8934092a01.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/a7667632-f9d7-456a-a089-da7ccddb9efb.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/aa49380f-a5e8-4410-a584-70ca5259a291.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/c6e9aebb-c093-4059-b532-3946e05536fa.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/d81ee40b-ec61-4950-bc1f-e4dd42061d14.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/f89a73bd-e202-414e-befe-f0624a7c2882.jpg"
+    ]
+  },
+  "Garden Villa with Pool": {
+    "tag": "1 Bedroom",
+    "price": "$1,950",
+    "desc": "Tucked into the island’s greenery, a quiet pavilion with its own pool and courtyard, screened by palms.",
+    "imgs": [
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/1b32eb7c-6cc0-453a-b5b7-3b7fabe5421c.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/4ce84233-6a64-4a9a-b532-e7392936548d.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/51cb6479-7a93-42ad-8a15-87b35f8babd3.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/5ca6ae2d-3ad7-4e11-bd0e-b09072614c8f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/6110b9fd-c795-48bc-837c-86a5fec7de02.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/6b1cb2ea-f9e0-4f33-8b9d-27daa4c2cfe1.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/77780c6b-72dc-4b64-9ff3-56abc9194d1a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/7e9eef68-12d6-4e77-8557-467354d335e3.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/85da04bd-486b-4325-ba3f-d6fda4f7e845.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/948a6cce-c263-478d-b9aa-a0ff616b6d8e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/a16e323b-5070-4556-8790-687aa547e55f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/a6b2b9b7-aa3a-42c2-89bc-35a258a03ecb.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/badc4773-533c-4bac-be18-739423c93fa8.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/c7f1437e-e43b-430c-aeb5-3dba68a59271.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/c8124aa0-fbaf-4640-9f0d-1e567a7f7494.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/e04126c2-a7be-49b1-9666-b0edb15af8be.jpg"
+    ]
+  },
+  "Two-Bedroom Ocean Villa with Pool": {
+    "tag": "2 Bedrooms",
+    "price": "$4,800",
+    "desc": "Two bedrooms opening to the Indian Ocean, a generous deck and pool — built for a family or two couples sharing the water.",
+    "imgs": [
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/1ae36f39-9f2d-4d2b-8536-9beee174d57c.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/22e27bf8-d628-4727-a6d3-28ed627f8208.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/305c4cc1-9e8b-4d85-b8e9-492b4ca6ac68.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/312f56a5-44ea-442c-a862-40c155869b8c.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/365c3641-cfde-4ee8-905c-4896c593588e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/3953e12b-6831-40f8-8f57-bd7294e8aa3e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/46f399e2-5979-41f7-8740-3f0712f9f280.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/57568351-5622-4c38-b085-081029a1338f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/601787de-557d-4f27-b6a5-6736e42b2169.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/607620fb-1c8f-49f1-9c22-4d4082536dc6.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/62dc5146-bfe8-4850-b769-e111ddf7262c.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/67aec444-97d4-48ba-a891-b9219701fd2a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/684d9a69-2417-4843-a4ac-4a7b3ad68ee1.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/69253af3-d8f5-4aa4-9028-cb8c1360de10.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/6d6764a1-c0a4-491d-b698-6c1a60d7c75d.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/918d6611-c531-47b6-9264-d7b7c75e2f53.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/91e72220-35a2-486b-8d59-90150657475f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/95085115-2f6b-49c2-bd2d-8f8bdbd18279.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/9f71ada5-9f38-4c60-a56c-fe4af0696d15.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/a5e14557-312e-44ed-a087-ba1f05ff64a0.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/bb519a8e-d380-40be-8756-51c26c6e8a6c.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/bc278c7d-14e9-4298-a334-9944f8180224.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/c145f8d8-35ef-44bd-a078-5b8af795de1a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/c6608bbe-9d7e-404f-8a13-7165e53a0ade.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/c93597f1-8aff-4390-87f6-0eca961c20ac.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/cb1404cf-b10e-43d5-9fdb-c39f9d91bf3e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/d9c5bca3-bb60-429e-844e-41b002855e5c.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/db264181-8084-47d8-a0a2-2ea8c709b031.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/e03cb9cd-bf32-45cf-a852-1d71e0403597.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/e684775d-1ff7-4f58-be00-16818bca4a2a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/e7670c1d-60b0-4e81-8de1-001a762d14c0.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/e85b9466-565b-41fb-b108-1886aff109f1.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/ebfbde43-9d92-4036-b2ec-628edcb9741b.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/ed19fc47-dc57-4f15-9e84-d21533f8e294.jpg"
+    ]
+  },
+  "Two-Bedroom Sunset Overwater Villa with Pool": {
+    "tag": "2 Bedrooms",
+    "price": "$5,600",
+    "desc": "A double overwater villa facing the sunset, with two suites, a long pool deck and an uninterrupted western horizon.",
+    "imgs": [
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/01eab34b-124e-411e-900c-6fbd8c43ca30.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/08f69ea0-e163-4bf6-ad17-8a992d90cd36.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/0ce9c1a0-bcb1-40ff-b4e2-6141549cb85d.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/1c97c69c-8d89-4404-95ac-5b0916efb042.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/23d76773-6b22-4529-bb21-4e021c963a3b.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/3ffd9efb-2675-4b18-8eac-172f8919d977.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/48c8b966-7e81-450f-98a0-f1ed47960f59.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/4c02411c-16dc-462e-89a7-aa65cad0861d.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/5adeffde-d532-4721-9f60-5070c2639def.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/5b0ffff7-3aeb-440c-bbf8-136d8a2d08ce.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/6f91c708-d2ee-411b-a225-d8c8ccc75ad8.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/88284683-f1cf-475e-8301-3287557bb0d4.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/91c7e1f5-2a2e-4143-8a4d-f2e129cc8969.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/9b3fc5cc-3cf8-4316-a15b-a882b517a537.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/9d85d4cf-017a-4307-83d6-857364e36ba5.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/b38db88d-1e49-441d-86b6-40bb9550221f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/b413c9e5-a438-4605-9ce4-e86c9372091f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/c3fa0d87-5a85-410c-a974-7c3eee0f93f3.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/cc4d1a98-6244-48b3-88c4-4d0f2084da27.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/ce511660-7b04-4aa6-8d9b-f0c1b517f727.jpg"
+    ]
+  },
+  "Knickerbocker Villa": {
+    "tag": "2 Bedrooms",
+    "price": "$6,400",
+    "desc": "A beachfront residence named for the St. Regis legacy — two bedrooms, a private pool and lawn opening onto the sand.",
+    "imgs": [
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/01d33fa7-9f44-411a-84ac-ac8729cd1c5a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/09b6fa0b-c156-47f5-b682-2398169b1611.jpeg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/1099d700-2fe9-487d-b2cf-107ccfe29e2e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/30927d60-65b2-4a3f-b705-2b8e86df01cc.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/365566d1-6d84-4d52-b4f8-83de22538189.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/6e2b2f25-924a-4dc6-8168-5bbf9ae5df67.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/72a767c0-283d-4192-b087-2e747cd838b9.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/ae20b84f-d808-471b-a052-6cbd6d81f689.jpeg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/b1681f8c-06c3-42f5-89e7-1c892e553216.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/b5948be9-2cc7-40a4-8645-f37a7575a357.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/b787a043-c3c0-403b-8120-076dc62bcf44.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/c491a398-67e3-44cc-8463-7caecfe8861e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/c4b71ddd-0b25-48d9-af8f-0778d5cd6a2a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/c83b3cea-d1d2-4fcf-bf11-51b209337301.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/cb5800d6-5c91-4018-8b1a-838cf97ac910.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/cf017044-7d87-420b-ad9c-2341dd46404a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/cf9daa38-36ad-46c0-bca5-dcc5f6c28e2d.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/d7323fd9-137b-4d07-a3ad-03363dcb0f7a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/e72f31d2-48bc-41bf-8745-62ec8d1106d5.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/f6221a8b-c09a-43ba-8fdf-95d1c3ca9563.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/f65e3efc-0cff-4a30-8715-428f6d23508f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/fa203029-6d34-4582-93bc-c27cfb558e90.jpg"
+    ]
+  },
+  "Cesar Balsa Villa": {
+    "tag": "3 Bedrooms",
+    "price": "$8,900",
+    "desc": "A three-bedroom beach retreat with its own pool, garden and direct shore access — space enough to disappear into.",
+    "imgs": [
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0055ea64-9af5-44da-9496-1981cc9ca34d.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/090897d7-2aee-4970-aff1-66f7ad0baacd.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0c4b4600-c58d-41ac-9ebf-a73d9cf3922b.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0e7e287f-1ff9-49d8-bd1a-77e47c96c9b8.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/105a44bf-cf07-4632-b941-d9f98ffaed01.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/10a41a94-c7f0-4904-a94b-ab186fe2ef9e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/2ff5fd73-713d-4d51-92a0-ca93353937fa.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/3f00eb75-5a84-4d3f-91a1-666ec439d441.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/58eba68f-55a4-400d-a03e-45f6c080d387.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/5c9d3ee4-286e-4743-87e9-f8be5afe9e44.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/625d99fd-197f-4460-96b5-9c11c54b902c.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/6fbbddaa-2b1a-4eaf-ba07-b8c27ae54a92.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/8c82bf03-912d-4006-9b38-5d2fe2caec0e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/95bf76a4-32de-4557-89e3-66db4b5fbd32.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/a2a80f23-43e2-4c86-9493-a88b226cc37b.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/af2b361c-27b5-4050-9328-638aeb4e9223.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/c0443762-a76a-467e-bb43-fd0079361d0b.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/cdea64fc-b60a-4797-b849-33bf401562fe.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/d0a8a0b3-31ae-409c-a7aa-128bde7358b7.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/d2f86f22-40bd-4e0e-8631-68195b611661.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/d8e0a27b-0b09-4cff-ad3b-47688e1bebd8.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/dab86210-9ffe-4e60-b9d9-d91282cd4779.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/f7118325-bd57-4f17-961f-2ef1d540bcdb.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/fc1b1883-cc9b-4fa1-a435-26ad539b7c59.jpg"
+    ]
+  },
+  "The Caroline Astor Estate": {
+    "tag": "2 Bedrooms",
+    "price": "$11,500",
+    "desc": "An overwater estate with a sweeping deck, private pool and dedicated butler — the quieter of the two grand residences.",
+    "imgs": [
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/00f35a3c-be6d-440c-8ddb-9d17ad0aa386.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/0267913a-8813-4852-9cf4-f1448f86969a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/0e5c4167-4473-4b36-9900-82293956cdb7.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/0e980123-c238-4b01-9941-ab058cac0ed0.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/108897ec-2437-48bf-957a-971537ec737a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/1af0e406-302f-4d32-962b-c2935e221711.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/434eef65-ee58-4d23-8e0d-9ff2617d943f.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/4b30fbb4-ce6a-4dbc-9440-713a5167a0cf.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/4e2924be-43f7-42d9-a184-f70e3c1c8518.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/5d52b49c-fb7e-45ac-89fa-c10fc93429fd.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/931478cd-fc69-4327-9a14-da41754dfdb9.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/93d53a37-a14f-4b5e-a04e-cde0cfcbcbff.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/9b23b0ac-dbef-4040-8374-6218814b39be.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/b18abc6d-bfc9-47f6-90c8-cf39dd267bbc.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/c2ba10e6-8744-4e3a-8c6f-05530dc0ba5b.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/cbf12974-718a-4488-8668-684d6eb40d49.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/cfadad1a-1e3f-4cc8-96d0-d1908ae10d0e.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/f8eccc47-452f-4920-906e-46a6b6a951d8.jpg"
+    ]
+  },
+  "The John Jacob Astor Estate": {
+    "tag": "3 Bedrooms",
+    "price": "$16,800",
+    "desc": "The flagship — a three-bedroom estate over the water with a gym, spa room, sweeping pool and a team to run it all.",
+    "imgs": [
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/17198373-73ab-4906-800d-57339c88c912.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/174f0ca1-de7c-4bbd-aa42-1bc29a674e20.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/21241219-adc0-4f19-a758-6360c9a19521.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/279d2f06-b5b5-49f9-834f-2a1a01ebc9a6.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/3b11207d-a9e1-4cc3-96f8-3181d200242a.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/3d137018-726f-4f80-aa2f-36de1808e469.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/43bcd8c0-a1e4-4bc7-b5af-a0b4b461aa16.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/58ca02b1-9500-4c5e-a3bf-2bef3d6d9300.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/60c57f18-89cb-41ff-b24c-3d2fcf1c85a4.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/785be4fd-8c11-4470-b774-1dafc26a4272.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/a06d37b4-6a51-4edc-bfc5-f716d91545fd.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/ad7653f9-d953-467c-acd3-1bb49e82ef2b.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/b282bd9a-c4ee-4cf3-81a8-1e390726c34d.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/bb111c06-4e5c-4416-9f47-e3dbacd2b028.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/c7339c1f-b6f8-493d-a61e-6331a60ba68d.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/cd648c6f-7d7d-4308-bc5a-e7a9a0cb435c.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/cf5403b6-234f-4708-9c6c-eacd13bb9ae4.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/d6c30ca5-581a-41bb-ac11-037022d42aed.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/dfe2e756-7286-401e-be80-5ce37c239b73.jpg",
+      "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/f7ebf524-48ce-45cb-aab3-82337e447b55.jpg"
+    ]
+  }
+};
+  const modal=document.getElementById('villaDetailModal');
+  if(!modal)return;
+  const grid=document.getElementById('vd-grid'),
+        nameEl=document.getElementById('vd-name'),
+        tagEl=document.getElementById('vd-tag'),
+        metaEl=document.getElementById('vd-meta');
+  let lastFocus=null;
+  function open(key){
+    const d=VILLA_GALLERIES[key]; if(!d)return;
+    tagEl.textContent=d.tag+' \u00b7 from '+d.price+' / night';
+    nameEl.textContent=key;
+    metaEl.textContent=d.desc;
+    grid.innerHTML=d.imgs.map(function(s){return '<figure class="gal-item"><div class="gal-ph" style="background-image:url(\''+s+'\')"></div></figure>';}).join('');
+    grid.scrollTop=0;
+    lastFocus=document.activeElement;
+    modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+  }
+  function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+  // delegation: works for carousel cards AND cloned cards inside the "all villas" dialog
+  document.addEventListener('click',function(e){
+    const a=e.target.closest('.vview'); if(!a)return;
+    const card=a.closest('.villa'); if(!card)return;
+    const h=card.querySelector('h3'); if(!h)return;
+    e.preventDefault(); e.stopPropagation();
+    open(h.textContent.trim());
+  });
+  modal.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',close);});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open'))close();});
+})();
 </script>
 </body></html>
