@@ -23,7 +23,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:3
 .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
 .mono{font-family:var(--mono)}
 .kick{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone)}
-#h-kick{text-transform:none;letter-spacing:.03em;font-size:13px}
+
 h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,4.4vw,56px);line-height:1.04;letter-spacing:.01em}
 h2 em{font-style:italic;color:var(--accent)}
 em{font-style:italic}
@@ -32,7 +32,7 @@ em{font-style:italic}
 #nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
   padding:20px 40px;transition:background .4s var(--ease),padding .4s var(--ease),border-color .4s var(--ease);border-bottom:1px solid transparent}
 #nav.solid{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:14px 40px}
-.logo{font-family:var(--display);font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);transition:color .4s}
+.logo{position:relative;font-family:var(--display);font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);transition:color .4s}.logo-brand{transition:opacity .45s var(--ease)}.logo-resort{position:absolute;left:0;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:15px;letter-spacing:.14em;opacity:0;transition:opacity .45s var(--ease)}#nav.solid .logo-brand{opacity:0}#nav.solid .logo-resort{opacity:1}
 #nav.solid .logo{color:var(--ink)}
 .nav-right{display:flex;align-items:center;gap:22px}
 .nav-mode{opacity:.5}
@@ -52,14 +52,14 @@ em{font-style:italic}
 .hero{position:relative;height:100vh;min-height:640px;overflow:hidden;color:var(--cream)}
 .hscene{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s var(--ease);transform:scale(1.02)}
 .hscene.active{opacity:1}
-.hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,11,13,.5),rgba(8,11,13,.2) 40%,rgba(8,11,13,.7));z-index:2}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,11,13,.45),rgba(8,11,13,.12) 34%,rgba(8,11,13,.82) 94%);z-index:2}
 .hero-content{position:absolute;inset:0;z-index:3;display:flex;align-items:flex-end;padding-bottom:9vh}
 .hero-grid{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;width:100%;flex-wrap:wrap}
 .hero-main{flex:1;min-width:0}
 /* font-size is set by fitHeroName() in JS; the clamp() here is the no-JS fallback */
-.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(54px,9vw,150px);line-height:.92;letter-spacing:.01em;margin:16px 0 22px}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(50px,8vw,118px);line-height:.94;letter-spacing:.01em;margin:16px 0 22px;text-shadow:0 2px 30px rgba(8,11,13,.45),0 1px 4px rgba(8,11,13,.45)}
 .hero h1 em{color:var(--cream);font-style:italic}
-.hero-facts{display:flex;gap:26px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:rgba(244,238,223,.92)}
+.hero-facts{display:flex;gap:26px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:rgba(244,238,223,.92);text-shadow:0 1px 12px rgba(8,11,13,.6)}
 .hero-facts b{font-weight:700;color:var(--cream)}
 .hero-side{display:flex;flex-direction:column;align-items:flex-end;gap:24px}
 .dots{display:flex;gap:9px}
@@ -552,7 +552,7 @@ body.villa{--accent:var(--accent-villa)}
 <div class="grain" aria-hidden="true"></div>
 
 <nav id="nav">
-  <div class="logo">Kollection</div>
+  <div class="logo"><span class="logo-brand">Kollection</span><span class="logo-resort">The St. Regis Vommuli</span></div>
   <div class="nav-right">
     <a class="nav-link nav-mode on" id="tg-resort" href="#">Resort</a>
     
@@ -571,7 +571,6 @@ body.villa{--accent:var(--accent-villa)}
   <div class="hero-shade"></div>
   <div class="hero-content"><div class="wrap hero-grid">
     <div class="hero-main">
-      <p class="kick" id="h-kick" data-resort="Dhaalu Atoll · Maldives · Kept for the index" data-villa="Dhaalu Atoll · Maldives · The grand residence" style="color:var(--cream)">Dhaalu Atoll · Maldives · Kept for the index</p>
       <h1 id="h-name" data-resort="The St. Regis Maldives <em>Vommuli</em> Resort" data-villa="The John Jacob <em>Astor</em> Estate">The St. Regis Maldives <em>Vommuli</em> Resort</h1>
       <div class="hero-facts" id="h-facts">
         <span data-resort="<b>Overwater &amp; beach</b> · 77 villas" data-villa="<b>Private estate</b> · 3 bedrooms"><b>Overwater &amp; beach</b> · 77 villas</span>
@@ -962,9 +961,9 @@ body.villa{--accent:var(--accent-villa)}
 <script>
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   // fit the resort name to its column (text autofit / fit-to-width, with 2-line fallback)
-  const H1_MAX=150,          // px — design cap so short names never overpower the image
-        H1_MIN=45,           // px — smallest size we'll ever allow
-        H1_ONELINE_MIN=110;   // px — below this on one line, wrap to two lines instead (stays bigger)
+  const H1_MAX=118,          // px — design cap so short names never overpower the image
+        H1_MIN=44,           // px — smallest size we'll ever allow
+        H1_ONELINE_MIN=92;    // px — below this on one line, wrap to two lines instead (stays bigger)
   function fitHeroName(){
     const h1=document.getElementById('h-name'),col=document.querySelector('.hero-main');
     if(!h1||!col)return;
