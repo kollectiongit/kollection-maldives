@@ -584,6 +584,21 @@ body.villa{--accent:var(--accent-villa)}
 .dining-feature .gal-dots{bottom:14px;top:auto}
 .dining-feature .gal-prev,.dining-feature .gal-next{opacity:1}
 .dining-feature .gal-dots i{cursor:pointer;width:7px;height:7px}
+
+/* dining sub-headings + explore dialog */
+#dineKick{color:var(--stone)}
+
+/* dining experiences bullet + richer explore dialog */
+.dine-v{padding:clamp(26px,3vw,44px) 0;border-bottom:1px solid var(--line)}
+.dine-v:last-child{border-bottom:0}
+.dine-v-head{margin-bottom:clamp(16px,2vw,22px);max-width:64ch}
+.dine-v-head .vr-meta{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
+.dine-v-head h3{font-family:var(--display);font-weight:400;font-size:clamp(24px,2.5vw,34px);color:var(--cream);margin:6px 0 0}
+.dine-v-head .vr-desc{margin-top:10px;font-size:14px;line-height:1.65;color:var(--soft)}
+.dine-v-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.dine-ph{aspect-ratio:4/3;border-radius:10px;background:var(--raise) center/cover no-repeat}
+.dine-group-label{font-family:var(--display);font-weight:400;font-size:clamp(22px,2.4vw,30px);color:var(--cream);margin:clamp(22px,2.8vw,38px) 0 6px;padding-bottom:6px}
+#dineGrid .dine-group-label:first-child{margin-top:0}
 </style></head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -874,49 +889,32 @@ body.villa{--accent:var(--accent-villa)}
 <!-- RESTAURANTS & BARS -->
 <section class="pad" id="dining" style="background:var(--bg2)"><div class="wrap">
   <div class="reveal"><p class="kick">On the island</p><h2 style="margin-top:18px">Restaurants <em>&amp; bars.</em></h2></div>
-  <div class="amen amen--dining">
-    <div class="amen-feature dining-feature">
-      <div class="amen-img" id="diningImg" style="background-image:url('the-st-regis-maldives-vommuli-resort/outlets/alba/3abf79bb-20b4-4f2c-b3ef-a27805b135a4.jpg')"></div>
-      <button class="gal-prev" id="dnPrev" type="button" aria-label="Previous photo">‹</button>
-      <button class="gal-next" id="dnNext" type="button" aria-label="Next photo">›</button>
-      <div class="gal-dots" id="dnDots"></div>
-    </div>
+    <div class="amen amen--reverse">
+    <div class="amen-feature"><div class="amen-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/outlets/alba/3abf79bb-20b4-4f2c-b3ef-a27805b135a4.jpg')"></div></div>
     <div class="amen-list">
-      <button class="amen-item active" data-imgs='["the-st-regis-maldives-vommuli-resort/outlets/alba/3abf79bb-20b4-4f2c-b3ef-a27805b135a4.jpg", "the-st-regis-maldives-vommuli-resort/outlets/alba/a66b6a77-1a8a-4b53-86ef-6e3fd559967f.jpg", "the-st-regis-maldives-vommuli-resort/outlets/alba/c41d6769-22b7-46ba-8774-f85001c2c840.jpg"]'>
+      <button class="amen-item active" data-img="the-st-regis-maldives-vommuli-resort/outlets/alba/3abf79bb-20b4-4f2c-b3ef-a27805b135a4.jpg">
         <span class="amen-tag">Overwater · Italian</span><span class="amen-name">Alba</span>
         <span class="amen-desc">Sunlit Italian dining over the lagoon — handmade pasta, wood-fired and bright, from morning to last light.</span>
       </button>
-      <button class="amen-item" data-imgs='["the-st-regis-maldives-vommuli-resort/outlets/orientale/03484f08-9cdc-43d4-8203-faa06120bc0f.jpg", "the-st-regis-maldives-vommuli-resort/outlets/orientale/5047612f-76c3-4cf7-ae47-e709c7c53bc1.jpg", "the-st-regis-maldives-vommuli-resort/outlets/orientale/60f734f1-fb5b-4a05-88e7-b6fd60aef8ea.jpg"]'>
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/orientale/03484f08-9cdc-43d4-8203-faa06120bc0f.jpg">
         <span class="amen-tag">Pan-Asian</span><span class="amen-name">Orientale</span>
         <span class="amen-desc">Cantonese and pan-Asian plates in a lantern-lit room, with a dim sum brunch that draws the whole island.</span>
       </button>
-      <button class="amen-item" data-imgs='["the-st-regis-maldives-vommuli-resort/outlets/t-pan/24db0821-7969-4009-81df-d98924458f6c.jpg", "the-st-regis-maldives-vommuli-resort/outlets/t-pan/5fbae294-1d51-43d0-917d-f2f4265dbf25.jpg", "the-st-regis-maldives-vommuli-resort/outlets/t-pan/65a86f81-30ac-463d-a6cf-b5220fe9476d.jpg"]'>
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/t-pan/24db0821-7969-4009-81df-d98924458f6c.jpg">
         <span class="amen-tag">Teppanyaki</span><span class="amen-name">T-Pan</span>
         <span class="amen-desc">Teppanyaki theatre — knives, flame and the catch of the day at a counter that seats the whole table.</span>
       </button>
-      <button class="amen-item" data-imgs='["the-st-regis-maldives-vommuli-resort/outlets/crust-craft/27b8ea35-7553-4cd9-8858-87046ab59fc9.jpg", "the-st-regis-maldives-vommuli-resort/outlets/crust-craft/aa94e426-bc08-43d2-9293-62efb8e8c936.jpg", "the-st-regis-maldives-vommuli-resort/outlets/crust-craft/d01ac1a9-9bb5-4bb3-a5e8-4a03334cf2e9.jpg"]'>
-        <span class="amen-tag">Artisan pizza</span><span class="amen-name">Crust</span>
-        <span class="amen-desc">Thin, blistered pizza from a wood oven, served barefoot by the pool through the afternoon.</span>
-      </button>
-      <button class="amen-item" data-imgs='["the-st-regis-maldives-vommuli-resort/outlets/decanter/167c9b49-fe96-4740-918f-a96bce540802.jpg", "the-st-regis-maldives-vommuli-resort/outlets/decanter/eb58dba5-165b-45bf-96df-6b73ab1a1aa8.jpg", "the-st-regis-maldives-vommuli-resort/outlets/decanter/fa9df3df-ef06-4fb9-9db2-ca0f7316fbfc.jpg"]'>
-        <span class="amen-tag">Wine cellar</span><span class="amen-name">Decanter</span>
-        <span class="amen-desc">A temperature-kept cellar of old- and new-world labels, poured beside a chef’s tasting counter.</span>
-      </button>
-      <button class="amen-item" data-imgs='["the-st-regis-maldives-vommuli-resort/outlets/the-whale-bar/11eb651d-125b-457f-ab3a-451f3486fbce.jpg", "the-st-regis-maldives-vommuli-resort/outlets/the-whale-bar/133bea21-4708-458c-bea8-2063e4a8c443.jpg", "the-st-regis-maldives-vommuli-resort/outlets/the-whale-bar/1dd19380-2451-4f30-b05f-2df87ecea7be.jpg"]'>
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/the-whale-bar/11eb651d-125b-457f-ab3a-451f3486fbce.jpg">
         <span class="amen-tag">Cocktails</span><span class="amen-name">The Whale Bar</span>
         <span class="amen-desc">The resort’s sculptural signature — a timber shell over the water where the bar runs long into the evening.</span>
       </button>
-      <button class="amen-item" data-imgs='["the-st-regis-maldives-vommuli-resort/outlets/cargo/3253d1a2-2552-4c9e-8f3d-421765e05deb.jpg", "the-st-regis-maldives-vommuli-resort/outlets/cargo/7996d303-2022-46f8-957e-ad4bb2a29054.jpg", "the-st-regis-maldives-vommuli-resort/outlets/cargo/ea6869c8-1258-42c1-92de-aae16abcadf3.jpg"]'>
-        <span class="amen-tag">Tapas · Lounge</span><span class="amen-name">Cargo</span>
-        <span class="amen-desc">Small plates and cocktails in a shipping-inspired lounge — the island’s easy, late-afternoon gathering point.</span>
-      </button>
-      <button class="amen-item" data-imgs='["the-st-regis-maldives-vommuli-resort/outlets/socialite/6b8df7ce-3a42-41b9-a17c-76ac656f7b8a.jpg", "the-st-regis-maldives-vommuli-resort/outlets/socialite/c546860f-c8ad-4190-a3ad-d6807fb0d390.jpg"]'>
-        <span class="amen-tag">Champagne bar</span><span class="amen-name">Socialite</span>
-        <span class="amen-desc">A champagne and cocktail bar for the in-between hours, with the lagoon glowing just beyond the rail.</span>
+      <button class="amen-item" data-img="the-st-regis-maldives-vommuli-resort/outlets/decanter/167c9b49-fe96-4740-918f-a96bce540802.jpg">
+        <span class="amen-tag">Wine cellar</span><span class="amen-name">Decanter</span>
+        <span class="amen-desc">A temperature-kept cellar of old- and new-world labels, poured beside a chef’s tasting counter.</span>
       </button>
     </div>
   </div>
-  <div class="amen-cta reveal"><button class="gal-link" type="button" data-gallery-cat="Dining & Bars">Browse all dining &amp; bar photos <span aria-hidden="true">→</span></button></div>
+  <div class="amen-cta reveal"><button class="gal-link" type="button" data-dineall="all">Explore all restaurants &amp; bars <span aria-hidden="true">→</span></button></div>
 </div></section>
 
 <!-- AMENITIES -->
@@ -989,6 +987,17 @@ body.villa{--accent:var(--accent-villa)}
     </div>
     <div class="gal-tabs" id="galTabs"></div>
     <div class="gal-grid" id="galGrid"></div>
+  </div>
+</div>
+
+<!-- ALL RESTAURANTS / BARS DIALOG -->
+<div class="gal-modal" id="dineModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Dining venues">
+  <div class="gal-backdrop" data-close></div>
+  <div class="gal-dialog">
+    <div class="gal-bar"><div><p class="kick" id="dineKick">Dining</p><div class="gal-title" id="dineTitle">All restaurants</div></div>
+      <button class="gal-close" type="button" data-close aria-label="Close">&#10005;</button>
+    </div>
+    <div class="villa-modal-grid" id="dineGrid"></div>
   </div>
 </div>
 
@@ -1578,14 +1587,17 @@ body.villa{--accent:var(--accent-villa)}
 })();
 </script>
 <script>
-// restaurants & bars — per-venue 3-photo slideshow
-(function(){var block=document.querySelector(".amen--dining");if(!block)return;
-  var items=[].slice.call(block.querySelectorAll(".amen-item")),img=document.getElementById("diningImg"),prev=document.getElementById("dnPrev"),next=document.getElementById("dnNext"),dots=document.getElementById("dnDots"),imgs=[],idx=0;
-  function set(i){if(!imgs.length)return;idx=(i+imgs.length)%imgs.length;img.style.opacity=0;setTimeout(function(){img.style.backgroundImage="url('"+imgs[idx]+"')";img.style.opacity=1;},150);if(dots)dots.querySelectorAll("i").forEach(function(d,k){d.classList.toggle("on",k===idx);});}
-  function load(it){try{imgs=JSON.parse(it.dataset.imgs);}catch(e){imgs=[];}idx=0;if(dots)dots.innerHTML=imgs.map(function(_,k){return "<i"+(k===0?" class=\"on\"":"")+"></i>";}).join("");set(0);var multi=imgs.length>1;[prev,next,dots].forEach(function(el){if(el)el.style.display=multi?"":"none";});}
-  items.forEach(function(it){it.addEventListener("click",function(){items.forEach(function(x){x.classList.remove("active");});it.classList.add("active");load(it);});});
-  if(prev)prev.addEventListener("click",function(e){e.stopPropagation();set(idx-1);});if(next)next.addEventListener("click",function(e){e.stopPropagation();set(idx+1);});if(dots)dots.addEventListener("click",function(e){var t=e.target.closest("i");if(!t)return;var i=[].indexOf.call(dots.children,t);if(i>=0)set(i);});
-  var act=block.querySelector(".amen-item.active")||items[0];if(act)load(act);
+</script>
+<script>
+// explore-all restaurants & bars dialog (grouped, photo grids)
+(function(){var DINE={"restaurants": [{"name": "Alba", "tag": "Overwater · Italian", "desc": "Sunlit Italian dining over the lagoon — handmade pasta, wood-fired and bright, from morning to last light.", "photos": ["the-st-regis-maldives-vommuli-resort/outlets/alba/3abf79bb-20b4-4f2c-b3ef-a27805b135a4.jpg", "the-st-regis-maldives-vommuli-resort/outlets/alba/a66b6a77-1a8a-4b53-86ef-6e3fd559967f.jpg", "the-st-regis-maldives-vommuli-resort/outlets/alba/c41d6769-22b7-46ba-8774-f85001c2c840.jpg", "the-st-regis-maldives-vommuli-resort/outlets/alba/cc2cbec1-dfb7-458f-8b55-d41e7d58088d.jpg", "the-st-regis-maldives-vommuli-resort/outlets/alba/fa0a89ce-7f0b-4587-bc10-8b5ea4f88424.jpg"]}, {"name": "Orientale", "tag": "Pan-Asian", "desc": "Cantonese and pan-Asian plates in a lantern-lit room, with a dim sum brunch that draws the whole island.", "photos": ["the-st-regis-maldives-vommuli-resort/outlets/orientale/03484f08-9cdc-43d4-8203-faa06120bc0f.jpg", "the-st-regis-maldives-vommuli-resort/outlets/orientale/5047612f-76c3-4cf7-ae47-e709c7c53bc1.jpg", "the-st-regis-maldives-vommuli-resort/outlets/orientale/60f734f1-fb5b-4a05-88e7-b6fd60aef8ea.jpg", "the-st-regis-maldives-vommuli-resort/outlets/orientale/8dec5c72-aed6-4ec4-a427-b1c3bd25b611.jpg", "the-st-regis-maldives-vommuli-resort/outlets/orientale/d1117572-aa2e-4ecb-a731-1cb5033bc3ef.jpg", "the-st-regis-maldives-vommuli-resort/outlets/orientale/f190b9b0-f346-4066-8fd4-2c84bad2a399.jpg"]}, {"name": "T-Pan", "tag": "Teppanyaki", "desc": "Teppanyaki theatre — knives, flame and the catch of the day at a counter that seats the whole table.", "photos": ["the-st-regis-maldives-vommuli-resort/outlets/t-pan/24db0821-7969-4009-81df-d98924458f6c.jpg", "the-st-regis-maldives-vommuli-resort/outlets/t-pan/5fbae294-1d51-43d0-917d-f2f4265dbf25.jpg", "the-st-regis-maldives-vommuli-resort/outlets/t-pan/65a86f81-30ac-463d-a6cf-b5220fe9476d.jpg", "the-st-regis-maldives-vommuli-resort/outlets/t-pan/66665b96-0af9-4410-becd-4945a9f1cde5.jpg", "the-st-regis-maldives-vommuli-resort/outlets/t-pan/671b1917-6571-43d9-a4e2-27af41f48989.jpg", "the-st-regis-maldives-vommuli-resort/outlets/t-pan/869d2300-71ec-4947-9a1e-8e21821d666f.jpg"]}, {"name": "Crust", "tag": "Artisan pizza", "desc": "Thin, blistered pizza from a wood oven, served barefoot by the pool through the afternoon.", "photos": ["the-st-regis-maldives-vommuli-resort/outlets/crust-craft/27b8ea35-7553-4cd9-8858-87046ab59fc9.jpg", "the-st-regis-maldives-vommuli-resort/outlets/crust-craft/aa94e426-bc08-43d2-9293-62efb8e8c936.jpg", "the-st-regis-maldives-vommuli-resort/outlets/crust-craft/d01ac1a9-9bb5-4bb3-a5e8-4a03334cf2e9.jpg", "the-st-regis-maldives-vommuli-resort/outlets/crust-craft/e3ab3f1e-2a2c-4f99-9c0a-c9e7a391ec21.jpg", "the-st-regis-maldives-vommuli-resort/outlets/crust-craft/eb292ab3-1cfe-458d-83b7-d6ffeec1f2ae.jpg"]}], "bars": [{"name": "Decanter", "tag": "Wine cellar", "desc": "A temperature-kept cellar of old- and new-world labels, poured beside a chef’s tasting counter.", "photos": ["the-st-regis-maldives-vommuli-resort/outlets/decanter/167c9b49-fe96-4740-918f-a96bce540802.jpg", "the-st-regis-maldives-vommuli-resort/outlets/decanter/eb58dba5-165b-45bf-96df-6b73ab1a1aa8.jpg", "the-st-regis-maldives-vommuli-resort/outlets/decanter/fa9df3df-ef06-4fb9-9db2-ca0f7316fbfc.jpg"]}, {"name": "The Whale Bar", "tag": "Cocktails", "desc": "The resort’s sculptural signature — a timber shell over the water where the bar runs long into the evening.", "photos": ["the-st-regis-maldives-vommuli-resort/outlets/the-whale-bar/11eb651d-125b-457f-ab3a-451f3486fbce.jpg", "the-st-regis-maldives-vommuli-resort/outlets/the-whale-bar/133bea21-4708-458c-bea8-2063e4a8c443.jpg", "the-st-regis-maldives-vommuli-resort/outlets/the-whale-bar/1dd19380-2451-4f30-b05f-2df87ecea7be.jpg", "the-st-regis-maldives-vommuli-resort/outlets/the-whale-bar/70c949fe-1d32-4cf3-a9e9-1cca9d30f909.jpg", "the-st-regis-maldives-vommuli-resort/outlets/the-whale-bar/83d0f907-18ab-4a55-a438-5d1d29614838.jpg", "the-st-regis-maldives-vommuli-resort/outlets/the-whale-bar/bc59ef5f-978f-43d1-a953-422108687543.jpg"]}, {"name": "Cargo", "tag": "Tapas · Lounge", "desc": "Small plates and cocktails in a shipping-inspired lounge — the island’s easy, late-afternoon gathering point.", "photos": ["the-st-regis-maldives-vommuli-resort/outlets/cargo/3253d1a2-2552-4c9e-8f3d-421765e05deb.jpg", "the-st-regis-maldives-vommuli-resort/outlets/cargo/7996d303-2022-46f8-957e-ad4bb2a29054.jpg", "the-st-regis-maldives-vommuli-resort/outlets/cargo/ea6869c8-1258-42c1-92de-aae16abcadf3.jpg"]}, {"name": "Socialite", "tag": "Champagne bar", "desc": "A champagne and cocktail bar for the in-between hours, with the lagoon glowing just beyond the rail.", "photos": ["the-st-regis-maldives-vommuli-resort/outlets/socialite/6b8df7ce-3a42-41b9-a17c-76ac656f7b8a.jpg", "the-st-regis-maldives-vommuli-resort/outlets/socialite/c546860f-c8ad-4190-a3ad-d6807fb0d390.jpg"]}]};var modal=document.getElementById("dineModal"),grid=document.getElementById("dineGrid"),title=document.getElementById("dineTitle");if(!modal||!grid)return;var lastFocus=null;
+  function venue(v){var ph=v.photos.map(function(s){return '<div class="dine-ph" style="background-image:url(\''+s+'\')"></div>';}).join("");return '<div class="dine-v"><div class="dine-v-head"><div class="vr-meta">'+v.tag+'</div><h3>'+v.name+'</h3><p class="vr-desc">'+v.desc+'</p></div><div class="dine-v-grid">'+ph+'</div></div>';}
+  function grp(label,list){return '<div class="dine-group-label">'+label+'</div>'+list.map(venue).join("");}
+  function open(){title.textContent="Restaurants & bars";grid.innerHTML=grp("Restaurants",DINE.restaurants)+grp("Bars",DINE.bars);grid.scrollTop=0;lastFocus=document.activeElement;modal.classList.add("open");modal.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";}
+  function close(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");document.body.style.overflow="";if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+  document.querySelectorAll("[data-dineall]").forEach(function(b){b.addEventListener("click",open);});
+  modal.querySelectorAll("[data-close]").forEach(function(b){b.addEventListener("click",close);});
+  addEventListener("keydown",function(e){if(e.key==="Escape"&&modal.classList.contains("open"))close();});
 })();
 </script>
 </body></html>
