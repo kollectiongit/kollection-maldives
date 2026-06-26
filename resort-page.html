@@ -80,11 +80,12 @@ section{position:relative}
 .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,90px);align-items:start}
 .lede{font-size:16px;line-height:1.9;color:var(--soft);max-width:54ch}
 .lede.big{font-family:var(--display);font-size:clamp(20px,2.2vw,28px);line-height:1.4;color:var(--ink)}
+.lede.big .fig{font-style:italic;font-size:1.28em;color:rgba(212,173,166,.62)}
 .reasons{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:54px}
 .reason{background:var(--bg);padding:34px 32px;display:flex;gap:20px;align-items:flex-start;transition:background .4s}
 .reason:hover{background:var(--bg2)}
 .r-no{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:12px;flex:none}
-.reason h3{font-family:var(--display);font-weight:400;font-size:23px;margin-bottom:8px;line-height:1.15}
+.reason h3{font-family:var(--display);font-weight:400;font-size:23px;margin-bottom:8px;line-height:1.15;color:var(--stone)}
 .reason p{font-size:14px;line-height:1.75;color:var(--soft)}
 
 /* NOTES / SURVEY */
@@ -432,16 +433,22 @@ body.villa{--accent:var(--accent-villa)}
 
   /* —— "why this one was kept": no table lines, just open space —— */
   .reasons{background:none!important;border:none!important;grid-template-columns:1fr 1fr;
-    gap:clamp(42px,5vw,76px) clamp(50px,6vw,104px);margin-top:clamp(44px,5vw,66px)}
-  .reason{background:none!important;padding:0;border:none}
-  .reason:hover{background:none}
+    gap:clamp(42px,5vw,76px) clamp(50px,6vw,104px);margin-top:clamp(44px,5vw,66px);counter-reset:reason}
+  .reason{background:none!important;padding:2px 0 2px clamp(22px,2vw,30px);border:none;
+    counter-increment:reason;position:relative;flex-direction:column;gap:0;
+    transition:transform .55s var(--ease)}
+  /* left vertical hairline — same rule used to separate the Kollection-notes icons,
+     kept short so it spans only the heading and the first line of text */
+  .reason::before{content:"";position:absolute;left:0;top:4px;height:clamp(54px,6vw,62px);
+    width:1px;background:var(--line)}
+  .reason:hover{background:none;transform:translateY(-5px)}
   @media(max-width:760px){.reasons{grid-template-columns:1fr;gap:clamp(36px,7vw,52px)}}
 
   /* —— inquiry: form on the right, advisor on the left —— */
   .iq-form{order:2}
   .iq-side{order:1}
 
-  /* drop the reason bullet dots — spacing alone separates them */
+  /* bullet markers dropped — the left hairline carries each reason */
   .reason .r-no{display:none}
 
   /* —— "A closer look" — compact asymmetric editorial grid —— */
@@ -576,6 +583,27 @@ body.villa{--accent:var(--accent-villa)}
 .gal-ph{cursor:zoom-in}
 @media(max-width:640px){.lb-nav,.lb-close{width:42px;height:42px}}
 
+/* —— resort-map CTA (in Kollection notes) + dialog —— */
+.map-cta{margin:clamp(40px,5vw,64px) auto 0;display:flex;align-items:center;gap:11px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
+  background:none;border:1px solid var(--line);border-radius:40px;padding:14px 26px;cursor:pointer;
+  transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
+.map-cta svg{width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:1.3;transition:stroke .35s var(--ease)}
+.map-cta:hover{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.map-cta:hover svg{stroke:var(--bg)}
+.map-modal{position:fixed;inset:0;z-index:9700;display:none;opacity:0;transition:opacity .3s var(--ease)}
+.map-modal.open{display:flex;opacity:1;align-items:center;justify-content:center}
+.map-backdrop{position:absolute;inset:0;background:rgba(6,9,11,.93);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.map-stage{position:relative;z-index:1;margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:94vw}
+.map-img{max-width:94vw;max-height:84vh;object-fit:contain;border-radius:10px;background:var(--cream);box-shadow:0 30px 90px rgba(0,0,0,.55)}
+.map-cap{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);text-align:center}
+.map-close{position:absolute;top:clamp(14px,2.4vw,26px);right:clamp(14px,2.4vw,26px);z-index:3;
+  width:48px;height:48px;border-radius:50%;border:1px solid rgba(244,238,223,.38);background:rgba(8,11,13,.42);
+  color:var(--cream);cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:.25s var(--ease);display:flex;align-items:center;justify-content:center;font-size:15px}
+.map-close:hover{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+@media(max-width:640px){.map-close{width:42px;height:42px}}
+
 /* amenities — grouped text checklist */
 .amenity-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:clamp(28px,3.6vw,58px);margin-top:clamp(34px,4vw,54px)}
 .am-group-label{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:18px}
@@ -637,7 +665,7 @@ body.villa{--accent:var(--accent-villa)}
 <section class="pad"><div class="wrap">
   <div class="intro-grid">
     <div class="reveal"><p class="kick">The editorial</p><h2 style="margin-top:18px">Why this one was <em>kept.</em></h2></div>
-    <div class="reveal d1"><p class="lede big">Two hundred and fourteen properties were considered for the index. Thirty-one survived. The St. Regis Maldives Vommuli stayed for four reasons, with one honest weakness we name up front, because you would notice it anyway.</p></div>
+    <div class="reveal d1"><p class="lede big"><span class="fig">214</span> properties were considered for the index. <span class="fig">31</span> survived. The St. Regis Maldives Vommuli stayed for <span class="fig">4</span> reasons, with <span class="fig">1</span> honest weakness we name up front, because you would notice it anyway.</p></div>
   </div>
   <div class="reasons">
     <div class="reason reveal d1"><div class="r-no"></div><div><h3>Architecture with a signature</h3><p>WOW Architects shaped the whole island — most of all The Whale Bar, a sweeping timber shell over the water that has become the resort’s emblem.</p></div></div>
@@ -678,6 +706,10 @@ body.villa{--accent:var(--accent-villa)}
     <div class="gl reveal d1"><svg viewBox="0 0 24 24"><path d="M4 18 C8 10,16 10,20 18 Z"/><circle cx="12" cy="9" r="1.6"/></svg><b>6</b><span>Dining venues</span></div>
     <div class="gl reveal d2"><svg viewBox="0 0 24 24"><path d="M12 20 C7 14,7 7,12 4 C17 7,17 14,12 20 Z"/></svg><b>2016</b><span>Opened</span></div>
   </div>
+  <button class="map-cta reveal" id="mapBtn" type="button" aria-haspopup="dialog">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 0 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
+    Resort map
+  </button>
 </div></section>
 
 <!-- GUEST QUOTE — full-bleed band -->
@@ -1009,6 +1041,28 @@ body.villa{--accent:var(--accent-villa)}
   <figure class="lb-stage"><img id="lbImg" class="lb-img" alt=""><figcaption class="lb-cap"><span id="lbCap"></span><span class="lb-count" id="lbCount"></span></figcaption></figure>
   <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="Next photo">&#8250;</button>
 </div>
+
+<!-- RESORT MAP DIALOG -->
+<div class="map-modal" id="mapModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Resort map">
+  <div class="map-backdrop" data-mapclose></div>
+  <button class="map-close" type="button" data-mapclose aria-label="Close">&#10005;</button>
+  <figure class="map-stage">
+    <img class="map-img" src="the-st-regis-maldives-vommuli-resort/maps/resort_map.png" alt="The St. Regis Maldives Vommuli Resort — island layout map showing villa categories and shared spaces">
+    <figcaption class="map-cap">The St. Regis Maldives Vommuli · resort layout</figcaption>
+  </figure>
+</div>
+<script>
+// resort-map dialog (Kollection notes)
+(function(){
+  var btn=document.getElementById('mapBtn'),modal=document.getElementById('mapModal'),lastFocus=null;
+  if(!btn||!modal)return;
+  function open(){lastFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';var c=modal.querySelector('.map-close');if(c)c.focus();}
+  function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');if(!document.querySelector('.gal-modal.open,.lightbox.open'))document.body.style.overflow='';if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+  btn.addEventListener('click',open);
+  modal.querySelectorAll('[data-mapclose]').forEach(function(el){el.addEventListener('click',close);});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open')){e.stopImmediatePropagation();close();}});
+})();
+</script>
 
 <!-- ALL VILLAS DIALOG -->
 <div class="gal-modal" id="villaModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="All villas">
