@@ -85,15 +85,8 @@ section{position:relative}
 /* "Why this one was kept" ledger lives in the editorial-overrides block below (.kept) */
 
 /* NOTES / SURVEY */
-.notes{background:var(--bg2)}
-.survey{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:46px}
-.sv{background:var(--bg2);padding:22px 24px;transition:background .4s}
-.sv:hover{background:var(--raise)}
-.sv .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone)}
-.sv .v{margin-top:10px;font-family:var(--display);font-size:22px}
-.sv .v em{color:var(--accent);font-size:17px}
-.note-q{margin-top:40px;font-family:var(--display);font-size:clamp(20px,2.4vw,30px);line-height:1.4;max-width:30ch;color:var(--ink)}
-.note-q .sig{display:block;margin-top:18px;font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone)}
+.notes{background:var(--bg)}
+/* survey + at-a-glance restyled as .readings + .facts — styles in the editorial-overrides block */
 
 /* VISUAL JOURNEY — full-bleed parallax */
 .journey-panel{position:relative;height:92vh;min-height:560px;display:flex;align-items:center;justify-content:center;
@@ -106,14 +99,6 @@ section{position:relative}
 .j-text p{font-size:clamp(15px,1.5vw,19px);line-height:1.7;color:rgba(244,238,223,.92);max-width:38ch;margin:0 auto}
 @media(max-width:760px){.journey-panel{background-attachment:scroll}}
 
-/* AT A GLANCE — logos */
-.glance{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:46px}
-.gl{background:var(--bg);padding:30px 18px;text-align:center;transition:background .4s}
-.gl:hover{background:var(--bg2)}
-.gl svg{width:30px;height:30px;stroke:var(--accent);fill:none;stroke-width:1.2;margin-bottom:14px}
-.gl b{display:block;font-family:var(--display);font-size:28px;font-weight:400}
-.gl span{display:block;margin-top:6px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone)}
-@media(max-width:860px){.glance{grid-template-columns:repeat(3,1fr)}}
 
 /* AMENITIES + DINING */
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
@@ -176,7 +161,7 @@ footer.base{padding:48px 0 60px;border-top:1px solid var(--line)}
 .base .blinks a:hover{color:var(--accent)}
 .totop{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);text-decoration:none}
 
-@media(max-width:1020px){.intro-grid,.iq-grid{grid-template-columns:1fr}.survey{grid-template-columns:1fr}}
+@media(max-width:1020px){.intro-grid,.iq-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.journey-panel{background-attachment:scroll}.hscene{transition:none}*{animation:none!important}}
 body.villa{--accent:var(--accent-villa)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
@@ -275,25 +260,33 @@ body.villa{--accent:var(--accent-villa)}
   .gal-item figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-top:9px}
   @media(max-width:560px){.gal-grid{grid-template-columns:1fr 1fr;gap:10px}}
 
-  /* —— facts as airy editorial specs, not boxed tables —— */
-  .survey{background:none;border:none;grid-template-columns:repeat(2,1fr);
-    gap:clamp(28px,3.6vw,46px) clamp(44px,7vw,96px);margin-top:42px}
-  .sv{background:none!important;padding:0;border:none}
-  .sv .k{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone)}
-  .sv .v{margin-top:10px;font-family:var(--display);font-weight:400;font-size:25px;line-height:1.15}
-  .sv .v em{color:var(--accent);font-size:18px}
+  /* —— hand-measured readings: airy label/value pairs, no rules —— */
+  .readings{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(22px,3vw,48px);
+    margin-top:clamp(58px,7vw,92px)}
+  .reading .rl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--stone)}
+  .reading .rv{display:block;margin-top:9px;font-family:var(--display);font-weight:400;
+    font-size:clamp(16px,1.4vw,20px);line-height:1.22;color:var(--ink)}
+  .reading .rv em{font-style:italic;font-size:.72em;color:var(--accent)}
+  @media(max-width:820px){.readings{grid-template-columns:repeat(2,1fr);gap:clamp(22px,4vw,34px)}}
+  @media(max-width:460px){.readings{grid-template-columns:1fr}}
 
-  .glance{background:none;border:none;grid-template-columns:repeat(6,1fr);
-    gap:clamp(24px,3vw,46px);margin-top:52px}
-  .gl{background:none!important;padding:0;text-align:left}
-  .gl svg{margin-bottom:14px}
-  .gl b{font-family:var(--display);font-weight:400;font-size:32px;line-height:1}
-  .gl span{margin-top:6px}
-  @media(max-width:860px){.glance{grid-template-columns:repeat(3,1fr)}}
-  @media(max-width:560px){.survey{grid-template-columns:1fr}.glance{grid-template-columns:repeat(2,1fr)}}
-
-  /* —— more distance between the survey facts and the stat icons —— */
-  .glance{margin-top:clamp(66px,9vw,120px)}
+  /* —— at-a-glance facts: icon-led, split by short vertical hairlines (Airbnb-style) —— */
+  .facts{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(30px,4vw,44px) 0;
+    margin-top:clamp(33px,4.25vw,58px)}
+  .fact{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;
+    padding:0 clamp(14px,2vw,28px)}
+  .fact:not(:first-child)::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+    width:1px;height:clamp(46px,5vw,64px);background:var(--line)}
+  .fact svg{width:34px;height:34px;stroke:var(--accent);fill:none;stroke-width:1.2;
+    stroke-linecap:round;stroke-linejoin:round;margin-bottom:clamp(16px,2vw,24px)}
+  .fact .f-val{font-family:var(--display);font-weight:400;font-size:clamp(23px,2.1vw,32px);
+    line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+  .fact .f-val .u{font-family:var(--mono);font-size:.42em;letter-spacing:.04em;color:var(--stone);margin-left:3px}
+  .fact .f-lab{margin-top:clamp(11px,1.3vw,15px);font-family:var(--mono);font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--stone);line-height:1.5}
+  @media(max-width:900px){.facts{grid-template-columns:repeat(3,1fr)}.fact:nth-child(3n+1)::before{display:none}}
+  @media(max-width:520px){.facts{grid-template-columns:repeat(2,1fr)}.fact:nth-child(2n+1)::before{display:none}}
   /* —— full-bleed guest-quote band —— */
   .quote-band{background:#1A3C44;color:var(--cream);text-align:center;padding:clamp(92px,13vw,172px) 0}
   .qb-inner{max-width:1000px;margin:0 auto;padding:0 32px}
@@ -320,11 +313,6 @@ body.villa{--accent:var(--accent-villa)}
   .venue-img{aspect-ratio:3/2}
   @media(max-width:760px){.dining{grid-template-columns:1fr}}
 
-  /* —— short vertical dividers between the stat icons (Airbnb-style) —— */
-  .glance{--gl-gap:clamp(28px,3.2vw,52px);gap:var(--gl-gap)}
-  .gl{position:relative}
-  .gl:not(:first-child)::before{content:"";position:absolute;top:50%;transform:translateY(-50%);
-    left:calc(var(--gl-gap) / -2);width:1px;height:48px;background:var(--line)}
 
   /* —— villas: static two-up pager (Airbnb-style) + per-card photo gallery —— */
   .villas-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
@@ -666,7 +654,7 @@ body.villa{--accent:var(--accent-villa)}
   </div></div>
 </header>
 
-<!-- INTRO + 4 REASONS -->
+<!-- EDITORIAL — why this one was kept -->
 <section class="pad"><div class="wrap">
   <div class="kept">
     <div class="kept-3up">
@@ -708,19 +696,19 @@ body.villa{--accent:var(--accent-villa)}
 <!-- OUR NOTES / SURVEY -->
 <section class="notes pad"><div class="wrap">
   <div class="reveal"><p class="kick">Our Kollection notes</p><h2 style="margin-top:18px">Measured by hand, <em>not by brochure.</em></h2></div>
-  <div class="survey">
-    <div class="sv reveal"><div class="k">Sunset orientation</div><div class="v">West villas <em>· Sunset Overwater</em></div></div>
-    <div class="sv reveal d2"><div class="k">Signature space</div><div class="v">The Whale Bar <em>· over the water</em></div></div>
-    <div class="sv reveal"><div class="k">Best for families</div><div class="v">Two-Bedroom Ocean <em>· beach access</em></div></div>
-    <div class="sv reveal d2"><div class="k">Child policy</div><div class="v">All ages <em>· large Kids’ Club</em></div></div>
+  <div class="readings reveal d1">
+    <div class="reading"><span class="rl">Sunset orientation</span><span class="rv">West villas <em>· Sunset Overwater</em></span></div>
+    <div class="reading"><span class="rl">Signature space</span><span class="rv">The Whale Bar <em>· over the water</em></span></div>
+    <div class="reading"><span class="rl">Best for families</span><span class="rv">Two-Bedroom Ocean <em>· beach access</em></span></div>
+    <div class="reading"><span class="rl">Child policy</span><span class="rv">All ages <em>· large Kids’ Club</em></span></div>
   </div>
-<div class="glance">
-    <div class="gl reveal"><svg viewBox="0 0 24 24"><path d="M3 18 L21 18 M5 18 L5 12 L12 8 L19 12 L19 18 M9 18 L9 14 L15 14 L15 18"/></svg><b>77</b><span>Villas &amp; suites</span></div>
-    <div class="gl reveal d1"><svg viewBox="0 0 24 24"><path d="M2 16 L22 16 M6 16 L9 9 L13 9 L18 16 M11 9 L11 5"/></svg><b>45<small style="font-size:13px"> min</small></b><span>Seaplane</span></div>
-    <div class="gl reveal d2"><svg viewBox="0 0 24 24"><path d="M3 12 C7 7,17 7,21 12 C17 17,7 17,3 12 Z"/><circle cx="12" cy="12" r="2.4"/></svg><b>9<small style="font-size:13px"> ha</small></b><span>Private island</span></div>
-    <div class="gl reveal"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 14 L20 14"/></svg><b>125<small style="font-size:13px"> m²</small></b><span>Smallest villa</span></div>
-    <div class="gl reveal d1"><svg viewBox="0 0 24 24"><path d="M4 18 C8 10,16 10,20 18 Z"/><circle cx="12" cy="9" r="1.6"/></svg><b>6</b><span>Dining venues</span></div>
-    <div class="gl reveal d2"><svg viewBox="0 0 24 24"><path d="M12 20 C7 14,7 7,12 4 C17 7,17 14,12 20 Z"/></svg><b>2016</b><span>Opened</span></div>
+  <div class="facts reveal d2">
+    <div class="fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18 L21 18 M5 18 L5 12 L12 8 L19 12 L19 18 M9 18 L9 14 L15 14 L15 18"/></svg><span class="f-val">77</span><span class="f-lab">Villas &amp; suites</span></div>
+    <div class="fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 16 L22 16 M6 16 L9 9 L13 9 L18 16 M11 9 L11 5"/></svg><span class="f-val">45 <span class="u">min</span></span><span class="f-lab">Seaplane</span></div>
+    <div class="fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12 C7 7,17 7,21 12 C17 17,7 17,3 12 Z"/><circle cx="12" cy="12" r="2.4"/></svg><span class="f-val">9 <span class="u">ha</span></span><span class="f-lab">Private island</span></div>
+    <div class="fact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16"/><path d="M4 14 L20 14"/></svg><span class="f-val">125 <span class="u">m²</span></span><span class="f-lab">Smallest villa</span></div>
+    <div class="fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18 C8 10,16 10,20 18 Z"/><circle cx="12" cy="9" r="1.6"/></svg><span class="f-val">6</span><span class="f-lab">Dining venues</span></div>
+    <div class="fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20 C7 14,7 7,12 4 C17 7,17 14,12 20 Z"/></svg><span class="f-val">2016</span><span class="f-lab">Opened</span></div>
   </div>
   <button class="map-cta reveal" id="mapBtn" type="button" aria-haspopup="dialog">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 0 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
