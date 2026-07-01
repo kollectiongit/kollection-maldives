@@ -24,7 +24,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:3
 .mono{font-family:var(--mono)}
 .kick{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone)}
 
-h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,4.4vw,56px);line-height:1.04;letter-spacing:.01em}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,4.4vw,56px);line-height:1.04;letter-spacing:.01em;text-wrap:balance}
 h2 em{font-style:normal;color:var(--accent)}
 em,i{font-style:italic}
 
@@ -62,6 +62,8 @@ em,i{font-style:italic}
 .hero h1 em{color:var(--cream);font-style:normal}
 .hero-facts{display:flex;gap:26px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:rgba(244,238,223,.92);text-shadow:0 1px 12px rgba(8,11,13,.6)}
 .hero-facts b{font-weight:700;color:var(--cream)}
+.hero-facts{font-variant-numeric:tabular-nums}
+.hero-dateline{margin-top:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,238,223,.66);text-shadow:0 1px 12px rgba(8,11,13,.6)}
 .hero-side{display:flex;flex-direction:column;align-items:flex-end;gap:24px}
 .dots{display:flex;gap:9px}
 .dots button{width:8px;height:8px;border-radius:50%;border:1px solid var(--cream);background:transparent;cursor:pointer;padding:0;transition:.3s}
@@ -132,7 +134,7 @@ section{position:relative}
 .iq{padding:16px 18px;border-bottom:1px solid var(--line)}
 .iq + .iq{border-left:1px solid var(--line)}
 .iq .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
-.iq .v{margin-top:6px;font-size:14px}
+.iq .v{margin-top:6px;font-size:14px;font-variant-numeric:tabular-nums}
 .iq-msg{padding:16px 18px}
 .iq-msg .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
 .iq-msg .v{margin-top:8px;font-size:14px;color:var(--soft);line-height:1.7}
@@ -165,6 +167,8 @@ footer.base{padding:48px 0 60px;border-top:1px solid var(--line)}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.journey-panel{background-attachment:scroll}.hscene{transition:none}*{animation:none!important}}
 body.villa{--accent:var(--accent-villa)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+[data-bg]{background-color:var(--raise)}
 
   /* —— Reverie-style dining + villa cards —— */
   .dining{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
@@ -184,7 +188,7 @@ body.villa{--accent:var(--accent-villa)}
   .villa h3{font-family:var(--display);font-weight:400;font-size:26px;margin-top:8px;line-height:1.1}
   .villa .vdesc{margin-top:10px;font-size:14px;line-height:1.7;color:var(--soft)}
   .villa .vfoot{margin-top:16px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-  .villa .vprice{font-family:var(--display);font-size:22px}
+  .villa .vprice{font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums}
   .villa .vprice span{font-family:var(--mono);font-size:10px;color:var(--stone);letter-spacing:.06em}
   .villa .vview{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--accent);padding-bottom:3px;white-space:nowrap}
   .villa:hover .vview{color:var(--accent)}
@@ -602,6 +606,32 @@ body.villa{--accent:var(--accent-villa)}
 .am-group-label{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:18px}
 .am-group-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
 .am-group-list li{font-size:15px;line-height:1.35;color:var(--ink)}
+/* amenities — annotated entries: items with depth open a detail dialog */
+.am-note{appearance:none;background:none;border:none;font:inherit;color:var(--ink);cursor:pointer;
+  text-align:left;padding:12px 0;margin:-12px 0;
+  text-decoration:underline dotted rgba(212,173,166,.55);text-underline-offset:5px;text-decoration-thickness:1px;
+  transition:color .25s var(--ease),text-decoration-color .25s var(--ease)}
+.am-note sup{font-family:var(--mono);font-size:.6em;color:var(--stone);margin-left:5px;text-decoration:none;transition:color .25s var(--ease)}
+.am-note:hover,.am-note:focus-visible{color:var(--accent);text-decoration-color:var(--accent);text-decoration-style:solid}
+.am-note:hover sup,.am-note:focus-visible sup{color:var(--accent)}
+/* amenity detail dialog — compact centered card on the shared modal shell */
+.gal-dialog--amen{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(92vw,880px);max-height:min(86vh,760px)}
+.amen-modal-body{overflow-y:auto;padding:clamp(18px,2.6vw,28px) clamp(20px,3vw,34px) clamp(24px,3vw,36px)}
+.am-lede{font-size:15px;line-height:1.75;color:var(--soft);max-width:64ch;margin:0 0 clamp(18px,2.4vw,26px)}
+/* dining — count dateline, clickable feature image + view chip, slow Ken-Burns drift */
+.dine-count{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
+#dining .amen-feature{cursor:zoom-in}
+.amen-view{position:absolute;left:clamp(14px,1.6vw,22px);bottom:clamp(14px,1.6vw,22px);z-index:2;
+  display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 20px;border-radius:40px;
+  border:1px solid rgba(244,238,223,.35);background:rgba(13,18,20,.45);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+  color:var(--cream);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;transition:background .3s var(--ease),border-color .3s var(--ease),color .3s var(--ease)}
+.amen-view:hover{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.amen-view span{transition:transform .3s var(--ease)}
+.amen-view:hover span{transform:translateX(3px)}
+#dining .amen-img{animation:img-drift 18s ease-in-out infinite alternate}
+@keyframes img-drift{from{transform:scale(1)}to{transform:scale(1.045)}}
 .dining-feature .gal-dots{bottom:14px;top:auto}
 .dining-feature .gal-prev,.dining-feature .gal-next{opacity:1}
 .dining-feature .gal-dots i{cursor:pointer;width:7px;height:7px}
@@ -639,8 +669,8 @@ body.villa{--accent:var(--accent-villa)}
 <!-- HERO -->
 <header class="hero" id="hero">
   <div class="hscene active" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/02ff41a0-cf18-477f-8a86-cd86fdb81e7a.jpg')"></div>
-  <div class="hscene" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/94cd7bcd-6821-4aa4-9132-834987003104.jpg')"></div>
-  <div class="hscene" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/c5f09992-7a6b-4851-8898-a59f19d9e169.jpg')"></div>
+  <div class="hscene" data-bg="the-st-regis-maldives-vommuli-resort/photos/94cd7bcd-6821-4aa4-9132-834987003104.jpg"></div>
+  <div class="hscene" data-bg="the-st-regis-maldives-vommuli-resort/photos/c5f09992-7a6b-4851-8898-a59f19d9e169.jpg"></div>
   <div class="hero-shade"></div>
   <div class="hero-content"><div class="wrap hero-grid">
     <div class="hero-main">
@@ -650,12 +680,14 @@ body.villa{--accent:var(--accent-villa)}
         <span data-resort="<b>45 min</b> seaplane" data-villa="<b>45 min</b> seaplane"><b>45 min</b> seaplane</span>
         <span data-resort="Ranked <b>5 of 31</b> in the index" data-villa="<b>By request</b> · enquire">Ranked <b>5 of 31</b> in the index</span>
       </div>
+      <p class="hero-dateline">Surveyed in person · March 2026</p>
     </div>
   </div></div>
 </header>
 
 <!-- EDITORIAL — why this one was kept -->
 <section class="pad"><div class="wrap">
+  <h2 class="sr-only">Why this one was kept</h2>
   <div class="kept">
     <div class="kept-3up">
       <div class="kept-col reveal">
@@ -686,7 +718,7 @@ body.villa{--accent:var(--accent-villa)}
 
 <!-- VISUAL JOURNEY -->
 <section id="journey">
-  <div class="journey-panel" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/3cca861e-1302-4352-b95b-95d5896347aa.jpg')">
+  <div class="journey-panel" data-bg="the-st-regis-maldives-vommuli-resort/photos/3cca861e-1302-4352-b95b-95d5896347aa.jpg">
     <div class="j-swap" aria-hidden="true"></div>
     <div class="j-cap">Gallery</div>
     <div class="j-gallery"></div>
@@ -730,7 +762,7 @@ body.villa{--accent:var(--accent-villa)}
   <div class="villas-viewport"><div class="villas-track" id="vTrack">
     <div class="villa">
       <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/017752cf-0160-45d0-aef8-639bb5cc8529.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/4804ca5e-5acf-4d9b-a2c1-745ae5de5ba2.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/535d6a15-4dba-474a-a3b4-0eed41b0ce82.jpg"]'>
-        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/017752cf-0160-45d0-aef8-639bb5cc8529.jpg')"></div>
+        <div class="villa-img" data-bg="the-st-regis-maldives-vommuli-resort/photos/overwater-villa-with-pool/017752cf-0160-45d0-aef8-639bb5cc8529.jpg"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
@@ -743,7 +775,7 @@ body.villa{--accent:var(--accent-villa)}
     </div>
     <div class="villa">
       <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/10663a4d-161d-4ccc-a840-4f4a911f87b7.jpg", "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/125ab4c3-4ca0-470d-976c-c278a4f9f0e8.jpg", "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/156ad789-bc46-4836-b760-c583fe69322f.jpg"]'>
-        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/10663a4d-161d-4ccc-a840-4f4a911f87b7.jpg')"></div>
+        <div class="villa-img" data-bg="the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/10663a4d-161d-4ccc-a840-4f4a911f87b7.jpg"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
@@ -756,7 +788,7 @@ body.villa{--accent:var(--accent-villa)}
     </div>
     <div class="villa">
       <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0d104e1c-42b6-46e0-b4a6-f04b4a7be311.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0fc4d38e-59c5-49c3-88d4-750fa037e55e.jpg", "the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/11832f7b-6b8a-40a3-9b43-ff54aeb41886.jpg"]'>
-        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0d104e1c-42b6-46e0-b4a6-f04b4a7be311.jpg')"></div>
+        <div class="villa-img" data-bg="the-st-regis-maldives-vommuli-resort/photos/overwater-st-regis-suite/0d104e1c-42b6-46e0-b4a6-f04b4a7be311.jpg"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
@@ -769,7 +801,7 @@ body.villa{--accent:var(--accent-villa)}
     </div>
     <div class="villa">
       <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/264f03f0-0583-4798-bd21-dc8f4b600b36.jpg", "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/5212fb3a-35a6-4468-9bca-2ed9173641f8.jpg", "the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/55a51218-83cb-4d70-9573-5f8783fb7a17.jpg"]'>
-        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/264f03f0-0583-4798-bd21-dc8f4b600b36.jpg')"></div>
+        <div class="villa-img" data-bg="the-st-regis-maldives-vommuli-resort/photos/beach-villa-with-pool/264f03f0-0583-4798-bd21-dc8f4b600b36.jpg"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
@@ -782,7 +814,7 @@ body.villa{--accent:var(--accent-villa)}
     </div>
     <div class="villa">
       <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/1b32eb7c-6cc0-453a-b5b7-3b7fabe5421c.jpg", "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/4ce84233-6a64-4a9a-b532-e7392936548d.jpg", "the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/51cb6479-7a93-42ad-8a15-87b35f8babd3.jpg"]'>
-        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/1b32eb7c-6cc0-453a-b5b7-3b7fabe5421c.jpg')"></div>
+        <div class="villa-img" data-bg="the-st-regis-maldives-vommuli-resort/photos/garden-villa-with-pool/1b32eb7c-6cc0-453a-b5b7-3b7fabe5421c.jpg"></div>
         <div class="villa-tag">1 Bedroom</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
@@ -795,7 +827,7 @@ body.villa{--accent:var(--accent-villa)}
     </div>
     <div class="villa">
       <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/1ae36f39-9f2d-4d2b-8536-9beee174d57c.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/22e27bf8-d628-4727-a6d3-28ed627f8208.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/305c4cc1-9e8b-4d85-b8e9-492b4ca6ac68.jpg"]'>
-        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/1ae36f39-9f2d-4d2b-8536-9beee174d57c.jpg')"></div>
+        <div class="villa-img" data-bg="the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/1ae36f39-9f2d-4d2b-8536-9beee174d57c.jpg"></div>
         <div class="villa-tag">2 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
@@ -808,7 +840,7 @@ body.villa{--accent:var(--accent-villa)}
     </div>
     <div class="villa">
       <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/01eab34b-124e-411e-900c-6fbd8c43ca30.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/08f69ea0-e163-4bf6-ad17-8a992d90cd36.jpg", "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/0ce9c1a0-bcb1-40ff-b4e2-6141549cb85d.jpg"]'>
-        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/01eab34b-124e-411e-900c-6fbd8c43ca30.jpg')"></div>
+        <div class="villa-img" data-bg="the-st-regis-maldives-vommuli-resort/photos/two-bedroom-sunset-villa/01eab34b-124e-411e-900c-6fbd8c43ca30.jpg"></div>
         <div class="villa-tag">2 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
@@ -821,7 +853,7 @@ body.villa{--accent:var(--accent-villa)}
     </div>
     <div class="villa">
       <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/01d33fa7-9f44-411a-84ac-ac8729cd1c5a.jpg", "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/09b6fa0b-c156-47f5-b682-2398169b1611.jpeg", "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/1099d700-2fe9-487d-b2cf-107ccfe29e2e.jpg"]'>
-        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/01d33fa7-9f44-411a-84ac-ac8729cd1c5a.jpg')"></div>
+        <div class="villa-img" data-bg="the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/01d33fa7-9f44-411a-84ac-ac8729cd1c5a.jpg"></div>
         <div class="villa-tag">2 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
@@ -834,7 +866,7 @@ body.villa{--accent:var(--accent-villa)}
     </div>
     <div class="villa">
       <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0055ea64-9af5-44da-9496-1981cc9ca34d.jpg", "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/090897d7-2aee-4970-aff1-66f7ad0baacd.jpg", "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0c4b4600-c58d-41ac-9ebf-a73d9cf3922b.jpg"]'>
-        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0055ea64-9af5-44da-9496-1981cc9ca34d.jpg')"></div>
+        <div class="villa-img" data-bg="the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0055ea64-9af5-44da-9496-1981cc9ca34d.jpg"></div>
         <div class="villa-tag">3 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
@@ -847,7 +879,7 @@ body.villa{--accent:var(--accent-villa)}
     </div>
     <div class="villa">
       <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/00f35a3c-be6d-440c-8ddb-9d17ad0aa386.jpg", "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/0267913a-8813-4852-9cf4-f1448f86969a.jpg", "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/0e5c4167-4473-4b36-9900-82293956cdb7.jpg"]'>
-        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/00f35a3c-be6d-440c-8ddb-9d17ad0aa386.jpg')"></div>
+        <div class="villa-img" data-bg="the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/00f35a3c-be6d-440c-8ddb-9d17ad0aa386.jpg"></div>
         <div class="villa-tag">2 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
@@ -860,7 +892,7 @@ body.villa{--accent:var(--accent-villa)}
     </div>
     <div class="villa">
       <div class="villa-gallery" data-imgs='["the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/17198373-73ab-4906-800d-57339c88c912.jpg", "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/174f0ca1-de7c-4bbd-aa42-1bc29a674e20.jpg", "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/21241219-adc0-4f19-a758-6360c9a19521.jpg"]'>
-        <div class="villa-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/17198373-73ab-4906-800d-57339c88c912.jpg')"></div>
+        <div class="villa-img" data-bg="the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/17198373-73ab-4906-800d-57339c88c912.jpg"></div>
         <div class="villa-tag">3 Bedrooms</div>
         <button class="gal-prev" aria-label="Previous photo">‹</button>
         <button class="gal-next" aria-label="Next photo">›</button>
@@ -885,19 +917,19 @@ body.villa{--accent:var(--accent-villa)}
 <section class="pad" id="amenities"><div class="wrap">
   <div class="reveal"><p class="kick">On the island</p><h2 style="margin-top:18px">The <em>amenities.</em></h2></div>
   <div class="amenity-cols reveal d1">
-    <div class="am-group"><div class="am-group-label">Wellness</div><ul class="am-group-list"><li>Iridium Spa</li><li>Blue Hole hydrotherapy</li><li>Fitness centre</li><li>Yoga &amp; meditation</li><li>Salon</li><li>Jumping fitness</li></ul></div>
-    <div class="am-group"><div class="am-group-label">On the water</div><ul class="am-group-list"><li>Dive centre</li><li>Snorkelling</li><li>Water sports</li><li>Sunset dolphin cruise</li><li>Norma luxury yacht</li></ul></div>
-    <div class="am-group"><div class="am-group-label">Family</div><ul class="am-group-list"><li>Children’s club</li><li>Family expedition</li><li>Babysitting</li></ul></div>
-    <div class="am-group"><div class="am-group-label">The island</div><ul class="am-group-list"><li>Infinity pool</li><li>Tennis</li><li>Jungle cinema</li><li>Library</li><li>Observatory centre</li><li>Boutique</li><li>Bicycle rental</li></ul></div>
+    <div class="am-group"><div class="am-group-label">Wellness</div><ul class="am-group-list"><li><button class="am-note" type="button" data-amen="spa" aria-haspopup="dialog">Iridium Spa<sup aria-hidden="true">+</sup></button></li><li>Blue Hole hydrotherapy</li><li>Fitness centre</li><li>Yoga &amp; meditation</li><li>Salon</li><li>Jumping fitness</li></ul></div>
+    <div class="am-group"><div class="am-group-label">On the water</div><ul class="am-group-list"><li>Dive centre</li><li><button class="am-note" type="button" data-amen="reef" aria-haspopup="dialog">Snorkelling<sup aria-hidden="true">+</sup></button></li><li>Water sports</li><li>Sunset dolphin cruise</li><li><button class="am-note" type="button" data-amen="yacht" aria-haspopup="dialog">Norma luxury yacht<sup aria-hidden="true">+</sup></button></li></ul></div>
+    <div class="am-group"><div class="am-group-label">Family</div><ul class="am-group-list"><li><button class="am-note" type="button" data-amen="kids" aria-haspopup="dialog">Children’s club<sup aria-hidden="true">+</sup></button></li><li>Family expedition</li><li>Babysitting</li></ul></div>
+    <div class="am-group"><div class="am-group-label">The island</div><ul class="am-group-list"><li><button class="am-note" type="button" data-amen="pool" aria-haspopup="dialog">Infinity pool<sup aria-hidden="true">+</sup></button></li><li>Tennis</li><li>Jungle cinema</li><li>Library</li><li>Observatory centre</li><li>Boutique</li><li>Bicycle rental</li></ul></div>
   </div>
   <div class="amen-cta reveal"><button class="gal-link" type="button" data-gallery-cat="All">Browse the full gallery <span aria-hidden="true">→</span></button></div>
 </div></section>
 
 <!-- RESTAURANTS & BARS -->
 <section class="pad" id="dining" style="background:var(--bg2)"><div class="wrap">
-  <div class="reveal"><p class="kick">On the island</p><h2 style="margin-top:18px">Restaurants <em>&amp; bars.</em></h2></div>
+  <div class="reveal"><p class="kick">On the island</p><h2 style="margin-top:18px">Restaurants <em>&amp; bars.</em></h2><p class="dine-count">8 venues · 4 restaurants · 4 bars · tables arranged by your butler</p></div>
     <div class="amen">
-    <div class="amen-feature"><div class="amen-img" style="background-image:url('the-st-regis-maldives-vommuli-resort/outlets/alba/3abf79bb-20b4-4f2c-b3ef-a27805b135a4.jpg')"></div></div>
+    <div class="amen-feature"><div class="amen-img" data-bg="the-st-regis-maldives-vommuli-resort/outlets/alba/3abf79bb-20b4-4f2c-b3ef-a27805b135a4.jpg"></div></div>
     <div class="amen-list">
       <button class="amen-item active" data-img="the-st-regis-maldives-vommuli-resort/outlets/alba/3abf79bb-20b4-4f2c-b3ef-a27805b135a4.jpg">
         <span class="amen-tag">Overwater · Italian</span><span class="amen-name">Alba</span>
@@ -928,8 +960,8 @@ body.villa{--accent:var(--accent-villa)}
 <section class="quote-band">
   <div class="qb-inner">
     <p class="qb-eyebrow reveal">In their words</p>
-    <blockquote class="reveal">"The architecture does something rare — it feels designed and effortless at once. The butler made the difference between a lovely stay and one we keep talking about."</blockquote>
-    <div class="qb-by reveal">The Kollection survey team</div>
+    <blockquote class="reveal">“The architecture does something rare — it feels designed and effortless at once. The butler made the difference between a lovely stay and one we keep talking about.”</blockquote>
+    <div class="qb-by reveal">A guest, from the Kollection survey · March 2026</div>
     <a class="qb-link reveal" href="#inquiry">More guest notes</a>
   </div>
 </section>
@@ -1024,6 +1056,21 @@ body.villa{--accent:var(--accent-villa)}
     <figcaption class="map-cap">The St. Regis Maldives Vommuli · resort layout</figcaption>
   </figure>
 </div>
+
+<!-- AMENITY DETAIL DIALOG -->
+<div class="gal-modal" id="amenModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="amenTitle">
+  <div class="gal-backdrop" data-close></div>
+  <div class="gal-dialog gal-dialog--amen">
+    <div class="gal-bar">
+      <div><p class="kick" id="amenKick">On the island</p><div class="gal-title" id="amenTitle">Amenity</div></div>
+      <button class="gal-close" type="button" data-close aria-label="Close">&#10005;</button>
+    </div>
+    <div class="amen-modal-body">
+      <p class="am-lede" id="amenDesc"></p>
+      <div class="dine-v-grid" id="amenGrid"></div>
+    </div>
+  </div>
+</div>
 <script>
 // resort-map dialog (Kollection notes)
 (function(){
@@ -1068,6 +1115,16 @@ body.villa{--accent:var(--accent-villa)}
 
 <script>
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // lazy background-images: [data-bg] loads on approach (600px margin); occluded hero scenes load after the page settles
+  (function(){
+    function setBg(el){var s=el.getAttribute('data-bg');if(s){el.style.backgroundImage="url('"+s+"')";el.removeAttribute('data-bg');}}
+    var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){setBg(e.target);io.unobserve(e.target);}});},{rootMargin:'600px 0px'}):null;
+    function watch(scope){[].forEach.call((scope||document).querySelectorAll('[data-bg]:not(.hscene)'),function(el){io?io.observe(el):setBg(el);});}
+    watch();window.lazyBgWatch=watch;
+    function heroRest(){[].forEach.call(document.querySelectorAll('.hscene[data-bg]'),setBg);}
+    if(document.readyState==='complete')heroRest();else addEventListener('load',heroRest);
+    setTimeout(heroRest,3000);
+  })();
   // fit the resort name to its column (text autofit / fit-to-width, with 2-line fallback)
   const H1_MAX=140,          // px — design cap so short names never overpower the image
         H1_MIN=44,           // px — smallest size we'll ever allow
@@ -1250,7 +1307,8 @@ body.villa{--accent:var(--accent-villa)}
       const defaultCap=cap?cap.textContent:'Gallery';
       const previewCats=CATS.filter(function(c){return c!=='All';});
       const cover=function(c){var g=GAL.filter(function(x){return x.cat===c;})[0];return g?g.src:'';};
-      strip.innerHTML=previewCats.map(function(c){return '<button class="jg-card" type="button" data-cat="'+c+'" aria-label="Preview '+c+' photos" style="background-image:url(\''+cover(c)+'\')"></button>';}).join('');
+      strip.innerHTML=previewCats.map(function(c){return '<button class="jg-card" type="button" data-cat="'+c+'" aria-label="Preview '+c+' photos" data-bg="'+cover(c)+'"></button>';}).join('');
+      if(window.lazyBgWatch)window.lazyBgWatch(strip);
       const reset=function(){if(swap)swap.classList.remove('show');if(cap)cap.textContent=defaultCap;};
       const preview=function(c){if(swap){swap.style.backgroundImage="url('"+cover(c)+"')";swap.classList.add('show');}if(cap)cap.textContent=c;};
       [].forEach.call(strip.querySelectorAll('.jg-card'),function(card){
@@ -1638,6 +1696,51 @@ body.villa{--accent:var(--accent-villa)}
   grid.addEventListener("click",function(e){var ph=e.target.closest(".dine-ph");if(!ph)return;var g=ph.parentNode;var phs=[].slice.call(g.querySelectorAll(".dine-ph"));var nm=ph.closest(".dine-v").querySelector("h3").textContent;var list=phs.map(function(p){return {src:p.dataset.src,cap:nm};});if(window.openLightbox)window.openLightbox(list,phs.indexOf(ph));});
   modal.querySelectorAll("[data-close]").forEach(function(b){b.addEventListener("click",close);});
   addEventListener("keydown",function(e){if(e.key==="Escape"&&modal.classList.contains("open")&&!document.querySelector(".lightbox.open"))close();});
+  // feature image → the active venue's photos in the lightbox (chip + click-to-view)
+  var feat=document.querySelector("#dining .amen-feature");
+  if(feat){
+    var ALL=DINE.restaurants.concat(DINE.bars);
+    var chip=document.createElement("button");chip.type="button";chip.className="amen-view";chip.setAttribute("aria-haspopup","dialog");
+    feat.appendChild(chip);
+    var activeVenue=function(){var n=document.querySelector("#dining .amen-item.active .amen-name");if(!n)return null;
+      var nm=n.textContent.trim();for(var i=0;i<ALL.length;i++)if(ALL[i].name===nm)return ALL[i];return null;};
+    var syncChip=function(){var v=activeVenue();chip.style.display=v?"":"none";
+      if(v)chip.innerHTML="View "+v.name+" · "+v.photos.length+" photos <span aria-hidden=\"true\">→</span>";};
+    feat.addEventListener("click",function(){var v=activeVenue();if(!v||!window.openLightbox)return;
+      window.openLightbox(v.photos.map(function(s){return {src:s,cap:v.name};}),0);});
+    document.querySelectorAll("#dining .amen-item").forEach(function(it){it.addEventListener("click",function(){setTimeout(syncChip,0);});});
+    syncChip();
+  }
+})();
+// amenity detail dialog — annotated index entries (spa, pool, reef, yacht, kids' club)
+(function(){
+  var R="the-st-regis-maldives-vommuli-resort/outlets/";
+  var AMEN={
+    spa:{tag:"Wellness",name:"The Iridium Spa",desc:"An overwater spa reached by its own bridge, built around a marine Blue Hole hydrotherapy pool — few spas in the Maldives match its scale.",photos:["iridium-spa/0c200445-8711-4b6c-94f5-c9b5a3343185.jpg","iridium-spa/12e84bd4-79b0-4ba4-8338-370cacbc6704.jpg","iridium-spa/1a6beabf-c4f8-4803-80c1-8af315825c4e.jpg","iridium-spa/339c0584-009d-4b7d-92c9-319be775f8f4.jpg","iridium-spa/65b745f4-748c-464b-8924-95933f680702.jpg","iridium-spa/90a34b29-b379-47ab-93c0-3e0037fce8fa.jpg","iridium-spa/a813597f-e487-4f61-96dd-b88a68e0da4d.jpg","iridium-spa/ddeb4742-3c0c-4520-b972-683da4d08788.jpg"]},
+    pool:{tag:"The island",name:"The infinity pool",desc:"A horizon-edge pool above the lagoon — loungers set for the long afternoon and the evening colour.",photos:["infinity-pool/01488f7d-fc68-4a67-b62c-6a0a0535e468.jpg","infinity-pool/02201dcd-ec6f-489b-8492-2ffc4d7cfefe.jpg","infinity-pool/093d6e73-2d32-43c8-b8eb-879ac053cd16.jpg","infinity-pool/901ebd45-0b07-4a82-afda-d2ee58a36fc8.jpg"]},
+    reef:{tag:"On the water",name:"The house reef",desc:"Turtles and reef fish a fin-kick from the overwater steps, with guided snorkelling on call.",photos:["snorkeling/63ec53a6-ea4e-4bfe-b7e0-6f8d996571db.jpg","snorkeling/e6fe70f3-9049-4d0b-8ebb-e4877aed68b0.jpg"]},
+    yacht:{tag:"On the water",name:"Norma, the house yacht",desc:"The resort’s own motor yacht — sandbank picnics, sunset runs and atoll day-charters, arranged through your butler.",photos:["norma-luxury-yacht/143d1120-4ec6-45f5-ab90-10e817b31743.jpg","norma-luxury-yacht/2e2546f6-77f5-4272-8e39-150d8bf38a96.jpg","norma-luxury-yacht/3be38ba5-09f9-4936-b00d-4b5aec0e30ef.jpg","norma-luxury-yacht/a2bb888d-2823-472c-9dec-b0378f8bfd43.jpg","norma-luxury-yacht/de3c1b11-a40f-4d3a-a7bf-4c1d53369336.jpg","norma-luxury-yacht/fcf8beb1-2d64-4f7d-8ff7-693acb93f3ac.jpg"]},
+    kids:{tag:"Family",name:"The Children’s Club",desc:"One of the larger kids’ clubs in the atolls — a full day’s programme indoors and out, with babysitting on request for the evenings.",photos:["children-s-club/0c5c5957-f776-4252-a460-8053f12e4865.jpg","children-s-club/3efb8908-fb39-4ca0-8c4e-9ec8fa8b82e0.jpg","children-s-club/6a1d51d8-43b7-4702-b015-663886714d8b.jpg","children-s-club/9fd5f3a8-0409-41bd-95ca-a604b79613b1.jpg","children-s-club/ab293ac0-3a39-4bdf-a6b0-18746251b68a.jpg"]}
+  };
+  var modal=document.getElementById("amenModal");if(!modal)return;
+  var kick=document.getElementById("amenKick"),title=document.getElementById("amenTitle"),
+      desc=document.getElementById("amenDesc"),grid=document.getElementById("amenGrid"),lastFocus=null;
+  function open(key){var d=AMEN[key];if(!d)return;
+    kick.textContent=d.tag;title.textContent=d.name;desc.textContent=d.desc;
+    grid.innerHTML=d.photos.map(function(s){var p=R+s;return '<div class="dine-ph" data-src="'+p+'" style="background-image:url(&quot;'+p+'&quot;)" role="button" tabindex="0" aria-label="View photo — '+d.name+'"></div>';}).join("");
+    lastFocus=document.activeElement;modal.classList.add("open");modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow="hidden";var c=modal.querySelector(".gal-close");if(c)c.focus();}
+  function close(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");
+    if(!document.querySelector(".gal-modal.open,.lightbox.open"))document.body.style.overflow="";
+    if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+  function zoom(ph){var phs=[].slice.call(grid.querySelectorAll(".dine-ph"));
+    var list=phs.map(function(p){return {src:p.dataset.src,cap:title.textContent};});
+    if(window.openLightbox)window.openLightbox(list,phs.indexOf(ph));}
+  grid.addEventListener("click",function(e){var ph=e.target.closest(".dine-ph");if(ph)zoom(ph);});
+  grid.addEventListener("keydown",function(e){if(e.key!=="Enter"&&e.key!==" ")return;var ph=e.target.closest(".dine-ph");if(ph){e.preventDefault();zoom(ph);}});
+  modal.querySelectorAll("[data-close]").forEach(function(b){b.addEventListener("click",close);});
+  addEventListener("keydown",function(e){if(e.key==="Escape"&&modal.classList.contains("open")&&!document.querySelector(".lightbox.open"))close();});
+  document.querySelectorAll("[data-amen]").forEach(function(b){b.addEventListener("click",function(){open(b.dataset.amen);});});
 })();
 </script>
 </body></html>
