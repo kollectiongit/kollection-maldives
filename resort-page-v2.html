@@ -82,12 +82,7 @@ section{position:relative}
 .lede{font-size:16px;line-height:1.9;color:var(--soft);max-width:54ch}
 .lede.big{font-family:var(--display);font-size:clamp(20px,2.2vw,28px);line-height:1.4;color:var(--ink)}
 .lede.big .fig{font-style:italic;font-size:1.28em;color:rgba(212,173,166,.62)}
-.reasons{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:54px}
-.reason{background:var(--bg);padding:34px 32px;display:flex;gap:20px;align-items:flex-start;transition:background .4s}
-.reason:hover{background:var(--bg2)}
-.r-no{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:12px;flex:none}
-.reason h3{font-family:var(--display);font-weight:400;font-size:23px;margin-bottom:8px;line-height:1.15;color:var(--stone)}
-.reason p{font-size:14px;line-height:1.75;color:var(--soft)}
+/* "Why this one was kept" ledger lives in the editorial-overrides block below (.kept) */
 
 /* NOTES / SURVEY */
 .notes{background:var(--bg2)}
@@ -181,7 +176,7 @@ footer.base{padding:48px 0 60px;border-top:1px solid var(--line)}
 .base .blinks a:hover{color:var(--accent)}
 .totop{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);text-decoration:none}
 
-@media(max-width:1020px){.intro-grid,.iq-grid{grid-template-columns:1fr}.reasons{grid-template-columns:1fr}.survey{grid-template-columns:1fr}}
+@media(max-width:1020px){.intro-grid,.iq-grid{grid-template-columns:1fr}.survey{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.journey-panel{background-attachment:scroll}.hscene{transition:none}*{animation:none!important}}
 body.villa{--accent:var(--accent-villa)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
@@ -435,25 +430,31 @@ body.villa{--accent:var(--accent-villa)}
   }
   @media(max-width:560px){.villa-modal-grid{grid-template-columns:1fr}}
 
-  /* —— "why this one was kept": no table lines, just open space —— */
-  .reasons{background:none!important;border:none!important;grid-template-columns:1fr 1fr;
-    gap:clamp(42px,5vw,76px) clamp(50px,6vw,104px);margin-top:clamp(44px,5vw,66px);counter-reset:reason}
-  .reason{background:none!important;padding:2px 0 2px clamp(22px,2vw,30px);border:none;
-    counter-increment:reason;position:relative;flex-direction:column;gap:0;
-    transition:transform .55s var(--ease)}
-  /* left vertical hairline — same rule used to separate the Kollection-notes icons,
-     kept short so it spans only the heading and the first line of text */
-  .reason::before{content:"";position:absolute;left:0;top:4px;height:clamp(54px,6vw,62px);
-    width:1px;background:var(--line)}
-  .reason:hover{background:none;transform:translateY(-5px)}
-  @media(max-width:760px){.reasons{grid-template-columns:1fr;gap:clamp(36px,7vw,52px)}}
+  /* —— "why this one was kept": three points across, dash-marked labels (no section heading) —— */
+  .kept-3up{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(26px,3.4vw,64px)}
+  .kept-cat{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--stone);margin:0 0 13px}
+  .kept-cat::before{content:"";display:inline-block;width:20px;height:1px;
+    background:var(--stone);vertical-align:middle;margin-right:11px;opacity:.7}
+  .kept-col h3{font-family:var(--display);font-weight:400;font-size:clamp(19px,1.5vw,23px);
+    line-height:1.16;letter-spacing:.01em;color:var(--ink);margin:0}
+  .kept-col p:not(.kept-cat){margin-top:10px;font-size:14px;line-height:1.7;color:var(--soft)}
+  /* the honest weakness — set apart below by whitespace and its left label */
+  .kept-caveat{display:grid;grid-template-columns:clamp(120px,15vw,210px) minmax(0,1fr);
+    gap:clamp(18px,3vw,54px);align-items:baseline;margin-top:clamp(70px,10vw,130px)}
+  .kept-caveat-body{max-width:62ch}
+  .kept-caveat-body h3{font-family:var(--display);font-weight:400;font-size:clamp(19px,1.5vw,23px);
+    line-height:1.16;letter-spacing:.01em;color:var(--ink);margin:0}
+  .kept-caveat-body p{margin-top:10px;font-size:14px;line-height:1.7;color:var(--soft)}
+  @media(max-width:820px){
+    .kept-3up{grid-template-columns:1fr;gap:clamp(22px,4vw,32px)}
+    .kept-caveat{grid-template-columns:1fr;gap:8px}
+  }
 
   /* —— inquiry: form on the right, advisor on the left —— */
   .iq-form{order:2}
   .iq-side{order:1}
 
-  /* bullet markers dropped — the left hairline carries each reason */
-  .reason .r-no{display:none}
 
   /* —— "A closer look" — compact asymmetric editorial grid —— */
   .cl-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:clamp(150px,15vw,232px);gap:clamp(12px,1.4vw,22px);margin-top:clamp(40px,5vw,60px)}
@@ -667,15 +668,31 @@ body.villa{--accent:var(--accent-villa)}
 
 <!-- INTRO + 4 REASONS -->
 <section class="pad"><div class="wrap">
-  <div class="intro-grid">
-    <div class="reveal"><p class="kick">The editorial</p><h2 style="margin-top:18px">Why this one was <em>kept.</em></h2></div>
-    <div class="reveal d1"><p class="lede big"><span class="fig">214</span> properties were considered for the index. <span class="fig">31</span> survived. The St. Regis Maldives Vommuli stayed for <span class="fig">4</span> reasons, with <span class="fig">1</span> honest weakness we name up front, because you would notice it anyway.</p></div>
-  </div>
-  <div class="reasons">
-    <div class="reason reveal d1"><div class="r-no"></div><div><h3>Architecture with a signature</h3><p>WOW Architects shaped the whole island — most of all The Whale Bar, a sweeping timber shell over the water that has become the resort’s emblem.</p></div></div>
-    <div class="reason reveal d2"><div class="r-no"></div><div><h3>The Iridium Spa &amp; Blue Hole</h3><p>An overwater spa reached by its own bridge, built around a marine Blue Hole hydrotherapy pool. Few spas in the Maldives match its scale.</p></div></div>
-    <div class="reason reveal d1"><div class="r-no"></div><div><h3>The St. Regis Butler</h3><p>A 24-hour butler to every villa, in the house tradition — the unpacking, the evening ritual, the things you would rather not ask twice for.</p></div></div>
-    <div class="reason reveal d2"><div class="r-no"></div><div><h3>An honest weakness: it is polished, not barefoot</h3><p>This is grand, design-led luxury rather than castaway simplicity. If you want bohemian and sand-between-the-toes, see Soneva, number 1 in the index.</p></div></div>
+  <div class="kept">
+    <div class="kept-3up">
+      <div class="kept-col reveal">
+        <p class="kept-cat">Architecture</p>
+        <h3>Architecture with a signature</h3>
+        <p>WOW Architects shaped the whole island — most of all The Whale Bar, a sweeping timber shell over the water that has become the resort’s emblem.</p>
+      </div>
+      <div class="kept-col reveal d1">
+        <p class="kept-cat">Wellness</p>
+        <h3>The Iridium Spa &amp; Blue Hole</h3>
+        <p>An overwater spa reached by its own bridge, built around a marine Blue Hole hydrotherapy pool. Few spas in the Maldives match its scale.</p>
+      </div>
+      <div class="kept-col reveal d2">
+        <p class="kept-cat">Service</p>
+        <h3>The St. Regis Butler</h3>
+        <p>A 24-hour butler to every villa, in the house tradition — the unpacking, the evening ritual, the things you would rather not ask twice for.</p>
+      </div>
+    </div>
+    <div class="kept-caveat reveal d1">
+      <p class="kept-cat">The honest caveat</p>
+      <div class="kept-caveat-body">
+        <h3>It is polished, not barefoot</h3>
+        <p>This is grand, design-led luxury rather than castaway simplicity. If you want bohemian and sand-between-the-toes, see <em>Soneva</em>, number 1 in the index.</p>
+      </div>
+    </div>
   </div>
 </div></section>
 

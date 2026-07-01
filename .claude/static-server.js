@@ -13,4 +13,4 @@ http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': TYPES[path.extname(fp).toLowerCase()] || 'application/octet-stream' });
     res.end(data);
   });
-}).listen(8753, () => console.log('listening on 8753'));
+}).listen(process.env.PORT || 8753, () => console.log('listening on ' + (process.env.PORT || 8753)));
