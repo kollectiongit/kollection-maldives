@@ -25,8 +25,8 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:3
 .kick{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone)}
 
 h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,4.4vw,56px);line-height:1.04;letter-spacing:.01em}
-h2 em{color:var(--accent)}
-em,i{font-style:normal}
+h2 em{font-style:normal;color:var(--accent)}
+em{font-style:italic}
 
 /* NAV */
 #nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
@@ -55,10 +55,11 @@ em,i{font-style:normal}
 .hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,11,13,.45),rgba(8,11,13,.12) 34%,rgba(8,11,13,.82) 94%);z-index:2}
 .hero-content{position:absolute;inset:0;z-index:3;display:flex;align-items:flex-end;padding-bottom:9vh}
 .hero-grid{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;width:100%;flex-wrap:wrap}
+.hero .wrap{max-width:min(1600px,94vw)}   /* hero title spans wider than the 1240px body wrap */
 .hero-main{flex:1;min-width:0}
 /* font-size is set by fitHeroName() in JS; the clamp() here is the no-JS fallback */
-.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(50px,8vw,118px);line-height:.94;letter-spacing:.01em;margin:16px 0 22px;text-shadow:0 2px 30px rgba(8,11,13,.45),0 1px 4px rgba(8,11,13,.45)}
-.hero h1 em{color:var(--cream)}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(56px,10vw,140px);line-height:1.12;letter-spacing:.01em;margin:16px 0 22px;text-shadow:0 2px 30px rgba(8,11,13,.45),0 1px 4px rgba(8,11,13,.45)}
+.hero h1 em{color:var(--cream);font-style:normal}
 .hero-facts{display:flex;gap:26px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:rgba(244,238,223,.92);text-shadow:0 1px 12px rgba(8,11,13,.6)}
 .hero-facts b{font-weight:700;color:var(--cream)}
 .hero-side{display:flex;flex-direction:column;align-items:flex-end;gap:24px}
@@ -80,7 +81,7 @@ section{position:relative}
 .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,90px);align-items:start}
 .lede{font-size:16px;line-height:1.9;color:var(--soft);max-width:54ch}
 .lede.big{font-family:var(--display);font-size:clamp(20px,2.2vw,28px);line-height:1.4;color:var(--ink)}
-.lede.big .fig{font-size:1.28em;color:rgba(212,173,166,.62)}
+.lede.big .fig{font-style:italic;font-size:1.28em;color:rgba(212,173,166,.62)}
 .reasons{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:54px}
 .reason{background:var(--bg);padding:34px 32px;display:flex;gap:20px;align-items:flex-start;transition:background .4s}
 .reason:hover{background:var(--bg2)}
@@ -96,7 +97,7 @@ section{position:relative}
 .sv .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone)}
 .sv .v{margin-top:10px;font-family:var(--display);font-size:22px}
 .sv .v em{color:var(--accent);font-size:17px}
-.note-q{margin-top:40px;font-family:var(--display);font-size:clamp(20px,2.4vw,30px);line-height:1.4;max-width:30ch;color:var(--ink)}
+.note-q{margin-top:40px;font-family:var(--display);font-style:italic;font-size:clamp(20px,2.4vw,30px);line-height:1.4;max-width:30ch;color:var(--ink)}
 .note-q .sig{display:block;margin-top:18px;font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone)}
 
 /* VISUAL JOURNEY — full-bleed parallax */
@@ -285,7 +286,7 @@ body.villa{--accent:var(--accent-villa)}
   .sv{background:none!important;padding:0;border:none}
   .sv .k{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone)}
   .sv .v{margin-top:10px;font-family:var(--display);font-weight:400;font-size:25px;line-height:1.15}
-  .sv .v em{color:var(--accent);font-size:18px}
+  .sv .v em{color:var(--accent);font-size:18px;font-style:italic}
 
   .glance{background:none;border:none;grid-template-columns:repeat(6,1fr);
     gap:clamp(24px,3vw,46px);margin-top:52px}
@@ -302,7 +303,7 @@ body.villa{--accent:var(--accent-villa)}
   .quote-band{background:#1A3C44;color:var(--cream);text-align:center;padding:clamp(92px,13vw,172px) 0}
   .qb-inner{max-width:1000px;margin:0 auto;padding:0 32px}
   .qb-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(244,238,223,.6);margin-bottom:clamp(32px,5vw,58px)}
-  .quote-band blockquote{font-family:var(--display);font-weight:400;font-size:clamp(25px,3.3vw,46px);line-height:1.32;letter-spacing:.005em}
+  .quote-band blockquote{font-family:var(--display);font-weight:400;font-style:italic;font-size:clamp(25px,3.3vw,46px);line-height:1.32;letter-spacing:.005em}
   .qb-by{margin-top:clamp(28px,4vw,46px);font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,238,223,.72)}
   .qb-link{display:inline-block;margin-top:clamp(32px,5vw,56px);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(244,238,223,.5);padding-bottom:4px;transition:border-color .3s var(--ease)}
   .qb-link:hover{border-color:var(--cream)}
@@ -1094,7 +1095,7 @@ body.villa{--accent:var(--accent-villa)}
 <script>
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   // fit the resort name to its column (text autofit / fit-to-width, with 2-line fallback)
-  const H1_MAX=118,          // px — design cap so short names never overpower the image
+  const H1_MAX=140,          // px — design cap so short names never overpower the image
         H1_MIN=44,           // px — smallest size we'll ever allow
         H1_ONELINE_MIN=92;    // px — below this on one line, wrap to two lines instead (stays bigger)
   function fitHeroName(){
@@ -1114,7 +1115,7 @@ body.villa{--accent:var(--accent-villa)}
     for(let i=0;i<16;i++){
       const mid=(lo+hi)/2;
       h1.style.fontSize=mid+'px';
-      const lines=Math.round(h1.scrollHeight/(mid*0.92));        // line-height is .92
+      const lines=Math.round(h1.scrollHeight/(mid*1.12));        // line-height is 1.12
       if(h1.scrollWidth<=Math.ceil(avail)+2&&lines<=2){best=mid;lo=mid;}else{hi=mid;}
     }
     h1.style.fontSize=best+'px';
