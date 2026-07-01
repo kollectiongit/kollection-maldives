@@ -3,20 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kollection Maldives - The best website about Maldives</title>
-
-    <!-- ============================================================= -->
-    <!-- HEADLINE FONT - Kudryashev Display (Adobe Fonts / Typekit)     -->
-    <!-- Paste your Adobe Fonts web-project kit link below and then    -->
-    <!-- set  --display: "kudryashev-display", ...  in :root.          -->
-    <!-- e.g.  <link rel="stylesheet" href="https://use.typekit.net/XXXXXXX.css"> -->
-    <!-- Until then we render a close didone look-alike (Bodoni Moda).  -->
-    <!-- ============================================================= -->
+    <title>Kollection Maldives — A private index of the Indian Ocean</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -47,11 +39,14 @@
         --sig: #4f4636;
         --sig-accent: #93826b;
 
-        /* -- type -- */
-        --display:
-          "Kudryashev Display", "Bodoni Moda", Georgia, serif; /* swap to kudryashev-display once kit is in */
+        /* -- type — the Kollection triad (Space Mono retired Jul 2026) -- */
+        --display: "Kudryashev Display", Georgia, serif;
         --sans:
           "Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --label:
+          "Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --caption: "Cormorant Garamond", Georgia, serif;
+        --mono: var(--label); /* legacy alias — keeps old rules on the label face */
 
         --track: 0.22em;
         --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -84,6 +79,7 @@
         padding: 0 38px;
       }
       .eyebrow {
+        font-family: var(--label);
         font-size: 11px;
         letter-spacing: var(--track);
         text-transform: uppercase;
@@ -192,6 +188,7 @@
       .burger {
         cursor: pointer;
         width: 30px;
+        display: block;
       }
       .burger span {
         display: block;
@@ -386,14 +383,16 @@
         max-width: 16ch;
       }
       h2 em {
-        font-style: italic;
+        font-style: normal; /* Kudryashev has no italic — colour, not slant */
         color: var(--stone);
       }
       .sec-note {
-        font-size: 13px;
+        font-family: var(--caption);
+        font-style: italic;
+        font-size: 17px;
         color: var(--stone);
-        max-width: 380px;
-        line-height: 1.8;
+        max-width: 400px;
+        line-height: 1.7;
       }
 
       /* WHO WE ARE - editorial split */
@@ -411,7 +410,7 @@
         margin-bottom: 30px;
       }
       .editorial .lede em {
-        font-style: italic;
+        font-style: normal;
         color: var(--stone);
       }
       .editorial p + p {
@@ -454,11 +453,13 @@
         position: absolute;
         left: 18px;
         bottom: 16px;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
+        font-family: var(--caption);
+        font-style: italic;
+        font-size: 15px;
+        letter-spacing: 0.01em;
         color: var(--cream);
-        opacity: 0.92;
+        opacity: 0.94;
+        text-shadow: 0 1px 10px rgba(8, 11, 13, 0.5);
       }
       .figure .ph {
         position: absolute;
@@ -710,11 +711,11 @@
         padding-top: 26px;
       }
       .quote p {
-        font-family: var(--display);
+        font-family: var(--caption);
         font-weight: 400;
         font-style: italic;
-        font-size: 20px;
-        line-height: 1.45;
+        font-size: 22px;
+        line-height: 1.5;
       }
       .quote .who {
         margin-top: 20px;
@@ -1200,25 +1201,27 @@
         color: var(--cream);
       }
 
-      /* ===================== DARK THEME (v4 palette) ===================== */
+      /* ===================== DARK THEME (shared Kollection palette — matches resort-page-v3 / villa-page) ===================== */
       :root {
         --paper: #0d1214;
         --paper-2: #141b1e;
         --cream: #efe6d2;
         --ink: #efe6d2;
-        --stone: #7c93a8;
-        --coral: #c5d2e0;
+        --soft: rgba(239, 230, 210, 0.78);
+        --stone: #d4ada6;
+        --accent: #79aece;
+        --coral: #79aece;
         --hairline: rgba(239, 230, 210, 0.14);
         --sig: #121a1d;
-        --sig-accent: #7c93a8;
+        --sig-accent: #d4ada6;
       }
       body {
         background: var(--paper);
         color: var(--ink);
       }
       ::selection {
-        background: #c5d2e0;
-        color: #14181a;
+        background: #79aece;
+        color: #0d1214;
       }
       .grain {
         mix-blend-mode: screen;
@@ -1243,24 +1246,32 @@
         color: rgba(239, 230, 210, 0.72);
       }
       .editorial .lede em,
-      .sec-note,
       .stay .meta .atoll,
       .entry .kicker,
       .quote .who,
       .eyebrow {
-        color: #7c93a8;
+        color: var(--stone);
+      }
+      .sec-note {
+        color: var(--soft);
       }
       h2 em {
-        color: #7c93a8;
+        color: var(--accent);
       }
-      /* accents: burnt coral -> powder / champagne */
+      /* accents: burnt coral -> lagoon blue (shared accent) */
       .more,
       .stay .meta .view {
-        border-bottom-color: #c5d2e0;
+        border-bottom-color: var(--accent);
       }
       .more:hover,
       .stay:hover .meta .view {
-        color: #c5d2e0;
+        color: var(--accent);
+      }
+      /* dark theme: hover fill is cream, so hover type must go dark */
+      .btn:hover,
+      .btn:focus-visible,
+      .topbar.scrolled .btn:hover {
+        color: #14181a;
       }
       .btn.solid {
         background: #efe6d2;
@@ -1270,7 +1281,7 @@
         color: #14181a;
       }
       .btn.solid::before {
-        background: #c5d2e0;
+        background: #79aece;
       }
       /* sticky header on dark */
       .topbar.scrolled {
@@ -1294,7 +1305,7 @@
         background: var(--cream);
       }
       .topbar.scrolled .btn:hover {
-        color: var(--ink);
+        color: #14181a; /* fill is cream — type must go dark */
       }
       .topbar.scrolled .btn.solid {
         background: #efe6d2;
@@ -1658,9 +1669,9 @@
       <div class="vignette"></div>
 
       <nav class="topbar">
-        <div class="burger" role="button" tabindex="0" aria-label="Open menu">
+        <a class="burger" href="nav.html" aria-label="Open menu">
           <span></span><span></span><span></span>
-        </div>
+        </a>
         <div class="crest reveal h1">
           <div class="stars">✦ ✦ ✦</div>
           <div class="km">KM</div>
@@ -1682,8 +1693,8 @@
       </div>
 
       <nav class="categories reveal h3">
-        <a class="cat" data-c="resorts" href="#collection">Resorts</a>
-        <a class="cat" data-c="villas" href="#collection">Private villas</a>
+        <a class="cat" data-c="resorts" href="resort-page-v3.html">Resorts</a>
+        <a class="cat" data-c="villas" href="villa-page.html">Private villas</a>
         <a class="cat" data-c="islands" href="#collection">The Maldives</a>
       </nav>
 
@@ -1849,7 +1860,7 @@
           </p>
         </div>
         <div class="stays">
-          <a class="stay reveal" href="#enquire">
+          <a class="stay reveal" href="resort-page-v3.html">
             <div
               style="
                 background-image: url(&quot;pictures/pedro-bariak-lVRolxDY5q0-unsplash.jpg&quot;);
@@ -1869,7 +1880,7 @@
               <span class="view">Study this stay &rarr;</span>
             </div>
           </a>
-          <a class="stay reveal" href="#enquire">
+          <a class="stay reveal" href="villa-page.html">
             <div
               style="
                 background-image: url(&quot;pictures/mike-swigunski-k9Zeq6EH_bk-unsplash.jpg&quot;);
@@ -1889,7 +1900,7 @@
               <span class="view">Study this stay &rarr;</span>
             </div>
           </a>
-          <a class="stay reveal" href="#enquire">
+          <a class="stay reveal" href="villa-page.html">
             <div
               style="
                 background-image: url(&quot;pictures/moosa-haleem-758Km8MAcyI-unsplash.jpg&quot;);
@@ -1924,7 +1935,7 @@
           </p>
         </div>
         <div class="worlds">
-          <a class="world reveal" href="#enquire"
+          <a class="world reveal" href="resort-page-v3.html"
             ><div class="bg bg-resort"></div>
             <div class="scrim"></div>
             <div class="lab">
@@ -1933,7 +1944,7 @@
               <span class="go">Enter &rarr;</span>
             </div></a
           >
-          <a class="world reveal" href="#enquire"
+          <a class="world reveal" href="villa-page.html"
             ><div class="bg bg-villa"></div>
             <div class="scrim"></div>
             <div class="lab">
@@ -2077,7 +2088,9 @@
             </div>
           </div>
           <div>
-            <a class="link" href="#collection">The Collection</a>
+            <a class="link" href="resort-page-v3.html">Resorts</a>
+            <a class="link" href="villa-page.html">Private Villas</a>
+            <a class="link" href="nav.html">The Collection</a>
             <a class="link" href="#approach">Our approach</a>
             <a class="link" href="#">The journal</a>
             <a class="link" href="#" style="margin-top: 22px">Legal</a>

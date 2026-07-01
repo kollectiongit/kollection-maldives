@@ -35,7 +35,7 @@ em,i{font-style:italic}
 #nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
   padding:20px 40px;transition:background .4s var(--ease),padding .4s var(--ease),border-color .4s var(--ease);border-bottom:1px solid transparent}
 #nav.solid{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:14px 40px}
-.logo{position:relative;font-family:var(--display);font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);transition:color .4s}.logo-brand{transition:opacity .45s var(--ease)}.logo-resort{position:absolute;left:0;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:15px;letter-spacing:.14em;opacity:0;transition:opacity .45s var(--ease)}#nav.solid .logo-brand{opacity:0}#nav.solid .logo-resort{opacity:1}
+.logo{position:relative;font-family:var(--display);font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);transition:color .4s;text-decoration:none}.logo-brand{transition:opacity .45s var(--ease)}.logo-resort{position:absolute;left:0;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:15px;letter-spacing:.14em;opacity:0;transition:opacity .45s var(--ease)}#nav.solid .logo-brand{opacity:0}#nav.solid .logo-resort{opacity:1}
 #nav.solid .logo{color:var(--ink)}
 .nav-right{display:flex;align-items:center;gap:22px}
 .nav-mode{opacity:.5}
@@ -658,13 +658,14 @@ body.villa{--accent:var(--accent-villa)}
 <div class="grain" aria-hidden="true"></div>
 
 <nav id="nav">
-  <div class="logo"><span class="logo-brand">Kollection</span><span class="logo-resort">The St. Regis Vommuli</span></div>
+  <a class="logo" href="index.html"><span class="logo-brand">Kollection</span><span class="logo-resort">The St. Regis Vommuli</span></a>
   <div class="nav-right">
     <a class="nav-link nav-mode on" id="tg-resort" href="#">Resort</a>
-    
+
     <a class="nav-link" href="#journey">Gallery</a>
     <a class="nav-link" href="#villas">Villas</a>
     <a class="nav-link" href="#dining">Dining</a>
+    <a class="nav-link" href="nav.html">Menu</a>
     <a class="nav-cta" href="#inquiry">Enquire</a>
   </div>
 </nav>
@@ -851,7 +852,7 @@ body.villa{--accent:var(--accent-villa)}
       </div>
       <div class="villa-caption">
         <h3>Two-Bedroom Sunset Overwater Villa with Pool</h3>
-        <div class="vfoot"><span class="vprice">$5,600 <span>/ night</span></span><a class="vview" href="#inquiry">View villa →</a></div>
+        <div class="vfoot"><span class="vprice">$5,600 <span>/ night</span></span><a class="vview" href="villa-page.html">View villa →</a></div>
       </div>
     </div>
     <div class="villa">
@@ -998,11 +999,11 @@ body.villa{--accent:var(--accent-villa)}
       <nav class="foot-cols" aria-label="Footer">
         <div class="foot-col">
           <div class="ch">Explore</div>
-          <a href="#">Resorts</a><a href="#">Private Villas</a><a href="#">The Maldives</a><a href="#">The Journal</a>
+          <a href="index.html#collection">Resorts</a><a href="villa-page.html">Private Villas</a><a href="nav.html">The Maldives</a><a href="index.html">The Journal</a>
         </div>
         <div class="foot-col">
           <div class="ch">Kollection</div>
-          <a href="#">About</a><a href="#">Our approach</a><a href="#">Press &amp; partnerships</a><a href="#inquiry">Contact</a>
+          <a href="index.html#who">About</a><a href="index.html#approach">Our approach</a><a href="#">Press &amp; partnerships</a><a href="#inquiry">Contact</a>
         </div>
         <div class="foot-col">
           <div class="ch">Connect</div>
