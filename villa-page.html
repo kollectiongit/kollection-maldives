@@ -66,19 +66,19 @@ main{padding-top:96px}
 @media(max-width:620px){.vgal-item{height:60vw;min-height:250px}.vgal-track{padding:0 18px;gap:16px}}
 
 /* ——— TITLE BLOCK ——— */
-.vp-body{display:grid;grid-template-columns:1fr 360px;gap:clamp(56px,7vw,96px);padding:clamp(64px,8vw,110px) 0 30px;align-items:start}
+.vp-body{display:grid;grid-template-columns:1fr 360px;gap:clamp(56px,7vw,96px);padding:clamp(64px,8vw,110px) 0 30px} /* aside stretches so the sticky card can travel */
 @media(max-width:940px){.vp-body{grid-template-columns:1fr;gap:44px}}
 .crumb{font-family:var(--label);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);display:flex;gap:10px;flex-wrap:wrap}
 .crumb a{color:var(--stone);text-decoration:none}.crumb a:hover{color:var(--accent)}
-.vp-title{font-family:var(--display);font-weight:400;font-size:clamp(34px,5vw,64px);line-height:1.06;margin:20px 0 16px}
+.vp-title{font-family:var(--display);font-weight:400;font-size:clamp(34px,5vw,64px);line-height:1.06;margin:24px 0 22px}
 .vp-title em{font-style:normal;color:var(--accent)}
 .vp-sub{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;font-family:var(--label);font-size:12px;letter-spacing:.06em;color:var(--soft)}
 .vp-sub .star{color:var(--pop)}
 .vp-sub b{color:var(--ink);font-weight:500}
 .vp-sub a{color:var(--soft);text-underline-offset:3px}
-.vp-lead{margin-top:26px;font-family:var(--caption);font-style:italic;font-size:clamp(19px,2vw,23px);line-height:1.65;color:var(--soft);max-width:52ch}
-.byline{margin-top:18px;font-family:var(--label);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
-.vp-titleblock{padding-bottom:44px}
+.vp-lead{margin-top:40px;font-family:var(--caption);font-style:italic;font-size:clamp(19px,2vw,23px);line-height:1.65;color:var(--soft);max-width:52ch}
+.byline{margin-top:28px;font-family:var(--label);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.vp-titleblock{padding-bottom:58px}
 
 /* facts — quiet type, no icons */
 .facts{padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
@@ -470,6 +470,22 @@ spyLinks.forEach(function(l){var s=document.getElementById(l.dataset.spy);if(s)s
 // reveal on scroll
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+// align the facts band's bottom edge with the booking card's bottom edge (two-column layout only)
+function alignFacts(){
+  var facts=document.querySelector('.facts'),book=document.querySelector('.book'),aside=book&&book.parentElement;
+  if(!facts||!book)return;
+  facts.style.marginTop='';
+  if(!matchMedia('(min-width:941px)').matches)return;
+  // offsetTop/offsetHeight ignore the sticky state and reveal transforms — safe in any scroll position
+  var target=aside.offsetTop+book.offsetHeight;
+  var d=target-(facts.offsetTop+facts.offsetHeight);
+  if(d>0)facts.style.marginTop=d+'px';
+}
+addEventListener('load',alignFacts);
+addEventListener('resize',alignFacts);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(alignFacts);
+alignFacts();
 
 // rail arrows
 document.querySelectorAll('.rail-nav button').forEach(function(b){
