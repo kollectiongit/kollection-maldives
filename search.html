@@ -1,0 +1,1252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Collection — Kollection Maldives</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="kollection-fonts.css" />
+    <style>
+      :root {
+        --paper: #f4eedf;
+        --ink: #2d2a24;
+        --raise: #fbf8f0;
+        --sage: #c8d5bf;
+        --sand: #e8dec8;
+        --stone: #93826b;
+        --coral: #c4502e;
+        --cream: #f6f1e7;
+        --hairline: rgba(45, 42, 36, 0.14);
+        --sig: #4f4636;
+        --display: "Kudryashev Display", Georgia, serif;
+        --sans: "Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --label: "Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --caption: "Cormorant Garamond", Georgia, serif;
+        --track: 0.22em;
+        --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-weight: 300;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      .grain {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        pointer-events: none;
+        opacity: 0.05;
+        mix-blend-mode: multiply;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05 0.14' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23t)'/%3E%3C/svg%3E");
+      }
+      .wrap {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 38px;
+      }
+      .eyebrow {
+        font-family: var(--label);
+        font-size: 11px;
+        letter-spacing: var(--track);
+        text-transform: uppercase;
+        font-weight: 400;
+        color: var(--stone);
+      }
+      :focus-visible {
+        outline: 2px solid var(--coral);
+        outline-offset: 3px;
+      }
+
+      /* ---------- top bar ---------- */
+      .topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 38px;
+        transition:
+          background 0.45s var(--ease),
+          padding 0.45s var(--ease),
+          border-color 0.45s var(--ease);
+        border-bottom: 1px solid transparent;
+      }
+      .topbar.scrolled {
+        background: var(--paper);
+        border-bottom: 1px solid var(--hairline);
+        padding: 13px 38px;
+      }
+      .brand {
+        font-family: var(--display);
+        font-size: 21px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .topnav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .topnav a.nav-link {
+        font-family: var(--label);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--ink);
+        text-decoration: none;
+        position: relative;
+      }
+      .topnav a.nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -4px;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform 0.4s var(--ease);
+      }
+      .topnav a.nav-link:hover::after,
+      .topnav a.nav-link.active::after {
+        transform: scaleX(1);
+      }
+      .topnav a.cta {
+        font-family: var(--label);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--ink);
+        text-decoration: none;
+        border: 1px solid rgba(45, 42, 36, 0.4);
+        padding: 9px 18px;
+        transition: 0.35s var(--ease);
+      }
+      .topnav a.cta:hover {
+        background: var(--coral);
+        border-color: var(--coral);
+        color: var(--cream);
+      }
+      @media (max-width: 760px) {
+        .topnav a.nav-link {
+          display: none;
+        }
+      }
+
+      /* ---------- page head ---------- */
+      .pagehead {
+        padding: clamp(150px, 20vh, 210px) 0 0;
+      }
+      .pagehead .kick {
+        margin-bottom: 18px;
+      }
+      .pagehead h1 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(46px, 7.4vw, 104px);
+        line-height: 1.02;
+        letter-spacing: 0.01em;
+        text-wrap: balance;
+        max-width: 14ch;
+      }
+      .pagehead h1 em {
+        font-style: normal;
+        color: var(--coral);
+      }
+      .pagehead .lede {
+        margin-top: 26px;
+        font-size: 15.5px;
+        line-height: 1.9;
+        color: var(--stone);
+        max-width: 52ch;
+      }
+
+      /* ---------- mode switch ---------- */
+      .modes {
+        display: flex;
+        gap: clamp(30px, 5vw, 64px);
+        align-items: baseline;
+        margin-top: clamp(44px, 6vw, 76px);
+      }
+      .mode {
+        appearance: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(26px, 3.4vw, 44px);
+        letter-spacing: 0.01em;
+        color: var(--stone);
+        opacity: 0.55;
+        padding: 0 0 12px;
+        position: relative;
+        transition:
+          color 0.4s var(--ease),
+          opacity 0.4s var(--ease);
+      }
+      .mode sup {
+        font-family: var(--label);
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        margin-left: 8px;
+        color: var(--stone);
+      }
+      .mode::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: var(--coral);
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform 0.5s var(--ease);
+      }
+      .mode:hover {
+        opacity: 0.85;
+        color: var(--ink);
+      }
+      .mode[aria-pressed="true"] {
+        color: var(--ink);
+        opacity: 1;
+      }
+      .mode[aria-pressed="true"]::after {
+        transform: scaleX(1);
+      }
+
+      /* ---------- filter bar ---------- */
+      .filterbar {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: color-mix(in srgb, var(--paper) 92%, transparent);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid var(--hairline);
+        border-bottom: 1px solid var(--hairline);
+        margin-top: 34px;
+      }
+      .filterbar .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 15px 0;
+      }
+      .pillgroups {
+        display: flex;
+        align-items: center;
+        gap: clamp(18px, 3vw, 42px);
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .pillgroups::-webkit-scrollbar {
+        display: none;
+      }
+      .pillgroup {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .pillgroup .gl {
+        font-family: var(--label);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--stone);
+        margin-right: 6px;
+        white-space: nowrap;
+      }
+      .pill {
+        font-family: var(--label);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 6px 13px;
+        border-radius: 999px;
+        border: 1px solid var(--hairline);
+        background: transparent;
+        color: var(--ink);
+        cursor: pointer;
+        transition: 0.25s var(--ease);
+        opacity: 0.72;
+        white-space: nowrap;
+      }
+      .pill:hover {
+        opacity: 1;
+        border-color: var(--ink);
+      }
+      .pill[aria-pressed="true"] {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--cream);
+        opacity: 1;
+      }
+      .filtermeta {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        flex-shrink: 0;
+      }
+      .count {
+        font-family: var(--caption);
+        font-style: italic;
+        font-size: 15px;
+        color: var(--stone);
+        white-space: nowrap;
+      }
+      .clear {
+        appearance: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: var(--label);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--ink);
+        border-bottom: 1px solid var(--coral);
+        padding: 0 0 3px;
+        transition: color 0.25s;
+        white-space: nowrap;
+      }
+      .clear:hover {
+        color: var(--coral);
+      }
+      .clear[hidden] {
+        display: none;
+      }
+
+      /* ---------- full-bleed index grid ---------- */
+      .index {
+        margin-top: 4px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+      }
+      .prop {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        aspect-ratio: 5 / 4;
+        text-decoration: none;
+        color: var(--cream);
+        background: #26323b;
+      }
+      .prop img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1.3s var(--ease);
+      }
+      .prop:hover img,
+      .prop:focus-visible img {
+        transform: scale(1.045);
+      }
+      .prop .scrim {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(13, 18, 20, 0.18) 0%,
+            rgba(13, 18, 20, 0) 32%,
+            rgba(13, 18, 20, 0) 46%,
+            rgba(13, 18, 20, 0.62) 100%
+          );
+        transition: background 0.6s var(--ease);
+      }
+      .prop .world {
+        position: absolute;
+        left: clamp(22px, 3vw, 44px);
+        top: clamp(20px, 2.6vw, 38px);
+        font-family: var(--label);
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--cream);
+        opacity: 0.92;
+      }
+      .prop .body {
+        position: absolute;
+        left: clamp(22px, 3vw, 44px);
+        right: clamp(22px, 3vw, 44px);
+        bottom: clamp(22px, 3vw, 42px);
+        text-shadow: 0 1px 22px rgba(8, 11, 13, 0.5);
+      }
+      .prop .atoll {
+        font-family: var(--label);
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        opacity: 0.85;
+      }
+      .prop h3 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(27px, 3.1vw, 46px);
+        line-height: 1.08;
+        letter-spacing: 0.01em;
+        margin: 10px 0 8px;
+        text-wrap: balance;
+      }
+      .prop .facts {
+        font-family: var(--label);
+        font-size: 11.5px;
+        letter-spacing: 0.06em;
+        opacity: 0.88;
+      }
+      .prop .reading {
+        font-family: var(--caption);
+        font-style: italic;
+        font-size: 15.5px;
+        line-height: 1.55;
+        max-width: 44ch;
+        margin-top: 12px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.55s var(--ease),
+          transform 0.55s var(--ease);
+      }
+      .prop .go {
+        display: inline-block;
+        margin-top: 14px;
+        font-family: var(--label);
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        border-bottom: 1px solid var(--coral);
+        padding-bottom: 4px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.55s var(--ease) 0.06s,
+          transform 0.55s var(--ease) 0.06s;
+      }
+      .prop:hover .reading,
+      .prop:hover .go,
+      .prop:focus-visible .reading,
+      .prop:focus-visible .go {
+        opacity: 1;
+        transform: none;
+      }
+      .prop:hover .scrim,
+      .prop:focus-visible .scrim {
+        background:
+          linear-gradient(
+            180deg,
+            rgba(13, 18, 20, 0.22) 0%,
+            rgba(13, 18, 20, 0.06) 30%,
+            rgba(13, 18, 20, 0.28) 55%,
+            rgba(13, 18, 20, 0.78) 100%
+          );
+      }
+
+      /* ---------- full-bleed highlight band ---------- */
+      .highlight {
+        grid-column: 1 / -1;
+        position: relative;
+        min-height: clamp(420px, 68vh, 640px);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--cream);
+      }
+      .highlight img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .highlight .scrim {
+        position: absolute;
+        inset: 0;
+        background: rgba(13, 18, 20, 0.42);
+      }
+      .highlight .inner {
+        position: relative;
+        z-index: 2;
+        padding: 60px 38px;
+        max-width: 760px;
+      }
+      .highlight .eyebrow {
+        color: var(--cream);
+        opacity: 0.8;
+      }
+      .highlight blockquote {
+        font-family: var(--caption);
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(24px, 3.4vw, 42px);
+        line-height: 1.35;
+        margin-top: 20px;
+        text-wrap: balance;
+      }
+      .highlight .sig {
+        margin-top: 22px;
+        font-family: var(--label);
+        font-size: 10px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        opacity: 0.75;
+      }
+
+      /* ---------- empty state ---------- */
+      .empty {
+        grid-column: 1 / -1;
+        padding: clamp(90px, 16vh, 160px) 38px;
+        text-align: center;
+      }
+      .empty p {
+        font-family: var(--caption);
+        font-style: italic;
+        font-size: clamp(20px, 2.4vw, 28px);
+        color: var(--stone);
+        max-width: 34ch;
+        margin: 0 auto;
+      }
+      .empty button {
+        margin-top: 28px;
+        appearance: none;
+        background: none;
+        cursor: pointer;
+        font-family: var(--label);
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--ink);
+        border: 1px solid rgba(45, 42, 36, 0.4);
+        padding: 12px 26px;
+        transition: 0.35s var(--ease);
+      }
+      .empty button:hover {
+        background: var(--coral);
+        border-color: var(--coral);
+        color: var(--cream);
+      }
+
+      /* ---------- enquire band ---------- */
+      .enquire {
+        text-align: center;
+        padding: clamp(80px, 12vw, 150px) 38px;
+      }
+      .enquire h2 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(30px, 4.6vw, 56px);
+        line-height: 1.1;
+        letter-spacing: 0.01em;
+        max-width: 18ch;
+        margin: 18px auto 0;
+        text-wrap: balance;
+      }
+      .enquire h2 em {
+        font-style: normal;
+        color: var(--coral);
+      }
+      .enquire a {
+        display: inline-block;
+        margin-top: 34px;
+        font-family: var(--label);
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--ink);
+        text-decoration: none;
+        border: 1px solid rgba(45, 42, 36, 0.4);
+        padding: 13px 30px;
+        transition: 0.35s var(--ease);
+      }
+      .enquire a:hover {
+        background: var(--coral);
+        border-color: var(--coral);
+        color: var(--cream);
+      }
+
+      /* ---------- footer flood ---------- */
+      .flood {
+        background: var(--sig);
+        color: var(--cream);
+        padding: 80px 38px 46px;
+        position: relative;
+        overflow: hidden;
+      }
+      .flood-in {
+        max-width: 1240px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+      }
+      .flood .creds {
+        display: flex;
+        gap: 22px;
+        flex-wrap: wrap;
+        opacity: 0.85;
+        margin-bottom: 60px;
+      }
+      .flood .creds span {
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        border: 1px solid rgba(246, 241, 231, 0.4);
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        line-height: 1.25;
+        padding: 6px;
+      }
+      .flood .grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr;
+        gap: 44px;
+      }
+      .flood address {
+        font-style: normal;
+        letter-spacing: 0.14em;
+        line-height: 2;
+        font-size: 14px;
+      }
+      .flood a.link {
+        color: var(--cream);
+        text-decoration: none;
+        letter-spacing: 0.14em;
+        display: block;
+        line-height: 2.3;
+        font-size: 14px;
+        opacity: 0.92;
+      }
+      .flood a.link:hover {
+        opacity: 1;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+      .flood .bigmono {
+        font-family: var(--display);
+        font-size: clamp(140px, 24vw, 340px);
+        line-height: 0.7;
+        position: absolute;
+        left: 18px;
+        bottom: -44px;
+        opacity: 0.14;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .flood .totop {
+        position: absolute;
+        right: 38px;
+        bottom: 46px;
+        color: var(--cream);
+        text-decoration: none;
+        letter-spacing: 0.16em;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .flood .legal {
+        margin-top: 64px;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        opacity: 0.7;
+      }
+
+      /* ---------- reveal ---------- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition:
+          opacity 0.9s var(--ease),
+          transform 0.9s var(--ease);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+      .d1 { transition-delay: 0.08s; }
+      .d2 { transition-delay: 0.18s; }
+      .d3 { transition-delay: 0.28s; }
+
+      @media (max-width: 860px) {
+        .index {
+          grid-template-columns: 1fr;
+        }
+        .prop {
+          aspect-ratio: 4 / 3.4;
+        }
+        .filterbar .row {
+          flex-wrap: nowrap;
+        }
+        .filtermeta .count {
+          display: none;
+        }
+        .flood .grid {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .reveal,
+        .prop img,
+        .prop .reading,
+        .prop .go,
+        .mode,
+        .mode::after {
+          transition: none;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body id="top">
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar" id="topbar">
+      <a class="brand" href="index.html">KM</a>
+      <nav class="topnav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link active" href="search.html" aria-current="page">The Collection</a>
+        <a class="nav-link" href="index.html#who">About</a>
+        <a class="cta" href="index.html#enquire">Enquire</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="pagehead">
+        <div class="wrap">
+          <div class="kick eyebrow reveal in d1">The Collection · A Private Index</div>
+          <h1 class="reveal in d2">Every stay, <em>read</em> closely.</h1>
+          <p class="lede reveal in d3">
+            Not a booking engine — an index. Each resort and villa below has been
+            visited, benchmarked against its peers, and written up plainly.
+            Choose a world, narrow by setting or atoll, and study the ones that
+            hold up.
+          </p>
+
+          <div class="modes reveal in d3" role="group" aria-label="Choose between resorts and private villas">
+            <button class="mode" id="modeResorts" aria-pressed="true" data-mode="resorts">
+              Resorts <sup id="countResorts"></sup>
+            </button>
+            <button class="mode" id="modeVillas" aria-pressed="false" data-mode="villas">
+              Private Villas <sup id="countVillas"></sup>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="filterbar" id="filterbar">
+        <div class="wrap">
+          <div class="row">
+            <div class="pillgroups">
+              <div class="pillgroup" id="settingGroup" role="group" aria-label="Filter by setting">
+                <span class="gl">Setting</span>
+              </div>
+              <div class="pillgroup" id="atollGroup" role="group" aria-label="Filter by atoll">
+                <span class="gl">Atoll</span>
+              </div>
+            </div>
+            <div class="filtermeta">
+              <span class="count" id="resultCount" role="status" aria-live="polite"></span>
+              <button class="clear" id="clearBtn" hidden>Clear filters</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="index" id="index" aria-label="Search results"></section>
+
+      <section class="enquire" id="enquire">
+        <div class="eyebrow">Can't find it here?</div>
+        <h2>The index is curated, not complete. Tell us what you're <em>looking for</em>.</h2>
+        <a href="index.html#enquire">Start an enquiry</a>
+      </section>
+    </main>
+
+    <footer class="flood">
+      <div class="flood-in">
+        <div class="creds">
+          <span>Relais &amp; Châteaux</span><span>50 Best</span>
+          <span>Plastic Free</span><span>Green Globe</span>
+        </div>
+        <div class="grid">
+          <address>
+            Kollection Maldives<br />Malé · Republic of Maldives<br /><br />+960 000 0000
+          </address>
+          <div>
+            <a class="link" href="#">Instagram</a>
+            <a class="link" href="#">Pinterest</a>
+            <a class="link" href="#">enquiries@kollectionmaldives.com</a>
+          </div>
+          <div>
+            <a class="link" href="search.html?mode=resorts">Resorts</a>
+            <a class="link" href="search.html?mode=villas">Private Villas</a>
+            <a class="link" href="nav.html">The Collection</a>
+            <a class="link" href="index.html#who">Our approach</a>
+            <a class="link" href="#">The journal</a>
+            <a class="link" href="#" style="margin-top: 22px">Legal</a>
+            <a class="link" href="#">Privacy</a>
+          </div>
+        </div>
+        <div class="legal">
+          <span>© Kollection Maldives. All rights reserved.</span>
+          <span>A private index of the Indian Ocean.</span>
+        </div>
+      </div>
+      <div class="bigmono">K</div>
+      <a class="totop" href="#top" onclick="scrollTo({ top: 0, behavior: 'smooth' }); return false;">
+        Back to top <span>&uarr;</span>
+      </a>
+    </footer>
+
+    <script>
+      /* ---------------- data ---------------- */
+      const RESORTS = [
+        {
+          name: "The St. Regis Maldives Vommuli",
+          atoll: "Dhaalu Atoll",
+          atollKey: "dhaalu",
+          settings: ["overwater", "private-island"],
+          facts: "77 villas · Seaplane, 45 min",
+          img: "the-st-regis-maldives-vommuli-resort/photos/c25249b7-f066-49cd-8a96-fcc8d36c9a75.jpg",
+          href: "resort-page-v3.html",
+          reading:
+            "Read against fourteen overwater peers, Vommuli's butler programme and house reef access set the benchmark — the spa is the quiet outlier.",
+        },
+        {
+          name: "Naladhu Private Island",
+          atoll: "South Malé Atoll",
+          atollKey: "south-male",
+          settings: ["beachfront", "private-island"],
+          facts: "20 houses · Speedboat, 30 min",
+          img: "pictures/pedro-bariak-lVRolxDY5q0-unsplash.jpg",
+          href: "resort-page-v3.html",
+          reading:
+            "Twenty doors and a shared reef with Anantara next door — the rare small island that borrows big-island dining without the crowds.",
+        },
+        {
+          name: "Gili Lankanfushi",
+          atoll: "North Malé Atoll",
+          atollKey: "north-male",
+          settings: ["overwater"],
+          facts: "45 water villas · Speedboat, 20 min",
+          img: "pictures/shifaaz-shamoon-qtbV_8P_Ksk-unsplash.jpg",
+          href: "resort-page-v3.html",
+          reading:
+            "No news, no shoes holds up under scrutiny — the largest overwater villas per dollar in the North Malé transfer zone.",
+        },
+        {
+          name: "Soneva Fushi",
+          atoll: "Baa Atoll",
+          atollKey: "baa",
+          settings: ["beachfront", "private-island", "family"],
+          facts: "71 villas · Seaplane, 30 min",
+          img: "pictures/moosa-haleem-758Km8MAcyI-unsplash.jpg",
+          href: "resort-page-v3.html",
+          reading:
+            "The barefoot original — jungle density and villa privacy no newer build has matched, read best in Hanifaru manta season.",
+        },
+        {
+          name: "Cheval Blanc Randheli",
+          atoll: "Noonu Atoll",
+          atollKey: "noonu",
+          settings: ["overwater", "beachfront"],
+          facts: "46 villas · Seaplane, 40 min",
+          img: "pictures/rayyu-maldives-cDsfRDTqg_8-unsplash.jpg",
+          href: "resort-page-v3.html",
+          reading:
+            "The maison's precision travels intact: the strongest service ratio we've measured, at the steepest rate card in the index.",
+        },
+        {
+          name: "One&Only Reethi Rah",
+          atoll: "North Malé Atoll",
+          atollKey: "north-male",
+          settings: ["beachfront", "family"],
+          facts: "122 villas · Yacht, 50 min",
+          img: "pictures/matheen-faiz-OcrTk7qXcdM-unsplash.jpg",
+          href: "resort-page-v3.html",
+          reading:
+            "Twelve private beaches on one man-shaped island — scale that reads as space, not volume, if you choose the right peninsula.",
+        },
+        {
+          name: "Six Senses Laamu",
+          atoll: "Laamu Atoll",
+          atollKey: "laamu",
+          settings: ["overwater", "family"],
+          facts: "97 villas · Domestic flight + boat",
+          img: "pictures/nattu-adnan-atSUvc1hMwk-unsplash.jpg",
+          href: "resort-page-v3.html",
+          reading:
+            "The only resort in its atoll — a surf break, a seagrass sanctuary, and the best marine-science programme we've audited.",
+        },
+        {
+          name: "Patina Maldives, Fari Islands",
+          atoll: "North Malé Atoll",
+          atollKey: "north-male",
+          settings: ["beachfront", "family"],
+          facts: "110 villas · Speedboat, 45 min",
+          img: "pictures/Hero_sunset.jpg",
+          href: "resort-page-v3.html",
+          reading:
+            "The archipelago's design outlier — Studio MK27 minimalism and a shared marina village that trades seclusion for culture.",
+        },
+      ];
+
+      const VILLAS = [
+        {
+          name: "John Jacob Astor Estate",
+          atoll: "Dhaalu Atoll",
+          atollKey: "dhaalu",
+          settings: ["estate", "beachfront"],
+          facts: "3 bedrooms · 1,540 m² · Private pool",
+          img: "the-st-regis-maldives-vommuli-resort/photos/john-jacob-astor-estate/17198373-73ab-4906-800d-57339c88c912.jpg",
+          href: "villa-page.html",
+          reading:
+            "The largest overwater estate in the Maldives — read as a private resort within a resort, with its own spa and gym.",
+        },
+        {
+          name: "Caroline Astor Estate",
+          atoll: "Dhaalu Atoll",
+          atollKey: "dhaalu",
+          settings: ["estate", "overwater"],
+          facts: "2 bedrooms · Sunset-facing · Butler",
+          img: "the-st-regis-maldives-vommuli-resort/photos/caroline-astor-estate/00f35a3c-be6d-440c-8ddb-9d17ad0aa386.jpg",
+          href: "villa-page.html",
+          reading:
+            "The sunset twin of the Astor pair — smaller, softer, and the better read for couples who want estate service without estate scale.",
+        },
+        {
+          name: "Sunset Overwater Villa",
+          atoll: "Dhaalu Atoll",
+          atollKey: "dhaalu",
+          settings: ["overwater"],
+          facts: "1 bedroom · West-facing · Plunge pool",
+          img: "the-st-regis-maldives-vommuli-resort/photos/sunset-overwater-villa/10663a4d-161d-4ccc-a840-4f4a911f87b7.jpg",
+          href: "villa-page.html",
+          reading:
+            "The category's honest benchmark: same lagoon as villas twice the rate, aimed squarely at the evening light.",
+        },
+        {
+          name: "Two-Bedroom Ocean Villa",
+          atoll: "Dhaalu Atoll",
+          atollKey: "dhaalu",
+          settings: ["overwater", "multi-bedroom"],
+          facts: "2 bedrooms · Ocean-facing · Shared deck",
+          img: "the-st-regis-maldives-vommuli-resort/photos/two-bedroom-ocean-villa/1ae36f39-9f2d-4d2b-8536-9beee174d57c.jpg",
+          href: "villa-page.html",
+          reading:
+            "Two full suites over open ocean — the configuration families actually need, without defaulting to a beach compound.",
+        },
+        {
+          name: "Knickerbocker Villa",
+          atoll: "Dhaalu Atoll",
+          atollKey: "dhaalu",
+          settings: ["beachfront"],
+          facts: "1 bedroom · Beach access · Garden bath",
+          img: "the-st-regis-maldives-vommuli-resort/photos/knickerbocker-villa/01d33fa7-9f44-411a-84ac-ac8729cd1c5a.jpg",
+          href: "villa-page.html",
+          reading:
+            "The quiet pick of the index — screened by vegetation on the island's calm side, ten steps from sand that stays empty.",
+        },
+        {
+          name: "Cesar Balsa Villa",
+          atoll: "Dhaalu Atoll",
+          atollKey: "dhaalu",
+          settings: ["beachfront", "multi-bedroom"],
+          facts: "2 bedrooms · Beachfront · Private pool",
+          img: "the-st-regis-maldives-vommuli-resort/photos/cesar-balsa-villa/0055ea64-9af5-44da-9496-1981cc9ca34d.jpg",
+          href: "villa-page.html",
+          reading:
+            "Named for the hotelier, built for long stays — the deepest terrace footprint of any beach villa we've paced out.",
+        },
+      ];
+
+      const SETTINGS = {
+        resorts: [
+          { key: "all", label: "All" },
+          { key: "overwater", label: "Overwater" },
+          { key: "beachfront", label: "Beachfront" },
+          { key: "private-island", label: "Private Island" },
+          { key: "family", label: "Family" },
+        ],
+        villas: [
+          { key: "all", label: "All" },
+          { key: "overwater", label: "Overwater" },
+          { key: "beachfront", label: "Beachfront" },
+          { key: "estate", label: "Estates" },
+          { key: "multi-bedroom", label: "Multi-Bedroom" },
+        ],
+      };
+
+      const HIGHLIGHTS = {
+        resorts: [
+          {
+            img: "pictures/LandingPage_hero.jpg",
+            eyebrow: "Field note № 04",
+            quote:
+              "The best resorts are read at low tide — when the house reef shows you exactly what you are paying for.",
+            sig: "From the Kollection journal",
+          },
+          {
+            img: "pictures/mike-swigunski-k9Zeq6EH_bk-unsplash.jpg",
+            eyebrow: "How we work",
+            quote:
+              "We visit unannounced, pay our own way, and write down what the brochures leave out.",
+            sig: "The Kollection method",
+          },
+        ],
+        villas: [
+          {
+            img: "pictures/chelsea-gates-0653_wY0nRc-unsplash.jpg",
+            eyebrow: "Field note № 11",
+            quote:
+              "A villa is judged by its staff ratio and its silence — everything else is decoration.",
+            sig: "From the Kollection journal",
+          },
+          {
+            img: "pictures/Hero_sunset.jpg",
+            eyebrow: "How we work",
+            quote:
+              "Square metres are easy to print. We measure the distance between your deck and the next guest's voice.",
+            sig: "The Kollection method",
+          },
+        ],
+      };
+
+      /* ---------------- state ---------------- */
+      const params = new URLSearchParams(location.search);
+      const state = {
+        mode: params.get("mode") === "villas" ? "villas" : "resorts",
+        setting: params.get("setting") || "all",
+        atoll: params.get("atoll") || "all",
+      };
+
+      const $ = (s) => document.querySelector(s);
+      const indexEl = $("#index");
+      const settingGroup = $("#settingGroup");
+      const atollGroup = $("#atollGroup");
+      const resultCount = $("#resultCount");
+      const clearBtn = $("#clearBtn");
+
+      $("#countResorts").textContent = RESORTS.length;
+      $("#countVillas").textContent = VILLAS.length;
+
+      const data = () => (state.mode === "villas" ? VILLAS : RESORTS);
+      const worldLabel = () => (state.mode === "villas" ? "Private Villa" : "Resort");
+
+      function syncUrl() {
+        const p = new URLSearchParams();
+        if (state.mode !== "resorts") p.set("mode", state.mode);
+        if (state.setting !== "all") p.set("setting", state.setting);
+        if (state.atoll !== "all") p.set("atoll", state.atoll);
+        const q = p.toString();
+        history.replaceState(null, "", q ? `?${q}` : location.pathname);
+      }
+
+      function makePill(key, label, group) {
+        const b = document.createElement("button");
+        b.className = "pill";
+        b.textContent = label;
+        b.dataset.key = key;
+        b.setAttribute("aria-pressed", String(state[group] === key));
+        b.addEventListener("click", () => {
+          state[group] = key;
+          render();
+        });
+        return b;
+      }
+
+      function buildFilters() {
+        // settings for current mode
+        settingGroup.querySelectorAll(".pill").forEach((p) => p.remove());
+        SETTINGS[state.mode].forEach(({ key, label }) =>
+          settingGroup.appendChild(makePill(key, label, "setting")),
+        );
+        // atolls derived from the current mode's data
+        atollGroup.querySelectorAll(".pill").forEach((p) => p.remove());
+        const atolls = [...new Map(data().map((d) => [d.atollKey, d.atoll])).entries()];
+        atollGroup.appendChild(makePill("all", "All", "atoll"));
+        atolls.forEach(([key, label]) =>
+          atollGroup.appendChild(makePill(key, label.replace(" Atoll", ""), "atoll")),
+        );
+        atollGroup.style.display = atolls.length > 1 ? "" : "none";
+      }
+
+      function propCard(p) {
+        const a = document.createElement("a");
+        a.className = "prop reveal";
+        a.href = p.href;
+        a.innerHTML = `
+          <img src="${p.img}" alt="${p.name}, ${p.atoll}" loading="lazy" />
+          <span class="scrim" aria-hidden="true"></span>
+          <span class="world">${worldLabel()}</span>
+          <span class="body">
+            <span class="atoll">${p.atoll}</span>
+            <h3>${p.name}</h3>
+            <span class="facts">${p.facts}</span>
+            <span class="reading">${p.reading}</span>
+            <span class="go">Study this stay &rarr;</span>
+          </span>`;
+        return a;
+      }
+
+      function highlightBand(h) {
+        const s = document.createElement("section");
+        s.className = "highlight reveal";
+        s.innerHTML = `
+          <img src="${h.img}" alt="" loading="lazy" />
+          <span class="scrim" aria-hidden="true"></span>
+          <div class="inner">
+            <div class="eyebrow">${h.eyebrow}</div>
+            <blockquote>${h.quote}</blockquote>
+            <div class="sig">${h.sig}</div>
+          </div>`;
+        return s;
+      }
+
+      let observer;
+      function observeReveals(root) {
+        if (!observer) {
+          observer = new IntersectionObserver(
+            (es) =>
+              es.forEach((e) => {
+                if (e.isIntersecting) {
+                  e.target.classList.add("in");
+                  observer.unobserve(e.target);
+                }
+              }),
+            { threshold: 0.12 },
+          );
+        }
+        root.querySelectorAll(".reveal:not(.in)").forEach((el) => observer.observe(el));
+      }
+
+      function render() {
+        // guard: the chosen setting must exist in this mode
+        if (!SETTINGS[state.mode].some((s) => s.key === state.setting)) state.setting = "all";
+        if (state.atoll !== "all" && !data().some((d) => d.atollKey === state.atoll)) state.atoll = "all";
+
+        buildFilters();
+
+        const results = data().filter(
+          (p) =>
+            (state.setting === "all" || p.settings.includes(state.setting)) &&
+            (state.atoll === "all" || p.atollKey === state.atoll),
+        );
+
+        indexEl.innerHTML = "";
+        const highlights = HIGHLIGHTS[state.mode];
+        let h = 0;
+        results.forEach((p, i) => {
+          indexEl.appendChild(propCard(p));
+          // a full-bleed editorial band after every second row of two
+          if ((i + 1) % 4 === 0 && i < results.length - 1 && h < highlights.length) {
+            indexEl.appendChild(highlightBand(highlights[h++]));
+          }
+        });
+
+        if (!results.length) {
+          const e = document.createElement("div");
+          e.className = "empty";
+          e.innerHTML = `<p>Nothing in the index matches that reading — yet. Loosen a filter, or ask us directly.</p>`;
+          const b = document.createElement("button");
+          b.textContent = "Clear all filters";
+          b.addEventListener("click", () => {
+            state.setting = "all";
+            state.atoll = "all";
+            render();
+          });
+          e.appendChild(b);
+          indexEl.appendChild(e);
+        }
+
+        // mode buttons
+        document.querySelectorAll(".mode").forEach((m) => {
+          m.setAttribute("aria-pressed", String(m.dataset.mode === state.mode));
+        });
+
+        // status line
+        const noun = state.mode === "villas" ? "villa" : "resort";
+        resultCount.textContent = results.length
+          ? `${results.length} ${noun}${results.length === 1 ? "" : "s"} in the index`
+          : "No matches";
+
+        const filtered = state.setting !== "all" || state.atoll !== "all";
+        clearBtn.hidden = !filtered;
+
+        syncUrl();
+        observeReveals(indexEl);
+      }
+
+      document.querySelectorAll(".mode").forEach((m) =>
+        m.addEventListener("click", () => {
+          if (state.mode === m.dataset.mode) return;
+          state.mode = m.dataset.mode;
+          state.setting = "all";
+          state.atoll = "all";
+          render();
+          indexEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }),
+      );
+
+      clearBtn.addEventListener("click", () => {
+        state.setting = "all";
+        state.atoll = "all";
+        render();
+      });
+
+      /* topbar */
+      const topbar = $("#topbar");
+      addEventListener("scroll", () => {
+        topbar.classList.toggle("scrolled", scrollY > 24);
+      }, { passive: true });
+
+      render();
+      observeReveals(document);
+    </script>
+  </body>
+</html>
